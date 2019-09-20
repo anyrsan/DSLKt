@@ -1,0 +1,68 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+def isApp = rootProject.ext.isApplication
+
+
+android {
+    compileSdkVersion rootProject.ext.androidVersion.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.androidVersion.minSdkVersion
+        targetSdkVersion rootProject.ext.androidVersion.targetSdkVersion
+        versionCode rootProject.ext.androidVersion.versionCode
+        versionName rootProject.ext.androidVersion.versionName
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        applicationId "com.any.org.dslkt"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation rootProject.ext.dependencies.kotlinSdk
+    implementation rootProject.ext.dependencies.superAppcompat
+    implementation rootProject.ext.dependencies.superXCore
+    implementation rootProject.ext.dependencies.superConstraintlayout
+    testImplementation rootProject.ext.dependencies.junitSdk
+    androidTestImplementation rootProject.ext.dependencies.testRunAndroidSdk
+    androidTestImplementation rootProject.ext.dependencies.esoressoRunAndroidSdk
+
+
+    //引入基础库
+    implementation project(':commonlibrary')
+
+    implementation project(':routercompilecore')
+    implementation project(':routerAnnotation')
+    //引入注解
+    kapt project(':routercompile')
+
+
+    //不是app模式时,才添加依赖
+    if (!isApp) {
+        implementation project(':loginmodule')
+        implementation project(':usermodule')
+        implementation project(':newsmodule')
+        implementation project(':readmudole')
+    }
+}
+
+kapt {
+    correctErrorTypes = true
+    arguments {
+        arg("RouterModule", project.name)
+        if (!isApp)
+            arg("RouterApp", "${project.name},loginmodule,usermodule,newsmodule,readmudole")
+    }
+}

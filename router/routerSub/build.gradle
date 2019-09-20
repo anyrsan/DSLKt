@@ -1,0 +1,7 @@
+apply plugin: 'kotlin'
+
+dependencies {
+    //引入kotlin基础库
+    implementation rootProject.ext.dependencies.kotlinSdk
+}
+

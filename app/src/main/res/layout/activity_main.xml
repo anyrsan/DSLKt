@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+    <TextView
+        android:padding="15dp"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/gotoLogin"
+        android:text="去登录"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+    <TextView
+        android:padding="15dp"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/gotoRead"
+        android:text="去阅读"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+    <TextView
+        android:padding="15dp"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/gotoNews"
+        android:text="去新闻"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+    <TextView
+        android:padding="15dp"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/gotoUser"
+        android:text="去用户信息"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+
+</LinearLayout>

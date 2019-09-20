@@ -1,0 +1,46 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+android {
+    compileSdkVersion rootProject.ext.androidVersion.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.androidVersion.minSdkVersion
+        targetSdkVersion rootProject.ext.androidVersion.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    buildToolsVersion = '29.0.1'
+}
+
+dependencies {
+    //引入kotlin基础库
+    implementation rootProject.ext.dependencies.kotlinSdk
+    /*RxAndroid*/
+    implementation rootProject.ext.dependencies.rxAndroid
+    /*RxJava*/
+    implementation rootProject.ext.dependencies.rxJava
+    /*网络请求框架*/
+    implementation rootProject.ext.dependencies.retrofit2
+    implementation rootProject.ext.dependencies.retrofit2Gson
+    implementation rootProject.ext.dependencies.retrofit2RxJava
+    implementation rootProject.ext.dependencies.okhttp3Logging
+    /*  增加生命周期管理RxJava */
+    implementation rootProject.ext.dependencies.rxLifecycle
+    implementation rootProject.ext.dependencies.rxLifecycleComponents
+}

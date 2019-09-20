@@ -1,0 +1,10 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.any.org.newsmodule" >
+
+
+    <application>
+
+        <activity android:name=".NewsActivity"/>
+    </application>
+
+</manifest>

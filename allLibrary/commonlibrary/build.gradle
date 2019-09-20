@@ -1,0 +1,82 @@
+def isApp = rootProject.ext.isApplication
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+android {
+    compileSdkVersion rootProject.ext.androidVersion.compileSdkVersion
+
+
+    //加载 配置文件
+    Properties properties = new Properties()
+    InputStream inputStream = project.rootProject.file('configApi.properties').newDataInputStream()
+    properties.load(inputStream)
+    def URL = properties.getProperty("URL")
+    def DEBUG_LOG = properties.getProperty("DEBUG_LOG")
+
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.androidVersion.minSdkVersion
+        targetSdkVersion rootProject.ext.androidVersion.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+
+        buildConfigField "String", "BASE_URL", "${URL}"
+        buildConfigField "boolean", "DEBUG_LOG", "${DEBUG_LOG}"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+
+    sourceSets {
+        main {
+            java {
+                exclude 'debug/**'
+            }
+            //组件项目时，加载这些资源
+            if (isApp) {
+                res.srcDirs "src/main/res-debug"
+            } else {
+                res.srcDirs "src/main/res"
+            }
+        }
+    }
+
+    buildToolsVersion = '29.0.1'
+}
+
+dependencies {
+    //引入kotlin基础库
+    implementation rootProject.ext.dependencies.kotlinSdk
+
+    /*  增加生命周期管理RxJava */
+    api rootProject.ext.dependencies.rxLifecycle
+    api rootProject.ext.dependencies.rxLifecycleComponents
+
+    //支持统一配置 网络库
+    api project(':dslnetlibrary')
+
+    //提供 retrofit rxJava 支持
+    /*RxAndroid*/
+    api rootProject.ext.dependencies.rxAndroid
+    /*RxJava*/
+    api rootProject.ext.dependencies.rxJava
+    /*网络请求框架*/
+    api rootProject.ext.dependencies.retrofit2
+    api rootProject.ext.dependencies.retrofit2Gson
+    api rootProject.ext.dependencies.retrofit2RxJava
+    api rootProject.ext.dependencies.okhttp3Logging
+
+}

@@ -1,0 +1,38 @@
+
+//主项目
+include ':app'
+
+
+// moduel层
+include ':module'
+include ':loginmodule', ':usermodule', ':newsmodule', ':readmudole'
+project(':loginmodule').projectDir = new File("module/loginmodule")
+project(':usermodule').projectDir = new File("module/usermodule")
+project(':newsmodule').projectDir = new File("module/newsmodule")
+project(':readmudole').projectDir = new File("module/readmudole")
+
+
+//库项目引入
+include  ':allLibrary' // 纯粹是为了让其产生个小图标
+include ':dslnetlibrary',':ankolibrary',':eventbuslibrary', ':commonlibrary'
+project(':ankolibrary').projectDir = new File("allLibrary/ankolibrary")
+project(':dslnetlibrary').projectDir = new File("allLibrary/dslnetlibrary")
+project(':eventbuslibrary').projectDir = new File("allLibrary/eventbuslibrary")
+project(':commonlibrary').projectDir = new File("allLibrary/commonlibrary")
+
+// router库项目
+include ':router'
+include  ':routerAnnotation', ':routercompile', ':routercompilecore', ':routerSub'
+project(':routerAnnotation').projectDir = new File("router/routerAnnotation")
+project(':routercompile').projectDir = new File("router/routercompile")
+project(':routercompilecore').projectDir = new File("router/routercompilecore")
+project(':routerSub').projectDir = new File("router/routerSub")
+
+
+
+
+
+//此种写法也可以完成导入
+//include 'allLibrary'
+//include 'allLibrary:dslnetlibrary'
+//include 'allLibrary:ankolibrary'

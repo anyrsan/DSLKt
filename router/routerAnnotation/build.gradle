@@ -1,0 +1,11 @@
+apply plugin: 'kotlin'
+
+
+dependencies {
+    implementation   rootProject.ext.dependencies.kotlinSdk
+}
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+
