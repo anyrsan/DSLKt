@@ -1,16 +1,16 @@
 ### 项目组件化结构
 
-+allLibrary 目录放置所有的依赖库
++ allLibrary 目录放置所有的依赖库
   
-   -dsl 语法定义网络请求
+   - dsl 语法定义网络请求
    
-   -dsl 切换线程
+   - dsl 切换线程
 
-+router 目录放置路由处理核心逻辑代码
++ router 目录放置路由处理核心逻辑代码
 
-+module 目录放置业务功能代码
++ module 目录放置业务功能代码
 
-+app  项目主入口文件
++ app  项目主入口文件
 
 
 ### 配置基础加载网址以及debug开关  [configApi.properties]  [参数 commonlibrary gradle配置]
