@@ -80,10 +80,56 @@ kapt {
 }
 ```
 
-### 网络api支持
+### 网络api支持  【login模块中LoginPresenter实现】
 
 ```
-    http<HttpBaseModel>{
+     val requestData = serviceApi.testLogin()
+     http<HttpBaseModel> {
+                data = requestData
+                context = mContext
+                lifecycleProvider = lProvider
+                successCallBack {
+                    onResult.invoke(it, false)
+                }
+                errorCallBack { errorCode, errorMessage ->
+                    onResult.invoke(null, true)
+                    CustomToast.showNetMsg(mContext, errorMessage)
+                }
     
-    }
+      }
 ```
+
+### 简单实现 eventbus 【注，实际项目中尽可能少的用，使用过多，代码可读性变差】
+```
+   示例代码中，MainActivity 中 注册，然后LoginActivity中传回结果
+   
+   login 发送
+   RxNewBus.postEvent(RxModel("完成了，可以把数据传回注册的地方"))
+    
+   main注册接收
+   1  RxNewBus.registerEvent(this)
+   2  @Subscribe(threadModel = ThreadModel.MAIN)
+      fun getData(userInfo: RxModel) {
+             KLog.e("接收来自login的数据回传  $userInfo")
+         } 
+   3  RxNewBus.unRegisterEvent(this)
+
+```
+
+### 项目可以分别以组件方式运行，通过 config.gradle 配置，isApplication变量设置为true即可,自定义 router ，页面之间跳转，可以查看代码中Activity
+
+```
+   Router.jump 支持 fragment跳转  支持content/activity 
+
+   Router.jump(this) {
+       target = USER
+       requestCode = 1000  // 如果设置了，就会有forResult回调
+       callDefaultBack {
+            KLog.e("我是自己实现用户页面加载判断")
+       }
+   }
+
+```
+
+
+### 项目中尽可能采用DSL语法糖，代码看起来会更优雅，后续继续完整，整理基础常用代码

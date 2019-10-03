@@ -1,6 +1,7 @@
 package com.any.org.dslnetlibrary
 
 import android.content.Context
+import android.util.Log
 import com.trello.rxlifecycle3.LifecycleProvider
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -28,6 +29,7 @@ class HttpManager<T : HttpBaseModel>(
         //定义错误处理
         val onError: (t: Throwable) -> Unit = {
             it.printStackTrace()
+            Log.e("error","message:${it.localizedMessage}")
             val responeThrowable = ExceptionHandle.handleException(it, context)
             errorCallBack?.invoke(responeThrowable.code, responeThrowable.msg)
         }

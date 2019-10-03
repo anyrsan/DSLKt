@@ -42,23 +42,23 @@ public class StatusBarUtils {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(color);
 
-            if (isMIUI()) {
-                Class clazz = window.getClass();
-                try {
-                    int darkModeFlag = 0;
-                    Class layoutParams = Class.forName("android.view.MiuiWindowManager$LayoutParams");  //兼容小米
-                    Field field = layoutParams.getField("EXTRA_FLAG_STATUS_BAR_DARK_MODE");
-                    darkModeFlag = field.getInt(layoutParams);
-                    Method extraFlagField = clazz.getMethod("setExtraFlags", int.class, int.class);
-                    if (isDark) {
-                        extraFlagField.invoke(window, darkModeFlag, darkModeFlag);//状态栏透明且黑色字体
-                    } else {
-                        extraFlagField.invoke(window, 0, darkModeFlag);//清除黑色字体
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
+//            if (isMIUI()) {
+//                Class clazz = window.getClass();
+//                try {
+//                    int darkModeFlag = 0;
+//                    Class layoutParams = Class.forName("android.view.MiuiWindowManager$LayoutParams");  //兼容小米
+//                    Field field = layoutParams.getField("EXTRA_FLAG_STATUS_BAR_DARK_MODE");
+//                    darkModeFlag = field.getInt(layoutParams);
+//                    Method extraFlagField = clazz.getMethod("setExtraFlags", int.class, int.class);
+//                    if (isDark) {
+//                        extraFlagField.invoke(window, darkModeFlag, darkModeFlag);//状态栏透明且黑色字体
+//                    } else {
+//                        extraFlagField.invoke(window, 0, darkModeFlag);//清除黑色字体
+//                    }
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
 
 
             if (isDark) {

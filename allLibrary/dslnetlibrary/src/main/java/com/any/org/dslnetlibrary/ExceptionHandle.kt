@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.ParseException
+import android.util.Log
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import org.apache.http.conn.ConnectTimeoutException
 import org.json.JSONException
@@ -63,6 +64,7 @@ class ExceptionHandle {
                 ex = ResponeThrowable("当前手机无网络", ERROR.NONET)
                 return ex
             } else if (e is CustomException) {  //自定义异常
+                Log.e("msg","...用户主动处理的非正确数据异常。。。。")
                 return ResponeThrowable(e.msg, e.code)
             } else if (e is HttpException) {
                 ex = ResponeThrowable("", ERROR.HTTP_ERROR)

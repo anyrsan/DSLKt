@@ -1,13 +1,14 @@
 package com.any.org.dslkt
 
 
-import com.any.org.commonlibrary.LOGIN
-import com.any.org.commonlibrary.NEWS
-import com.any.org.commonlibrary.READ
-import com.any.org.commonlibrary.USER
+import android.util.Log
+import com.any.org.commonlibrary.*
 import com.any.org.commonlibrary.event.viewOnClick
 import com.any.org.commonlibrary.log.KLog
 import com.any.org.commonlibrary.ui.BaseActivity
+import com.any.org.eventbuslibrary.RxNewBus
+import com.any.org.eventbuslibrary.ktanno.Subscribe
+import com.any.org.eventbuslibrary.ktanno.ThreadModel
 import com.any.routercompliecore.Router
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -22,6 +23,9 @@ class MainActivity : BaseActivity() {
     }
 
     override fun initData() {
+
+        RxNewBus.registerEvent(this)
+
     }
 
     override fun initEvent() {
@@ -52,6 +56,7 @@ class MainActivity : BaseActivity() {
         gotoUser.viewOnClick {
             Router.jump(this) {
                 target = USER
+                requestCode = 1000
                 callDefaultBack {
                     KLog.e("我是自己实现用户页面加载判断")
                 }
@@ -65,4 +70,14 @@ class MainActivity : BaseActivity() {
 
     }
 
+
+    @Subscribe(threadModel = ThreadModel.MAIN)
+    fun getData(userInfo: RxModel) {
+        KLog.e("接收来自login的数据回传  $userInfo")
+    }
+
+    override fun onDestroy() {
+        RxNewBus.unRegisterEvent(this)
+        super.onDestroy()
+    }
 }

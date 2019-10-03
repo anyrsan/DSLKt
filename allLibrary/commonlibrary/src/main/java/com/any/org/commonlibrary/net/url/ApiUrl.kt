@@ -13,4 +13,7 @@ import com.any.org.commonlibrary.BuildConfig
 const val BASE_URL = BuildConfig.BASE_URL
 
 //配置login_url
-const val LOGIN_URL = "$BASE_URL/login"
+const val LOGIN_URL = "$BASE_URL/1e5j6x"
+
+//全路径 网址
+const val LIST_URL = "http://gank.io/api/today"

@@ -31,8 +31,8 @@ object LoginServiceApi {
         fun doLogin(@FieldMap map: Map<String, String>): Observable<HttpBaseModel>
 
 
-        @GET("xxx")
-        fun getUserInfo(@Header("token") token:String):Observable<HttpBaseModel>
+        @GET(LOGIN_URL)
+        fun testLogin():Observable<HttpBaseModel>
 
         @GET
         fun getUserInfo(@Header("token")token:String,@Url url:String):Observable<HttpBaseModel>

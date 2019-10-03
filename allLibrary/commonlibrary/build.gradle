@@ -65,6 +65,7 @@ dependencies {
     api rootProject.ext.dependencies.rxLifecycle
     api rootProject.ext.dependencies.rxLifecycleComponents
 
+    api project(':eventbuslibrary')
     //支持统一配置 网络库
     api project(':dslnetlibrary')
 
@@ -78,5 +79,6 @@ dependencies {
     api rootProject.ext.dependencies.retrofit2Gson
     api rootProject.ext.dependencies.retrofit2RxJava
     api rootProject.ext.dependencies.okhttp3Logging
+
 
 }
