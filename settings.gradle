@@ -2,7 +2,6 @@
 //主项目
 include ':app'
 
-
 // moduel层
 include ':module'
 include ':loginmodule', ':usermodule', ':newsmodule', ':readmudole'

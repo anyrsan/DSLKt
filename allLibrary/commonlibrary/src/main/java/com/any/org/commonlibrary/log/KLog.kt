@@ -14,20 +14,28 @@ object KLog {
 
     private const val DEBUG = BuildConfig.DEBUG_LOG
 
-    fun e(message: String?, tag: String = TAG) {
-        if(DEBUG)
-        Log.e(tag, message)
+    fun e(tag: String?, msg: String) {
+        val mTag = tag?.let { it } ?: TAG
+        if (DEBUG) {
+            Log.e(mTag, msg)
+        }
     }
 
-    fun w(message: String?, tag: String = TAG) {
-        if(DEBUG)
-        Log.w(tag, message)
+    fun w(tag: String?, msg: String) {
+        val mTag = tag?.let { it } ?: TAG
+        if (DEBUG) {
+            Log.w(mTag, msg)
+        }
     }
 
-    fun d(message: String?, tag: String = TAG) {
-        if(DEBUG)
-        Log.d(tag, message)
+    fun e(msg: String) {
+        e(TAG, msg)
     }
+
+    fun w(msg: String) {
+        w(TAG, msg)
+    }
+
 
 
 }

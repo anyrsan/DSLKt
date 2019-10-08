@@ -8,11 +8,11 @@ import com.any.org.dslnetlibrary.RetrofitBaseApi
  *
  * @author any
  * @time 2019/9/20 11.38
- * @details
+ * @details  网络请求管理类
  */
 object NetManager : RetrofitBaseApi(BASE_URL) {
 
     override fun rLog(message: String) {
-        KLog.e(message,"NetM")
+        KLog.e("NetM",message)
     }
 }
