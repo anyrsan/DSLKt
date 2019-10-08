@@ -5,19 +5,22 @@
 
     <TextView
         android:id="@+id/loginTv"
+        android:padding="15dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_marginTop="150dp"
+        android:layout_centerHorizontal="true"
         android:text="登录页面" />
 
 
     <TextView
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="50dp"
+        android:padding="15dp"
         android:id="@+id/gotoNewsTv"
         android:layout_below="@+id/loginTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
         android:text="直接转跳到新闻页面" />
 
 

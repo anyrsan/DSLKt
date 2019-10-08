@@ -29,7 +29,7 @@ open class IntervalClickListener(
 }
 
 
-fun View.viewOnClick(intervalTime: Int = 10000, nClick: (status: Int, v: View) -> Unit) {
+fun View.viewOnClickIntervalTime(intervalTime: Int = 10000, nClick: (status: Int, v: View) -> Unit) {
     setOnClickListener(object : IntervalClickListener(nClick, intervalTime) {})
 }
 

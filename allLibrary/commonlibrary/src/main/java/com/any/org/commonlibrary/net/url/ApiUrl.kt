@@ -16,4 +16,4 @@ const val BASE_URL = BuildConfig.BASE_URL
 const val LOGIN_URL = "$BASE_URL/1e5j6x"
 
 //全路径 网址
-const val LIST_URL = "http://gank.io/api/today"
+const val LIST_URL = "https://api.apiopen.top/getJoke?page=1&count=2&type=video"

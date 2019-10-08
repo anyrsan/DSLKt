@@ -7,6 +7,7 @@ import com.any.org.commonlibrary.event.viewOnClick
 import com.any.org.commonlibrary.ui.BaseActivity
 import com.any.org.newsmodule.presenter.NewsPresenter
 import com.any.routerannotation.KRouter
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.news_activity.*
 
 /**
@@ -46,6 +47,8 @@ class NewsActivity : BaseActivity() {
             presenter.getList(token){it,error->
                 //处理逻辑
                 CustomToast.showMsg(applicationContext,"请求列表成功")
+                //显示看效果
+                showNewsInfo.text = Gson().toJson(it)
 
             }
         }
@@ -54,4 +57,7 @@ class NewsActivity : BaseActivity() {
 
     override fun lazyData() {
     }
+
+
+
 }
