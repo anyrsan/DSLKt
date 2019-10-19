@@ -81,4 +81,6 @@ dependencies {
     api rootProject.ext.dependencies.okhttp3Logging
 
 
+    api rootProject.ext.dependencies.superRecyclerView
+
 }

@@ -46,7 +46,7 @@ class HttpCallManager<T : HttpBaseModel>(
             if (it.isSuccess()) {
                 successCallBack?.invoke(it)
             } else {
-                onError(ExceptionHandle.CustomException(it.message, it.code.toInt()))
+                onError(ExceptionHandle.CustomException(it.getHttpMessage(), it.getHttpCode()))
             }
         }
         // 处理数据

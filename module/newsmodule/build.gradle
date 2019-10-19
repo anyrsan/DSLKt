@@ -61,15 +61,20 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-
-    implementation rootProject.ext.dependencies.kotlinSdk
-    implementation rootProject.ext.dependencies.superAppcompat
-    implementation rootProject.ext.dependencies.superXCore
-    implementation rootProject.ext.dependencies.superConstraintlayout
     testImplementation rootProject.ext.dependencies.junitSdk
     androidTestImplementation rootProject.ext.dependencies.testRunAndroidSdk
     androidTestImplementation rootProject.ext.dependencies.esoressoRunAndroidSdk
 
+    implementation rootProject.ext.dependencies.kotlinSdk
+    implementation rootProject.ext.dependencies.superAppcompat
+    implementation rootProject.ext.dependencies.superXCore
+
+
+
+    implementation rootProject.ext.dependencies.superConstraintlayout
+
+
+    implementation rootProject.ext.dependencies.adapterHelper
     implementation project(':commonlibrary')
 
 

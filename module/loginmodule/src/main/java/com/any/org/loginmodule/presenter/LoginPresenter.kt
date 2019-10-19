@@ -4,6 +4,7 @@ import android.content.Context
 import com.any.org.commonlibrary.CustomToast
 import com.any.org.dslnetlibrary.HttpBaseModel
 import com.any.org.dslnetlibrary.http
+import com.any.org.loginmodule.model.UserModel
 import com.any.org.loginmodule.service.LoginServiceApi
 import com.trello.rxlifecycle3.LifecycleProvider
 
@@ -22,12 +23,10 @@ class LoginPresenter (private val mContext: Context,private  val lProvider: Life
         pwd: String,
         onResult: (it: HttpBaseModel?, error: Boolean) -> Unit
     ) {
-        val paramsMap = mutableMapOf<String, String>()
-        paramsMap["user"] = userName
-        paramsMap["pwd"] = pwd
+        val paramsMap = mutableMapOf<String, String>("user" to userName,"pwd" to pwd)
 //        val requestData = serviceApi.doLogin(paramsMap)
         val requestData = serviceApi.testLogin()
-        http<HttpBaseModel> {
+        http<UserModel> {
             data = requestData
             context = mContext
             lifecycleProvider = lProvider

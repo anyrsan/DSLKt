@@ -1,36 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/newsTv"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
-        android:text="新闻页面"
-        android:padding="15dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_arrow_back_black_24dp"
+        android:drawablePadding="5dp"
+        android:gravity="center_vertical|left"
+        android:padding="10dp"
+        android:text="返回" />
 
 
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/newsTv">
 
-    <TextView
-        android:id="@+id/getNewsListTv"
-        android:layout_marginTop="30dp"
-        android:padding="15dp"
-        android:layout_below="@+id/newsTv"
-        android:layout_centerHorizontal="true"
-        android:text="获取内容"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    <TextView
-        android:id="@+id/showNewsInfo"
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/getNewsListTv"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
 
 </RelativeLayout>

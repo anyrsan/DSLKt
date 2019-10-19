@@ -11,7 +11,7 @@ import io.reactivex.schedulers.Schedulers
  *
  * @author any
  * @time 2019/06/27 15.03
- * @details
+ * @details  改变HttpBaseModel 申明结构
  */
 class HttpManager<T : HttpBaseModel>(
     private val data: Observable<T>?,
@@ -38,7 +38,7 @@ class HttpManager<T : HttpBaseModel>(
             if (it.isSuccess()) {
                 successCallBack?.invoke(it)
             } else {
-                onError(ExceptionHandle.CustomException(it.message, it.code.toInt()))
+                onError(ExceptionHandle.CustomException(it.getHttpMessage(), it.getHttpCode()))
             }
         }
 

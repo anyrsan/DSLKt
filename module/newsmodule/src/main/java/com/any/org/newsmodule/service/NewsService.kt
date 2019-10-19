@@ -6,6 +6,7 @@ import com.any.org.newsmodule.model.NewsModel
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.QueryMap
 import retrofit2.http.Url
 
 /**
@@ -20,7 +21,8 @@ object NewsService {
     interface NewsApi{
 
         @GET
-        fun getNews(@Header("token")token:String, @Url url:String): Observable<NewsModel>
+        fun getSiNaNews(@Url url:String,@QueryMap queryMap:Map<String,String>):Observable<NewsModel>
+
     }
 
 }

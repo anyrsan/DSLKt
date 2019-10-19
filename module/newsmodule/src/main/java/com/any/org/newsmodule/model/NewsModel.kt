@@ -1,24 +1,28 @@
 package com.any.org.newsmodule.model
 
-import com.any.org.dslnetlibrary.HttpBaseModel
 
 /**
- *
  * @author any
  * @time 2019/10/8 17.23
  * @details
  */
-class NewsModel : HttpBaseModel() {
+class NewsModel : NewsBaseModel<NewsModel.NewsResultBean>() {
 
-    var result: List<NewsItemModel>? = null
+    class NewsResultBean {
 
-    class NewsItemModel {
-        var sid: String? = null
-        var text: String? = null
-        var uid: String? = null
-        var name: String? = null
-        var header: String? = null
-        var passtime: String? = null
+        var status: NewsStatusBean? = null
+
+        var timestamp: String? = null
+
+        var data: NewsDataBean? = null
+
     }
 
 }
+
+
+class NewsDataBean(val feed:NewsFeedListBean?)
+
+class NewsFeedListBean(val list:List<NewsItemModel>?)
+
+class NewsStatusBean(val code: Int, val msg: String?)
