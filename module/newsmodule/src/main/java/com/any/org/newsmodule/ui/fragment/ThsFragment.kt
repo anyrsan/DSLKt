@@ -1,9 +1,12 @@
 package com.any.org.newsmodule.ui.fragment
 
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.any.org.commonlibrary.model.SectionModel
 import com.any.org.commonlibrary.ui.BaseFargment
+import com.any.org.commonlibrary.utils.DensityUtil
 import com.any.org.commonlibrary.widget.SectionItemDecoration
+import com.any.org.commonlibrary.widget.VerticalDecoration
 import com.any.org.newsmodule.R
 import com.any.org.newsmodule.adapter.NewsThsAdapter
 import com.any.org.newsmodule.iview.IFragment
@@ -18,6 +21,8 @@ import kotlinx.android.synthetic.main.news_fragment.*
  * @details  ths 要闻
  */
 class ThsFragment : BaseFargment(), IFragment {
+
+    var onScrollListener: ((Boolean) -> Unit)? = null
 
     override fun getTile(): String = "同花顺"
 
@@ -45,9 +50,12 @@ class ThsFragment : BaseFargment(), IFragment {
 
         val layoutManager = LinearLayoutManager(requireContext())
 
+
+  //      recyclerView.addItemDecoration(VerticalDecoration(context=requireContext(),mVerticalSpacing = DensityUtil.dp2px(resources,0.5f)))
         sectionDt = SectionItemDecoration(requireContext(),null)
         //添加横切
         recyclerView.addItemDecoration(sectionDt)
+
 
         recyclerView.layoutManager = layoutManager
 
@@ -69,6 +77,16 @@ class ThsFragment : BaseFargment(), IFragment {
             currPage = 1
             loadNewsData(currPage,  false)
         }
+
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                //dy > 0 时为向上滚动
+                //dy < 0 时为向下滚动
+                onScrollListener?.invoke(dy <= 0)
+            }
+
+        })
     }
 
 

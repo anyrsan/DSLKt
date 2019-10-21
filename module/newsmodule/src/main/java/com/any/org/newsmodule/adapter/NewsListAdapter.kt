@@ -23,5 +23,10 @@ class NewsListAdapter :BaseQuickAdapter<NewsItemModel,BaseViewHolder>(R.layout.n
         }
         helper?.setText(R.id.contentTv,item?.rich_text)
 
+//        val position = helper?.adapterPosition ?: 0
+//        helper?.itemView?.let {
+//            ColorProvide.setBackColor(it,position)
+//        }
+
     }
 }

@@ -1,8 +1,11 @@
 package com.any.org.newsmodule.adapter
 
+import android.util.Log
+import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import com.any.org.commonlibrary.log.KLog
 import com.any.org.newsmodule.iview.IFragment
 import com.any.org.newsmodule.ui.fragment.SinaFragment
 import com.any.org.newsmodule.ui.fragment.ThsFragment
@@ -16,9 +19,27 @@ import com.any.org.newsmodule.ui.fragment.ThsFragment
 class NewsFragmentAdapter(fm: FragmentManager) :
     FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
-    private val fragmentList = mutableListOf(SinaFragment.INSTANCE, ThsFragment.INSTANCE)
+    private val fragmentList by lazy { mutableListOf<Fragment>() }
 
-    override fun getItem(position: Int): Fragment = fragmentList[position] as Fragment
+    private var labLl: View? = null
+
+    fun initData(labLl: View) {
+        SinaFragment.INSTANCE.onScrollListener = onResult
+        ThsFragment.INSTANCE.onScrollListener = onResult
+        fragmentList.add(SinaFragment.INSTANCE)
+        fragmentList.add(ThsFragment.INSTANCE)
+        this.labLl = labLl
+    }
+
+    //处理
+    private val onResult: (Boolean) -> Unit = {
+        KLog.e("$it")
+        labLl?.visibility = if (it) View.VISIBLE else View.GONE
+    }
+
+    override fun getItem(position: Int): Fragment {
+        return fragmentList[position]
+    }
 
     override fun getCount(): Int = fragmentList.size
 
@@ -30,9 +51,9 @@ class NewsFragmentAdapter(fm: FragmentManager) :
     }
 
     //回到顶部
-    fun scrollTop(){
+    fun scrollTop() {
         fragmentList.forEach {
-            if(it is IFragment) it.scrollToTop()
+            if (it is IFragment) it.scrollToTop()
         }
     }
 

@@ -2,7 +2,6 @@ package com.any.org.newsmodule.adapter
 
 import com.any.org.commonlibrary.utils.DateUtils
 import com.any.org.newsmodule.R
-import com.any.org.newsmodule.model.NewsItemModel
 import com.any.org.newsmodule.model.ThsItemModel
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
@@ -24,5 +23,10 @@ class NewsThsAdapter :BaseQuickAdapter<ThsItemModel,BaseViewHolder>(R.layout.new
         }
         helper?.setText(R.id.contentTv,item?.content)
 
+
+//        val position = helper?.adapterPosition ?: 0
+//        helper?.itemView?.let {
+//            ColorProvide.setBackColor(it,position)
+//        }
     }
 }

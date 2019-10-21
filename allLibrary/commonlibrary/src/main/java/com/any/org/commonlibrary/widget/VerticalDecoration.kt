@@ -1,14 +1,16 @@
 package com.any.org.commonlibrary.widget
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Rect
+import android.text.format.DateUtils
 import android.view.View
 import androidx.annotation.ColorRes
 import androidx.recyclerview.widget.RecyclerView
 import com.any.org.commonlibrary.R
+import com.any.org.commonlibrary.provide.ColorProvide
 
 /**
  * User: any
@@ -18,9 +20,9 @@ import com.any.org.commonlibrary.R
 
 class VerticalDecoration(
     context: Context,
-    private val mVerticalSpacing: Int,
-    private val mFirstSpacing: Int,
-    private val mLastSpacing: Int,
+    private val mVerticalSpacing: Int = 0,
+    private val mFirstSpacing: Int = 0,
+    private val mLastSpacing: Int = 0,
     @ColorRes color: Int = R.color.color_f4f4f4
 ) : RecyclerView.ItemDecoration() {
 
@@ -63,6 +65,8 @@ class VerticalDecoration(
         for (i in 0 until childCount - 1) {   //下标从0开始  如果有15个view 则是0..14 所以最后一个是14
             val view = parent.getChildAt(i)
             val position = parent.getChildAdapterPosition(view)
+            val bgColor = ColorProvide.getColor(position)
+            mPaint.color = Color.parseColor(bgColor)
             //绘制
             drawTopRect(view, left.toFloat(), right.toFloat(), c, position, lastPosition - 1)
         }

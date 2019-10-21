@@ -3,6 +3,7 @@ package com.any.org.newsmodule
 import android.graphics.Color
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager.widget.ViewPager
 import com.any.org.commonlibrary.NEWS
 import com.any.org.commonlibrary.event.viewOnClick
 import com.any.org.commonlibrary.log.KLog
@@ -43,15 +44,29 @@ class NewsActivity : BaseActivity() {
         setStatusBarTransparent(true)
         setTopPadding(topRL)
 
+        //设置数据
+        fragmentAdapter.initData(backTopLl)
         viewPager.adapter = fragmentAdapter
 
+        labTv.text = fragmentAdapter.getPageTitle(0)
 
-        // 设置tab背景色
-        pagerTab.setBackgroundColor(Color.WHITE)
-        // 设置下划线颜色
-        pagerTab.tabIndicatorColor = resources.getColor(R.color.color_ffffff)
-        pagerTab.setTextColor(resources.getColor(R.color.color_e50000))
-        pagerTab.drawFullUnderline = false
+        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
+            override fun onPageScrollStateChanged(state: Int) {
+            }
+
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
+            }
+
+            override fun onPageSelected(position: Int) {
+                labTv.text = fragmentAdapter.getPageTitle(position)
+            }
+        })
+
+
     }
 
     override fun initEvent() {
@@ -61,7 +76,7 @@ class NewsActivity : BaseActivity() {
         }
 
         //返回顶部
-        backTopTv.viewOnClick {
+        backTopLl.viewOnClick {
             fragmentAdapter.scrollTop()
         }
     }

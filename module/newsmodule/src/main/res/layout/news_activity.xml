@@ -6,10 +6,10 @@
 
 
     <LinearLayout
-        android:orientation="vertical"
         android:id="@+id/topRL"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/newsTv"
@@ -26,42 +26,44 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:background="@color/color_f4f4f4"/>
+            android:background="@color/color_f4f4f4" />
     </LinearLayout>
 
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
-        android:layout_below="@id/topRL"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <androidx.viewpager.widget.PagerTabStrip
-            android:id="@+id/pagerTab"
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"/>
-
+        android:layout_height="match_parent"
+        android:layout_below="@id/topRL">
     </androidx.viewpager.widget.ViewPager>
 
 
-    <RelativeLayout
+
+    <LinearLayout
+        android:id="@+id/backTopLl"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="20dp"
-        android:background="@drawable/ic_favorite_black_24dp"
+        android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/backTopTv"
-            android:padding="15dp"
-            android:layout_centerInParent="true"
-            android:src="@drawable/ic_arrow_upward_black_24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:rotation="180"
+            android:src="@drawable/ic_black_50dp" />
+
+        <TextView
+            android:id="@+id/labTv"
+            android:textSize="18dp"
+            android:textColor="@color/color_e50000"
+            android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
-    </RelativeLayout>
+    </LinearLayout>
+
 
 
 </RelativeLayout>

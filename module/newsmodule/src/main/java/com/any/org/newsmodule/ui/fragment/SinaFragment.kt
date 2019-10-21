@@ -1,10 +1,13 @@
 package com.any.org.newsmodule.ui.fragment
 
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.any.org.commonlibrary.log.KLog
 import com.any.org.commonlibrary.model.SectionModel
 import com.any.org.commonlibrary.ui.BaseFargment
+import com.any.org.commonlibrary.utils.DensityUtil
 import com.any.org.commonlibrary.widget.SectionItemDecoration
+import com.any.org.commonlibrary.widget.VerticalDecoration
 import com.any.org.newsmodule.R
 import com.any.org.newsmodule.adapter.NewsListAdapter
 import com.any.org.newsmodule.iview.IFragment
@@ -18,14 +21,17 @@ import kotlinx.android.synthetic.main.news_fragment.*
  * @time 2019/10/21 15.37
  * @details  sina 要闻
  */
-class SinaFragment : BaseFargment() ,IFragment{
+class SinaFragment : BaseFargment(), IFragment {
+
+    var onScrollListener: ((Boolean) -> Unit)? = null
+
     override fun getTile(): String = "新浪"
 
     override fun scrollToTop() {
         recyclerView.smoothScrollToPosition(0)
     }
 
-    companion object{
+    companion object {
         val INSTANCE by lazy { SinaFragment() }
     }
 
@@ -45,8 +51,9 @@ class SinaFragment : BaseFargment() ,IFragment{
         presenter = NewsPresenter(requireContext(), this)
 
         val layoutManager = LinearLayoutManager(requireContext())
+        //recyclerView.addItemDecoration(VerticalDecoration(context=requireContext(),mVerticalSpacing = DensityUtil.dp2px(resources,0.5f)))
 
-        sectionDt = SectionItemDecoration(requireContext(),null)
+        sectionDt = SectionItemDecoration(requireContext(), null)
         //添加横切
         recyclerView.addItemDecoration(sectionDt)
 
@@ -54,6 +61,8 @@ class SinaFragment : BaseFargment() ,IFragment{
 
         //关联
         recyclerView.adapter = newsAdapter
+
+
     }
 
 
@@ -69,6 +78,16 @@ class SinaFragment : BaseFargment() ,IFragment{
             lastId = null
             loadNewsData(null, null, false)
         }
+
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                //dy > 0 时为向上滚动
+                //dy < 0 时为向下滚动
+                onScrollListener?.invoke(dy <= 0)
+            }
+
+        })
     }
 
 
