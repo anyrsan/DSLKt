@@ -58,6 +58,7 @@ object DateUtils {
     }
 
 
+    // 推荐用这个
     fun formatDate(timeMillis: Long, pattern: String = "yyyy-MM-dd",showWeek:Boolean=true): String {
         val format = SimpleDateFormat(pattern)
         val dt = format.format(Date(timeMillis))
@@ -68,7 +69,36 @@ object DateUtils {
         }else{
             "$dt"
         }
+    }
 
+    fun formatDateNew(timeMillis:Long, pattern: String = "yyyy-MM-dd",showWeek:Boolean=true): String {
+        val format = SimpleDateFormat(pattern)
+        val dt = format.format(timeMillis)
+        val week = getWeekIndex(timeMillis) - 1
+        return if(showWeek){
+            val wks = "周" + WEEK[week]
+            "$dt:$wks"
+        }else{
+            "$dt"
+        }
+    }
+
+    fun formatDateNew(date:String, pattern: String = "yyyy-MM-dd",showWeek:Boolean=true): String {
+        val format = SimpleDateFormat(pattern)
+        val timeMillis = convertDateToTimeMillis(date)
+        val dt = format.format(timeMillis)
+        val week = getWeekIndex(timeMillis) - 1
+        return if(showWeek){
+            val wks = "周" + WEEK[week]
+            "$dt:$wks"
+        }else{
+            "$dt"
+        }
+    }
+
+    private fun convertDateToTimeMillis(date: String,pattern: String="yyyy-MM-dd HH:mm:ss"):Long{
+        val myFormatter = SimpleDateFormat(pattern)
+        return myFormatter.parse(date).time
     }
 
 

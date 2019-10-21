@@ -1,11 +1,14 @@
 package com.any.org.newsmodule.model
 
+import com.any.org.commonlibrary.model.SectionModel
+import com.any.org.commonlibrary.utils.DateUtils
+
 /**
  * @author any
  * @time 2019/10/19 15.26
- * @details  其中一个Item
+ * @details  其中一个Item  SiNa
  */
-class NewsItemModel {
+class NewsItemModel : SectionModel() {
 
 
     /**
@@ -38,11 +41,12 @@ class NewsItemModel {
      * compere_info :
      */
 
+
     var id: Int = 0
     var zhibo_id: Int = 0
     var type: Int = 0
     var rich_text: String? = null
-    var multimedia: String? = null
+    var multimedia: Any? = null
     var commentid: String? = null
     var compere_id: Int = 0
     var creator: String? = null
@@ -65,6 +69,12 @@ class NewsItemModel {
     var comment_list: CommentListBean? = null
     var compere_info: String? = null
     var tag: List<TagBean>? = null
+
+    override fun sectionTitle(): String {
+        return create_time?.let {
+            DateUtils.formatDateNew(it,showWeek = false)
+        } ?: "error"
+    }
 
     class CommentListBean {
         /**

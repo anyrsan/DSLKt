@@ -4,14 +4,19 @@ import android.content.Context
 import com.any.org.commonlibrary.CustomToast
 import com.any.org.commonlibrary.log.KLog
 import com.any.org.commonlibrary.net.url.SINA_NEWS
+import com.any.org.commonlibrary.net.url.THS_NEWS
 import com.any.org.dslnetlibrary.http
+import com.any.org.dslnetlibrary.httpCommon
 import com.any.org.newsmodule.model.NewsModel
+import com.any.org.newsmodule.model.ThsItemModel
 import com.any.org.newsmodule.service.NewsService
 import com.trello.rxlifecycle3.LifecycleProvider
-import kotlin.reflect.KFunction1
 
 //别名回调
 typealias onListResult = (it: NewsModel?, error: Boolean) -> Unit
+
+
+typealias onThsListResult = (it: List<ThsItemModel>?) -> Unit
 
 /**
  *
@@ -58,8 +63,26 @@ class NewsPresenter(private val mContext: Context, private val lProvider: Lifecy
             }
 
         }
+    }
 
 
+    //只需要传入此变量
+    fun getThsList(page: Int = 1, onResult: onThsListResult) {
+        val map = mutableMapOf("block" to "getnews", "page" to "$page")
+        val requestData = serviceApi.getThsNews(THS_NEWS, map)
+        httpCommon<List<ThsItemModel>> {
+            data = requestData
+            context = mContext
+            lifecycleProvider = lProvider
+            successCallBack {
+                onResult.invoke(it)
+            }
+            errorCallBack { _, errorMessage ->
+                onResult.invoke(null)
+                CustomToast.showNetMsg(mContext, errorMessage)
+            }
+
+        }
     }
 
 

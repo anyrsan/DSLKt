@@ -20,3 +20,5 @@ const val LIST_URL = "https://api.apiopen.top/getJoke?page=1&count=2&type=video"
 
 //sina url
 const val SINA_NEWS="http://zhibo.sina.com.cn/api/zhibo/feed"
+
+const val THS_NEWS ="http://comment.10jqka.com.cn/api/realtime.php"

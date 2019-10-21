@@ -1,0 +1,20 @@
+<resources>
+	<dimen name="ts_9">9sp</dimen>
+	<dimen name="ts_10">10sp</dimen>
+	<dimen name="ts_11">11sp</dimen>
+	<dimen name="ts_13">13sp</dimen>
+	<dimen name="ts_16">16sp</dimen>
+	<dimen name="ts_17">17sp</dimen>
+	<dimen name="ts_18">18sp</dimen>
+	<dimen name="ts_12">12sp</dimen>
+	<dimen name="ts_14">14sp</dimen>
+	<dimen name="ts_15">15sp</dimen>
+	<dimen name="ts_25">25sp</dimen>
+	<dimen name="ts_26">26sp</dimen>
+	<dimen name="ts_30">30sp</dimen>
+
+
+	<dimen name="dp_30">30dp</dimen>
+	<dimen name="dp_40">40dp</dimen>
+
+</resources>

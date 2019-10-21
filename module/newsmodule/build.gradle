@@ -22,7 +22,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
-        if(isApp){
+        if (isApp) {
             applicationId "com.any.org.newsmudole"
             multiDexEnabled true
         }
@@ -70,21 +70,21 @@ dependencies {
     implementation rootProject.ext.dependencies.superXCore
 
 
-
     implementation rootProject.ext.dependencies.superConstraintlayout
 
 
     implementation rootProject.ext.dependencies.adapterHelper
     implementation project(':commonlibrary')
 
-
     implementation project(':routercompilecore')
     implementation project(':routerAnnotation')
-    //引入注解
-    kapt project(':routercompile')
+
+    if (!isApp) {
+        //引入注解
+        kapt project(':routercompile')
+    }
 
 }
-
 
 
 kapt {

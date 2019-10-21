@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
-import com.any.org.commonlibrary.CustomToast
 import com.any.org.commonlibrary.utils.StatusBarUtils
 import com.trello.rxlifecycle3.components.support.RxFragment
 
