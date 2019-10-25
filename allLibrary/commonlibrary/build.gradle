@@ -54,6 +54,10 @@ android {
         }
     }
 
+    dataBinding {
+        enabled = true
+    }
+
     buildToolsVersion = '29.0.1'
 }
 

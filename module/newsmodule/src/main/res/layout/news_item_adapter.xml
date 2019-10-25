@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/locationLabIv"
         android:src="@mipmap/news_item_location"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:layout_width="10dp"
         android:layout_height="10dp"/>
 
@@ -18,7 +18,7 @@
         android:layout_marginLeft="5dp"
         android:layout_width="1dp"
         android:background="@color/color_ececec"
-        android:layout_height="15dp"/>
+        android:layout_height="10dp"/>
 
     <View
         android:layout_marginLeft="5dp"
@@ -36,7 +36,7 @@
         android:layout_toRightOf="@id/locationLabIv"
         android:layout_width="wrap_content"
         android:layout_marginLeft="5dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="5dp"
         android:layout_height="20dp"
         tools:text="16:15" />
 

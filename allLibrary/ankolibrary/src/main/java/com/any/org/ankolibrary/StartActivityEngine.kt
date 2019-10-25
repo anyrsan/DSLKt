@@ -6,7 +6,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import java.io.Serializable
+import com.any.org.ankolibrary.argument as argument1
 
 
 /**
@@ -129,3 +131,13 @@ inline  fun <reified T:Activity> Fragment.startActivityForResult(requestCode: In
 
 inline fun <reified T: Any> Context.intentFor(vararg params: Pair<String, Any?>): Intent =
     StartActivityEngine.createIntent(this, T::class.java, params)
+
+
+//获取对应的参数值
+inline fun <reified T : Any> FragmentActivity.argument(key: String) =
+    lazy { intent.extras?.get(key) as? T ?: error("Intent Argument $key is missing") }
+
+
+inline fun <reified T : Any> Fragment.argument(key: String) = lazy {
+    activity?.intent?.extras?.get(key) as? T ?: error("")
+}

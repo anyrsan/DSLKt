@@ -14,6 +14,11 @@ ext {
             versionName      : "1.0"
     ]
 
+    softVersion = [
+            klJdk: "1.3.50",
+            kiJdk: "2.0.1"
+    ]
+
 
     dependencies = [
 
@@ -25,7 +30,10 @@ ext {
             junitSdk             : "junit:junit:4.12",
 
             // kotlin
-            kotlinSdk            : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.50",
+            kotlinSdk            : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${softVersion.klJdk}",
+
+            //koin
+            koinSdk              : "org.koin:koin-android-viewmodel:${softVersion.kiJdk}",
 
 
             //  rxJava  retrofit2
@@ -52,7 +60,7 @@ ext {
 
 
             //第三方UI库
-            adapterHelper  :   "com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.45"
+            adapterHelper        : "com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.45"
 
 
     ]
