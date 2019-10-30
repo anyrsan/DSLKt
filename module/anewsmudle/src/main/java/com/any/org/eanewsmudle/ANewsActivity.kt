@@ -2,7 +2,7 @@ package com.any.org.eanewsmudle
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.any.org.ankolibrary.bindLifecycle
-import com.any.org.ankolibrary.subscription
+import com.any.org.ankolibrary.subOnlyCode
 import com.any.org.commonlibrary.log.KLog
 import com.any.org.commonlibrary.ui.BaseVBActivity
 import com.any.org.eanewsmudle.adapter.NewsItemAdapter
@@ -79,9 +79,9 @@ class ANewsActivity : BaseVBActivity<ANewsActivityBinding>() {
     private fun getListData(isRefresh: Boolean) {
         //通过生命周期关联
         newsViewModel.getList(isRefresh).bindLifecycle(this)
-            .subscription { it, message, errorCode ->
+            .subOnlyCode {
                 KLog.e("msg...size... ${newsAdapter.data.size}")
-                if (errorCode != 0) {
+                if (it != 0) {
                     newsViewModel.empty.set(true)
                 }
             }

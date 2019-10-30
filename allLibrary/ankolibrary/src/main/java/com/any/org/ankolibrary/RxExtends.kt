@@ -35,7 +35,7 @@ fun <T> Observable<T>.async(): Observable<T> =
 
 
 //订阅
-fun <T> Observable<T>.subscription(onResult: ((t: T?, message: String?, errorCode: Int) -> Unit)? = null) {
+fun <T> Observable<T>.subResult(onResult: ((t: T?, message: String?, errorCode: Int) -> Unit)? = null) {
     // 定义正确处理
     val onNext: (t: T) -> Unit = {
         onResult?.invoke(it, null, 0)
@@ -52,7 +52,7 @@ fun <T> Observable<T>.subscription(onResult: ((t: T?, message: String?, errorCod
 }
 
 
-fun <T> Observable<T>.subscriptionOnlyCode(onResult: ((errorCode: Int) -> Unit)? = null) {
+fun <T> Observable<T>.subOnlyCode(onResult: ((errorCode: Int) -> Unit)? = null) {
     // 定义正确处理
     val onNext: (t: T) -> Unit = {
         onResult?.invoke( 0)

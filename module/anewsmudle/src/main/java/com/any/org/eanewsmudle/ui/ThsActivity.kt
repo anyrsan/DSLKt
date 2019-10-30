@@ -1,10 +1,7 @@
 package com.any.org.eanewsmudle.ui
 
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.any.org.ankolibrary.NET_ERROR_CODE
-import com.any.org.ankolibrary.bindLifecycle
-import com.any.org.ankolibrary.subscription
-import com.any.org.ankolibrary.subscriptionOnlyCode
+import com.any.org.ankolibrary.*
 import com.any.org.commonlibrary.log.KLog
 import com.any.org.commonlibrary.ui.BaseVBActivity
 import com.any.org.eanewsmudle.R
@@ -79,7 +76,7 @@ class ThsActivity : BaseVBActivity<AThsActivityBinding>() {
     private fun getListData(isRefresh: Boolean) {
         //通过生命周期关联
         thsViewModel.getList(isRefresh).bindLifecycle(this)
-            .subscriptionOnlyCode {
+            .subOnlyCode {
 
             }
     }

@@ -1,13 +1,11 @@
 package com.any.org.eanewsmudle.ui
 
-import com.any.org.ankolibrary.argument
-import com.any.org.ankolibrary.async
-import com.any.org.ankolibrary.bindLifecycle
-import com.any.org.ankolibrary.subscription
+import com.any.org.ankolibrary.*
 import com.any.org.commonlibrary.ui.BaseVBActivity
 import com.any.org.eanewsmudle.R
 import com.any.org.eanewsmudle.databinding.ATestActivityBinding
 import com.any.org.eanewsmudle.model.bean.NewsItemModel
+import com.any.org.eanewsmudle.model.bean.NewsModel
 import com.any.org.eanewsmudle.viewmodel.TestViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
@@ -33,12 +31,17 @@ class TestActivity : BaseVBActivity<ATestActivityBinding>() {
 
     override fun initData() {
         //完成订阅关系
-        testViewModel.getDetails().async(1000).bindLifecycle(this).subscription()
+        testViewModel.getDetails().async(1000).bindLifecycle(this).subResult(::onResult)
     }
 
 
 
     override fun lazyData() {
+
+    }
+
+    private fun onResult(t:NewsModel?,message:String?,erroCode:Int){
+
     }
 
 
