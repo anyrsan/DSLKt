@@ -33,4 +33,14 @@ dependencies {
     implementation rootProject.ext.dependencies.kotlinSdk
     // super
     implementation  rootProject.ext.dependencies.superAppcompat
+
+    /*RxAndroid*/
+    implementation rootProject.ext.dependencies.rxAndroid
+    /*RxJava*/
+    implementation rootProject.ext.dependencies.rxJava
+
+    // retrofitSdk
+    implementation rootProject.ext.dependencies.retrofit2
+    // rxLifecycleSdk
+    implementation rootProject.ext.dependencies.rxAndroidLifecycle
 }

@@ -7,7 +7,6 @@ import android.net.ConnectivityManager
 import android.net.ParseException
 import android.util.Log
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import org.apache.http.conn.ConnectTimeoutException
 import org.json.JSONException
 import retrofit2.HttpException
 import java.net.ConnectException
@@ -95,10 +94,6 @@ class ExceptionHandle {
             } else if (e is SSLHandshakeException) {
                 ex = ResponeThrowable("证书验证失败", ERROR.SSL_ERROR)
                 ex.msg = "证书验证失败"
-                return ex
-            } else if (e is ConnectTimeoutException) {
-                ex = ResponeThrowable("连接超时", ERROR.TIMEOUT_ERROR)
-                ex.msg = "连接超时"
                 return ex
             } else if (e is SocketTimeoutException) {
                 ex = ResponeThrowable("连接超时", ERROR.TIMEOUT_ERROR)

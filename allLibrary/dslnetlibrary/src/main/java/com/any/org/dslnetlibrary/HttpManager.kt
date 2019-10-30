@@ -2,7 +2,8 @@ package com.any.org.dslnetlibrary
 
 import android.content.Context
 import android.util.Log
-import com.trello.rxlifecycle3.LifecycleProvider
+import androidx.lifecycle.LifecycleOwner
+import com.trello.lifecycle2.android.lifecycle.AndroidLifecycle
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -15,7 +16,7 @@ import io.reactivex.schedulers.Schedulers
  */
 class HttpManager<T : HttpBaseModel>(
     private val data: Observable<T>?,
-    private val lifecycleProvider: LifecycleProvider<*>?,
+    private val owner: LifecycleOwner?,
     private val context: Context?,
     private val successCallBack: ((t: T) -> Unit)?,
     private val errorCallBack: ((errorCode: Int, errorMessage: String?) -> Unit)?,
@@ -25,7 +26,7 @@ class HttpManager<T : HttpBaseModel>(
 
     //网络请求
     fun doTask() {
-        val lifecycleBool = lifecycleProvider != null
+        val lifecycleBool = owner != null
         //定义错误处理
         val onError: (t: Throwable) -> Unit = {
             it.printStackTrace()
@@ -50,7 +51,7 @@ class HttpManager<T : HttpBaseModel>(
                     doOnNext(onDoNext)
                         .observeOn(AndroidSchedulers.mainThread()).apply {
                             if (lifecycleBool) {
-                                compose(lifecycleProvider!!.bindToLifecycle())
+                                compose(AndroidLifecycle.createLifecycleProvider(owner).bindToLifecycle())
                                     .subscribe(onNext, onError)
                             } else {
                                 subscribe(onNext, onError)
@@ -59,7 +60,7 @@ class HttpManager<T : HttpBaseModel>(
                 } else {
                     observeOn(AndroidSchedulers.mainThread()).apply {
                         if (lifecycleBool) {
-                            compose(lifecycleProvider!!.bindToLifecycle())
+                            compose(AndroidLifecycle.createLifecycleProvider(owner).bindToLifecycle())
                                 .subscribe(onNext, onError)
                         } else {
                             subscribe(onNext, onError)
@@ -90,7 +91,7 @@ open class HttpManagerBuilder<T : HttpBaseModel> {
 
     var data: Observable<T>? = null
 
-    var lifecycleProvider: LifecycleProvider<*>? = null
+    var owner: LifecycleOwner?=null
 
     var context: Context? = null
 
@@ -108,7 +109,7 @@ open class HttpManagerBuilder<T : HttpBaseModel> {
     }
 
     open fun build(): HttpManager<T> =
-        HttpManager(data, lifecycleProvider, context, successCallBack, errorCallBack, null)
+        HttpManager(data, owner, context, successCallBack, errorCallBack, null)
 
 }
 
@@ -122,7 +123,7 @@ class HttpManagerBuilderWrap<T : HttpBaseModel> : HttpManagerBuilder<T>() {
     }
 
     override fun build(): HttpManager<T> =
-        HttpManager(data, lifecycleProvider, context, successCallBack, errorCallBack, onDoNext)
+        HttpManager(data, owner, context, successCallBack, errorCallBack, onDoNext)
 
 }
 

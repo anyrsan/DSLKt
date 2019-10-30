@@ -65,14 +65,16 @@ dependencies {
     //引入kotlin基础库
     implementation rootProject.ext.dependencies.kotlinSdk
 
+    api rootProject.ext.dependencies.superAppcompat
+    api rootProject.ext.dependencies.superXCore
     /*  增加生命周期管理RxJava */
     api rootProject.ext.dependencies.rxLifecycle
-    api rootProject.ext.dependencies.rxLifecycleComponents
 
     api project(':eventbuslibrary')
     //支持统一配置 网络库
     api project(':dslnetlibrary')
 
+    api project(':ankolibrary')
     //提供 retrofit rxJava 支持
     /*RxAndroid*/
     api rootProject.ext.dependencies.rxAndroid
@@ -83,7 +85,6 @@ dependencies {
     api rootProject.ext.dependencies.retrofit2Gson
     api rootProject.ext.dependencies.retrofit2RxJava
     api rootProject.ext.dependencies.okhttp3Logging
-
 
     api rootProject.ext.dependencies.superRecyclerView
 

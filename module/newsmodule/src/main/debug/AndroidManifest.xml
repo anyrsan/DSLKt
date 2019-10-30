@@ -20,7 +20,7 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
 
-        <activity android:name=".NewsActivity">
+        <activity android:name=".ANewsActivity">
 
             <intent-filter>
 

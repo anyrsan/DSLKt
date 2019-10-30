@@ -17,7 +17,7 @@ import com.any.org.ankolibrary.argument as argument1
  * @time 2019/05/18 15.02
  * @details 启动activity
  */
-object StartActivityEngine{
+object StartActivityEngine {
     fun internalStartActivity(
         ctx: Context,
         activity: Class<out Activity>,
@@ -43,7 +43,8 @@ object StartActivityEngine{
                 act,
                 activity,
                 params
-            ), requestCode)
+            ), requestCode
+        )
     }
 
 
@@ -58,11 +59,16 @@ object StartActivityEngine{
                 fragment.requireContext(),
                 activity,
                 params
-            ), requestCode)
+            ), requestCode
+        )
     }
 
 
-     fun <T> createIntent(ctx: Context, clazz: Class<out T>, params: Array<out Pair<String, Any?>>): Intent {
+    fun <T> createIntent(
+        ctx: Context,
+        clazz: Class<out T>,
+        params: Array<out Pair<String, Any?>>
+    ): Intent {
         val intent = Intent(ctx, clazz)
         if (params.isNotEmpty()) fillIntentArguments(
             intent,
@@ -110,17 +116,22 @@ object StartActivityEngine{
 inline fun <reified T : Activity> Context.startActivity(vararg params: Pair<String, Any?>) =
     StartActivityEngine.internalStartActivity(this, T::class.java, params)
 
-inline fun <reified T: Activity> Activity.startActivityForResult(requestCode: Int, vararg params: Pair<String, Any?>) =
+inline fun <reified T : Activity> Activity.startActivityForResult(
+    requestCode: Int,
+    vararg params: Pair<String, Any?>
+) =
     StartActivityEngine.internalStartActivityForResult(
         this,
         T::class.java,
         requestCode,
         params
     )
-
 
 //支持 fragment的跳转回会传
-inline  fun <reified T:Activity> Fragment.startActivityForResult(requestCode: Int, vararg params: Pair<String, Any?>) =
+inline fun <reified T : Activity> Fragment.startActivityForResult(
+    requestCode: Int,
+    vararg params: Pair<String, Any?>
+) =
     StartActivityEngine.internalStartActivityForResult(
         this,
         T::class.java,
@@ -129,15 +140,31 @@ inline  fun <reified T:Activity> Fragment.startActivityForResult(requestCode: In
     )
 
 
-inline fun <reified T: Any> Context.intentFor(vararg params: Pair<String, Any?>): Intent =
+inline fun <reified T : Any> Context.intentFor(vararg params: Pair<String, Any?>): Intent =
     StartActivityEngine.createIntent(this, T::class.java, params)
 
 
 //获取对应的参数值
 inline fun <reified T : Any> FragmentActivity.argument(key: String) =
-    lazy { intent.extras?.get(key) as? T ?: error("Intent Argument $key is missing") }
+    lazy {
+        intent?.extras?.get(key) as? T ?: error("Intent Argument $key is missing")
+    }
 
-
+//获取对应的参数值
 inline fun <reified T : Any> Fragment.argument(key: String) = lazy {
-    activity?.intent?.extras?.get(key) as? T ?: error("")
+    activity?.intent?.extras?.get(key) as? T ?: error("Intent Argument $key is missing")
+}
+
+//直接取值 ，不存在
+inline fun <reified T : Any> FragmentActivity.autoFill(key: String, default: T? = null): T? {
+    return intent?.extras?.get(key)?.let {
+        if (it is T) it else default
+    } ?: default
+}
+
+
+inline fun <reified T : Any> Fragment.autoFill(key: String, default: T? = null): T? {
+    return activity?.intent?.extras?.get(key)?.let {
+        if (it is T) it else default
+    } ?: default
 }

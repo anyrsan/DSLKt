@@ -1,0 +1,49 @@
+package com.any.org.eanewsmudle.adapter
+
+import androidx.annotation.LayoutRes
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.databinding.library.baseAdapters.BR
+import com.any.org.commonlibrary.log.KLog
+import com.any.org.eanewsmudle.adapter.obser.AdObserver
+import com.any.org.eanewsmudle.adapter.obser.AdapterDataObserver
+import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.BaseViewHolder
+
+
+/**
+ *
+ * @author any
+ * @time 2019/10/30 15.41
+ * @details
+ */
+abstract class BaseItemAdapter<M, T : ViewDataBinding>(@LayoutRes layoutId: Int, list: AdapterDataObserver<M>) :
+    BaseQuickAdapter<M, BaseViewHolder>(layoutId) {
+
+    init {
+        list.addListener(object : AdObserver<M> {
+            override fun updateData(t: List<M>?, news: Boolean) {
+                if (news) {
+                    setNewData(t)
+                    KLog.e("刷新数据成功")
+                } else {
+                    //这里也可以处理出错情况  t为空时，就是加载出错了
+                    t?.run {
+                        addData(this)
+                        loadMoreComplete()
+                    } ?: loadMoreFail()
+                    KLog.e("......添加数据成功")
+                }
+            }
+
+        })
+    }
+
+    override fun convert(helper: BaseViewHolder?, item: M?) {
+        helper?.let {
+            val binding = DataBindingUtil.bind<T>(it.itemView)
+            binding?.setVariable(BR.newsItem, item)
+            binding?.executePendingBindings()
+        }
+    }
+}

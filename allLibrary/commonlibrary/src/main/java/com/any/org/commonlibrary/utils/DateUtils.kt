@@ -17,7 +17,7 @@ object DateUtils {
     /**
      * 2分钟超时
      */
-    fun isTimeOut(timeMillis: Long,timeOut:Int=2):Boolean{
+    fun isTimeOut(timeMillis: Long, timeOut: Int = 2): Boolean {
         val diffTime = System.currentTimeMillis() - timeMillis
         val mT = timeOut * 60 * 1000
         return diffTime > mT
@@ -59,44 +59,75 @@ object DateUtils {
 
 
     // 推荐用这个
-    fun formatDate(timeMillis: Long, pattern: String = "yyyy-MM-dd",showWeek:Boolean=true): String {
+    fun formatDate(
+        timeMillis: Long,
+        pattern: String = "yyyy-MM-dd",
+        showWeek: Boolean = true
+    ): String {
         val format = SimpleDateFormat(pattern)
         val dt = format.format(Date(timeMillis))
         val week = getWeekIndex(timeMillis) - 1
-        return if(showWeek){
+        return if (showWeek) {
             val wks = "周" + WEEK[week]
             "$dt:$wks"
-        }else{
+        } else {
             "$dt"
         }
     }
 
-    fun formatDateNew(timeMillis:Long, pattern: String = "yyyy-MM-dd",showWeek:Boolean=true): String {
+    fun formatDateNew(
+        timeMillis: Long,
+        pattern: String = "yyyy-MM-dd",
+        showWeek: Boolean = true
+    ): String {
         val format = SimpleDateFormat(pattern)
         val dt = format.format(timeMillis)
         val week = getWeekIndex(timeMillis) - 1
-        return if(showWeek){
+        return if (showWeek) {
             val wks = "周" + WEEK[week]
             "$dt:$wks"
-        }else{
+        } else {
             "$dt"
         }
     }
 
-    fun formatDateNew(date:String, pattern: String = "yyyy-MM-dd",showWeek:Boolean=true): String {
+    fun formatDateNew(
+        date: String,
+        pattern: String = "yyyy-MM-dd",
+        showWeek: Boolean = true
+    ): String {
         val format = SimpleDateFormat(pattern)
         val timeMillis = convertDateToTimeMillis(date)
         val dt = format.format(timeMillis)
         val week = getWeekIndex(timeMillis) - 1
-        return if(showWeek){
+        return if (showWeek) {
             val wks = "周" + WEEK[week]
             "$dt:$wks"
-        }else{
+        } else {
             "$dt"
         }
     }
 
-    private fun convertDateToTimeMillis(date: String,pattern: String="yyyy-MM-dd HH:mm:ss"):Long{
+
+    //处理函数
+    @JvmStatic
+    fun formatDateN(date: String?) = kotlin.run {
+        date?.let {
+            formatDateNew(it, "HH:mm", false)
+        } ?: date
+    }
+
+
+    //处理函数
+    @JvmStatic
+    fun formatDateN(timeMillis: Long) = kotlin.run {
+        formatDateNew(timeMillis, "HH:mm", false)
+    }
+
+    private fun convertDateToTimeMillis(
+        date: String,
+        pattern: String = "yyyy-MM-dd HH:mm:ss"
+    ): Long {
         val myFormatter = SimpleDateFormat(pattern)
         return myFormatter.parse(date).time
     }
@@ -126,7 +157,11 @@ object DateUtils {
     fun formatTime(time: Long, isCheckYesterday: Boolean = true): String {
         return when {
             isSameDay(time) -> "今天 ${SimpleDateFormat("HH:mm").format(Date(time))}"
-            isCheckYesterday && isYesterday(time) -> "昨天 ${SimpleDateFormat("HH:mm").format(Date(time))}"
+            isCheckYesterday && isYesterday(time) -> "昨天 ${SimpleDateFormat("HH:mm").format(
+                Date(
+                    time
+                )
+            )}"
             isTommorrow(time) -> "明天 ${SimpleDateFormat("HH:mm").format(Date(time))}"
             else -> "${SimpleDateFormat("yyyy/MM/dd HH:mm").format(Date(time))}"
         }

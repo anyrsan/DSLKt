@@ -1,20 +1,11 @@
 package com.any.org.newsmodule
 
-import android.graphics.Color
 import android.util.Log
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager
 import com.any.org.commonlibrary.NEWS
 import com.any.org.commonlibrary.event.viewOnClick
-import com.any.org.commonlibrary.log.KLog
-import com.any.org.commonlibrary.model.SectionModel
 import com.any.org.commonlibrary.ui.BaseActivity
-import com.any.org.commonlibrary.widget.SectionItemDecoration
-import com.any.org.commonlibrary.widget.VerticalDecoration
 import com.any.org.newsmodule.adapter.NewsFragmentAdapter
-import com.any.org.newsmodule.adapter.NewsListAdapter
-import com.any.org.newsmodule.model.NewsModel
-import com.any.org.newsmodule.presenter.NewsPresenter
 import com.any.routerannotation.KRouter
 import kotlinx.android.synthetic.main.news_activity.*
 
@@ -25,7 +16,7 @@ import kotlinx.android.synthetic.main.news_activity.*
  * @details
  */
 @KRouter(NEWS)
-class NewsActivity : BaseActivity() {
+class ANewsActivity : BaseActivity() {
 
     private val fragmentAdapter by lazy { NewsFragmentAdapter(supportFragmentManager) }
 

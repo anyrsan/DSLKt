@@ -1,6 +1,7 @@
 package com.any.org.newsmodule.presenter
 
 import android.content.Context
+import androidx.lifecycle.LifecycleOwner
 import com.any.org.commonlibrary.CustomToast
 import com.any.org.commonlibrary.log.KLog
 import com.any.org.commonlibrary.net.url.SINA_NEWS
@@ -24,13 +25,12 @@ typealias onThsListResult = (it: List<ThsItemModel>?) -> Unit
  * @time 2019/9/20 13.50
  * @details
  */
-class NewsPresenter(private val mContext: Context, private val lProvider: LifecycleProvider<*>) {
+class NewsPresenter(private val mContext: Context, private val tOwner: LifecycleOwner) {
 
     private val serviceApi by lazy { NewsService.getNewsApi() }
 
     fun getList(
         id: Int?,
-        timestamp: String?,
         onResult: onListResult
     ) {
         val map = mutableMapOf(
@@ -45,15 +45,12 @@ class NewsPresenter(private val mContext: Context, private val lProvider: Lifecy
         id?.let {
             map["id"] = "$it"
         }
-        timestamp?.let {
-            map["_"] = it
-        }
         KLog.e("map =   $map")
         val requestData = serviceApi.getSiNaNews(SINA_NEWS, map)
         http<NewsModel> {
             data = requestData
             context = mContext
-            lifecycleProvider = lProvider
+            owner = tOwner
             successCallBack {
                 onResult.invoke(it, false)
             }
@@ -73,7 +70,7 @@ class NewsPresenter(private val mContext: Context, private val lProvider: Lifecy
         httpCommon<List<ThsItemModel>> {
             data = requestData
             context = mContext
-            lifecycleProvider = lProvider
+            owner = tOwner
             successCallBack {
                 onResult.invoke(it)
             }

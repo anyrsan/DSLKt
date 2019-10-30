@@ -19,4 +19,12 @@ abstract class BaseVBActivity<VB : ViewDataBinding> : BaseActivity() {
         mBinding.lifecycleOwner = this  //绑定生命周期
     }
 
+
+    override fun initView() {
+
+    }
+
+    override fun initEvent() {
+    }
+
 }

@@ -4,6 +4,8 @@ import android.content.Context
 import android.util.Log
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
+import androidx.lifecycle.LifecycleOwner
+import com.trello.lifecycle2.android.lifecycle.AndroidLifecycle
 import com.trello.rxlifecycle3.LifecycleProvider
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -28,14 +30,14 @@ inline fun <reified T> getListModel(jsonArray: String?): List<T> =
 
 class HttpCallManager<T : HttpBaseModel>(
     val call: Call<ResponseBody>?,
-    val lifecycleProvider: LifecycleProvider<*>?,
+    val owner: LifecycleOwner?,
     val context: Context?,
     val successCallBack: (((t: T) -> Unit)?),
     val errorCallBack: (((errorCode: Int, errorMessage: String?) -> Unit)?)
 ) {
 
     inline fun <reified M : T> doTask() {
-        val lifecycleBool = lifecycleProvider != null
+        val lifecycleBool = owner != null
         //定义错误处理
         val onError: (t: Throwable) -> Unit = {
             val responeThrowable = ExceptionHandle.handleException(it, context)
@@ -72,47 +74,13 @@ class HttpCallManager<T : HttpBaseModel>(
             }
         }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).apply {
             if (lifecycleBool) { // todo ??? 此处写法是否
-                compose(lifecycleProvider?.bindToLifecycle())
+                compose(AndroidLifecycle.createLifecycleProvider(owner!!).bindToLifecycle())
                     .subscribe(onNext, onError)
             } else {
                 subscribe(onNext, onError)
             }
         }
     }
-
-
-//    //网络请求
-//    inline fun <reified T> doTask(
-//        call: Call<ResponseBody>,
-//        lifecycleProvider: LifecycleProvider<*>,
-//        noinline successCallBack: (((t: T) -> Unit)?),
-//        noinline errorCallBack: (((errorCode: Int, errorMessage: String?) -> Unit)?)
-//    ) {
-//        Observable.create<T> {
-//            //处理网络请求异常
-//            try {
-//                val responseBody = call.execute()
-//                val jsonData = responseBody?.body()?.string()
-//
-//                it.onNext(getModel(jsonData))
-//            } catch (e: Exception) {
-//                e.printStackTrace()
-//                it.onError(e)
-//            } finally {
-//                it.onComplete()
-//            }
-//        }
-//            .compose(lifecycleProvider.bindToLifecycle())
-//            .subscribeOn(Schedulers.io())
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .subscribe({
-//                successCallBack?.invoke(it)
-//            }, {
-//                val responeThrowable = ExceptionHandle.handleException(it, null)
-//                errorCallBack?.invoke(responeThrowable.code, responeThrowable.msg)
-//            })
-//
-//    }
 }
 
 //处理调用
@@ -122,7 +90,7 @@ inline fun <reified T : HttpBaseModel> httpCall(block: HttpCallManagerBuild<T>.(
 
 class HttpCallManagerBuild<T : HttpBaseModel> {
     var call: Call<ResponseBody>? = null
-    var lifecycleProvider: LifecycleProvider<*>? = null
+    var owner: LifecycleOwner?=null
     var context: Context? = null
     private var successCallBack: (((t: T) -> Unit)?)= null
     private var errorCallBack: (((errorCode: Int, errorMessage: String?) -> Unit)?) = null
@@ -135,6 +103,6 @@ class HttpCallManagerBuild<T : HttpBaseModel> {
         this.errorCallBack = errorCallBack
     }
 
-    fun build(): HttpCallManager<T> = HttpCallManager(call, lifecycleProvider, context, successCallBack, errorCallBack)
+    fun build(): HttpCallManager<T> = HttpCallManager(call, owner, context, successCallBack, errorCallBack)
 
 }

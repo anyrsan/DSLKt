@@ -8,12 +8,11 @@ import android.os.Handler
 import android.view.View
 import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
-import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.any.org.commonlibrary.CustomToast
 import com.any.org.commonlibrary.utils.StatusBarUtils
-import com.trello.rxlifecycle3.components.support.RxAppCompatActivity
 
 /**
  *
@@ -21,7 +20,7 @@ import com.trello.rxlifecycle3.components.support.RxAppCompatActivity
  * @time 2019/9/18 16.35
  * @details
  */
-abstract class BaseActivity : RxAppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity() {
 
     @LayoutRes
     abstract fun getResourceId(): Int

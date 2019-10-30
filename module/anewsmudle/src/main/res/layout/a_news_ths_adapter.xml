@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="com.any.org.commonlibrary.utils.DateUtils"/>
+
+        <variable
+            name="newsItem"
+            type="com.any.org.eanewsmudle.model.bean.ThsItemModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="5dp"
+        android:paddingRight="20dp">
+
+
+        <ImageView
+            android:id="@+id/locationLabIv"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_marginTop="10dp"
+            android:src="@mipmap/news_item_location" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="10dp"
+            android:layout_marginLeft="5dp"
+            android:background="@color/color_ececec" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/locationLabIv"
+            android:layout_alignBottom="@id/contentTv"
+            android:layout_marginLeft="5dp"
+            android:background="@color/color_ececec" />
+
+        <TextView
+            android:id="@+id/timeLabTv"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@id/locationLabIv"
+            android:gravity="center"
+            android:textColor="@color/color_999999"
+            android:textSize="15dp"
+            android:text="@{DateUtils.formatDateN(newsItem.ctime)}"
+            tools:text="16:15" />
+
+
+        <com.any.org.commonlibrary.widget.JustifyTextView
+            android:id="@+id/contentTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/timeLabTv"
+            android:layout_alignLeft="@id/timeLabTv"
+            android:paddingBottom="10dp"
+            android:textColor="@color/color_333333"
+            android:textSize="18dp"
+            android:text="@{newsItem.content}"
+            tools:text="【工信部部长苗圩：推动虚拟现实产业实现高质量发展】10月19日，由工业和信息化部和江西省人民政府共同主办的2019世界VR产业大会在南昌开幕。工信部部长苗圩强调，全球虚拟现实产业正从起步培育期迈向快速成长期。面对发展机遇，我们将按照中央部署和要求，进一步加大工作力度，推动虚拟现实产业实现高质量发展。" />
+
+    </RelativeLayout>
+</layout>

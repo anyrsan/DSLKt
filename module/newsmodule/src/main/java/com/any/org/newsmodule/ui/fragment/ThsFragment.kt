@@ -3,10 +3,8 @@ package com.any.org.newsmodule.ui.fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.any.org.commonlibrary.model.SectionModel
-import com.any.org.commonlibrary.ui.BaseFargment
-import com.any.org.commonlibrary.utils.DensityUtil
+import com.any.org.commonlibrary.ui.BaseFragment
 import com.any.org.commonlibrary.widget.SectionItemDecoration
-import com.any.org.commonlibrary.widget.VerticalDecoration
 import com.any.org.newsmodule.R
 import com.any.org.newsmodule.adapter.NewsThsAdapter
 import com.any.org.newsmodule.iview.IFragment
@@ -20,7 +18,7 @@ import kotlinx.android.synthetic.main.news_fragment.*
  * @time 2019/10/21 15.37
  * @details  ths 要闻
  */
-class ThsFragment : BaseFargment(), IFragment {
+class ThsFragment : BaseFragment(), IFragment {
 
     var onScrollListener: ((Boolean) -> Unit)? = null
 

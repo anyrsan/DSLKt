@@ -15,8 +15,8 @@ ext {
     ]
 
     softVersion = [
-            klJdk: "1.3.50",
-            kiJdk: "2.0.1"
+            klVersion: "1.3.50",
+            kiVersion: "2.0.1"
     ]
 
 
@@ -30,10 +30,10 @@ ext {
             junitSdk             : "junit:junit:4.12",
 
             // kotlin
-            kotlinSdk            : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${softVersion.klJdk}",
+            kotlinSdk            : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${softVersion.klVersion}",
 
             //koin
-            koinSdk              : "org.koin:koin-android-viewmodel:${softVersion.kiJdk}",
+            koinSdk              : "org.koin:koin-android-viewmodel:${softVersion.kiVersion}",
 
 
             //  rxJava  retrofit2
@@ -41,7 +41,9 @@ ext {
             rxAndroid            : "io.reactivex.rxjava2:rxandroid:2.1.1",
 
             rxLifecycle          : "com.trello.rxlifecycle3:rxlifecycle:3.0.0",
-            rxLifecycleComponents: "com.trello.rxlifecycle3:rxlifecycle-components:3.0.0",
+//            rxLifecycleComponents: "com.trello.rxlifecycle3:rxlifecycle-components:3.0.0",
+
+            rxAndroidLifecycle   : "com.trello.rxlifecycle3:rxlifecycle-android-lifecycle:3.0.0",
 
             retrofit2            : "com.squareup.retrofit2:retrofit:2.6.1",
             retrofit2Gson        : "com.squareup.retrofit2:converter-gson:2.6.1",
@@ -54,6 +56,9 @@ ext {
             superXCore           : "androidx.core:core-ktx:1.1.0",
             superConstraintlayout: "androidx.constraintlayout:constraintlayout:1.1.3",
             superRecyclerView    : "androidx.recyclerview:recyclerview:1.0.0",
+
+            superLocalbroadcast  : "androidx.localbroadcastmanager:localbroadcastmanager:1.0.0",
+
 
             // kpt kotlinpoet
             kotlinPoet           : "com.squareup:kotlinpoet:1.3.0",

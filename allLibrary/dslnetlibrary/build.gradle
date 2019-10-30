@@ -40,7 +40,11 @@ dependencies {
     implementation rootProject.ext.dependencies.retrofit2Gson
     implementation rootProject.ext.dependencies.retrofit2RxJava
     implementation rootProject.ext.dependencies.okhttp3Logging
-    /*  增加生命周期管理RxJava */
-    implementation rootProject.ext.dependencies.rxLifecycle
-    implementation rootProject.ext.dependencies.rxLifecycleComponents
+//    /*  增加生命周期管理RxJava */
+//    implementation rootProject.ext.dependencies.rxLifecycle
+    //广播异常
+    implementation rootProject.ext.dependencies.superLocalbroadcast
+    // rxLifecycleSdk
+    implementation rootProject.ext.dependencies.rxAndroidLifecycle
+
 }

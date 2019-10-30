@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:bind="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
+        <import type="android.view.View" />
 
+        <variable
+            name="nViewModel"
+            type="com.any.org.eanewsmudle.viewmodel.NewsViewModel" />
 
+        <variable
+            name="loadPresenter"
+            type="com.any.org.eanewsmudle.viewcmd.LoadPresenter" />
 
     </data>
-
 
 
     <RelativeLayout
@@ -46,39 +48,28 @@
         </LinearLayout>
 
 
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/viewPager"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/refreshLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/topRL" />
+            android:layout_below="@+id/topRL"
+            app:onRefreshEvent="@{loadPresenter}"
+            app:refreshing="@{nViewModel.isLoading}">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
-        <LinearLayout
-            bind:click="@{}"
-            android:id="@+id/backTopLl"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="20dp"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:rotation="180"
-                android:src="@drawable/ic_black_50dp" />
-
-            <TextView
-                android:id="@+id/labTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:textColor="@color/color_e50000"
-                android:textSize="18dp" />
-        </LinearLayout>
-
+            android:layout_centerInParent="true"
+            android:text="当前数据为空"
+            android:visibility="@{nViewModel.empty ? View.VISIBLE : View.GONE}" />
 
     </RelativeLayout>
 

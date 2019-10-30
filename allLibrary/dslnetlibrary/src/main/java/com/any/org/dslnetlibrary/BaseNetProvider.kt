@@ -1,6 +1,7 @@
 package com.any.org.dslnetlibrary
 
 import android.content.Context
+import androidx.lifecycle.LifecycleOwner
 import com.any.org.dslnetlibrary.HttpBaseModel
 import com.any.org.dslnetlibrary.http
 import com.trello.rxlifecycle3.LifecycleProvider
@@ -14,20 +15,19 @@ import io.reactivex.Observable
  */
 object BaseNetProvider {
 
-
     /***
      * 处理所有请求 明确为 HttpBaseModel子类
      */
     fun <T : HttpBaseModel> httpData(
         requestData: Observable<T>,
-        mContext: Context?,
-        lProvider: LifecycleProvider<*>?,
+        mContext: Context?=null,
+        tOwner: LifecycleOwner?=null,
         callBack: HttpCallBack<T>
     ) {
         http<T> {
             data = requestData
             context=mContext
-            lifecycleProvider= lProvider
+            owner= tOwner
             successCallBack {
                 callBack.onResult(it,null,0)
             }
@@ -43,12 +43,12 @@ object BaseNetProvider {
      */
     inline fun <reified T> httpCommonData(requestData: Observable<T>,
                                           mContext: Context?,
-                                          lProvider: LifecycleProvider<*>?,
+                                          tOwner: LifecycleOwner?,
                                           callBack: HttpCallBack<T>){
         httpCommon<T> {
             data = requestData
             context=mContext
-            lifecycleProvider= lProvider
+            owner= tOwner
             successCallBack {
                 callBack.onResult(it,null,0)
             }

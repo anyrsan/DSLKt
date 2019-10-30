@@ -2,6 +2,8 @@ package com.any.org.dslnetlibrary
 
 import android.content.Context
 import android.util.Log
+import androidx.lifecycle.LifecycleOwner
+import com.trello.lifecycle2.android.lifecycle.AndroidLifecycle
 import com.trello.rxlifecycle3.LifecycleProvider
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -15,7 +17,7 @@ import io.reactivex.schedulers.Schedulers
  */
 class HttpCommonManager<T>(
     private val data: Observable<T>?,
-    private val lifecycleProvider: LifecycleProvider<*>?,
+    private val owner: LifecycleOwner?,
     private val context: Context?,
     private val successCallBack: ((t: T) -> Unit)?,
     private val errorCallBack: ((errorCode: Int, errorMessage: String?) -> Unit)?,
@@ -25,7 +27,7 @@ class HttpCommonManager<T>(
 
     //网络请求
     fun doTask() {
-        val lifecycleBool = lifecycleProvider != null
+        val lifecycleBool = owner != null
         //定义错误处理
         val onError: (t: Throwable) -> Unit = {
             it.printStackTrace()
@@ -46,7 +48,7 @@ class HttpCommonManager<T>(
                     doOnNext(onDoNext)
                         .observeOn(AndroidSchedulers.mainThread()).apply {
                             if (lifecycleBool) {
-                                compose(lifecycleProvider!!.bindToLifecycle())
+                                compose(AndroidLifecycle.createLifecycleProvider(owner).bindToLifecycle())
                                     .subscribe(onNext, onError)
                             } else {
                                 subscribe(onNext, onError)
@@ -55,7 +57,7 @@ class HttpCommonManager<T>(
                 } else {
                     observeOn(AndroidSchedulers.mainThread()).apply {
                         if (lifecycleBool) {
-                            compose(lifecycleProvider!!.bindToLifecycle())
+                            compose(AndroidLifecycle.createLifecycleProvider(owner).bindToLifecycle())
                                 .subscribe(onNext, onError)
                         } else {
                             subscribe(onNext, onError)
@@ -86,7 +88,7 @@ open class HttpCommonManagerBuilder<T> {
 
     var data: Observable<T>? = null
 
-    var lifecycleProvider: LifecycleProvider<*>? = null
+    var owner: LifecycleOwner?=null
 
     var context: Context? = null
 
@@ -104,7 +106,7 @@ open class HttpCommonManagerBuilder<T> {
     }
 
     open fun build(): HttpCommonManager<T> =
-        HttpCommonManager(data, lifecycleProvider, context, successCallBack, errorCallBack, null)
+        HttpCommonManager(data, owner, context, successCallBack, errorCallBack, null)
 
 }
 
@@ -118,7 +120,7 @@ class HttpCommonManagerBuilderWrap<T> : HttpCommonManagerBuilder<T>() {
     }
 
     override fun build(): HttpCommonManager<T> =
-        HttpCommonManager(data, lifecycleProvider, context, successCallBack, errorCallBack, onDoNext)
+        HttpCommonManager(data, owner, context, successCallBack, errorCallBack, onDoNext)
 
 }
 

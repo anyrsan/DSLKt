@@ -7,6 +7,7 @@ import android.graphics.Rect;
 import android.text.TextPaint;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,6 +15,8 @@ import com.any.org.commonlibrary.R;
 import com.any.org.commonlibrary.model.SectionModel;
 import com.any.org.commonlibrary.utils.DensityUtil;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -29,7 +32,7 @@ public class SectionItemDecoration extends RecyclerView.ItemDecoration {
     private float paddingLeft;
 
     public SectionItemDecoration(Context context, List<SectionModel> data) {
-        this.mData = data;
+         setData(data);
 //        TypedValue typedValue = new TypedValue();
 //        context.getTheme().resolveAttribute(R.attr.cpSectionHeight, typedValue, true);
 //        mSectionHeight = context.getResources().getDimensionPixelSize(typedValue.resourceId);
@@ -50,13 +53,18 @@ public class SectionItemDecoration extends RecyclerView.ItemDecoration {
 
         mBounds = new Rect();
 
-        paddingLeft = DensityUtil.dip2px(context,10);
+        paddingLeft = DensityUtil.dip2px(context, 10);
 
     }
 
     public void setData(List<SectionModel> data) {
-        this.mData = data;
+        this.mData = data == null ? new ArrayList() : data;
     }
+
+    public void addData(@NonNull List<SectionModel> data) {
+        mData.addAll(data);
+    }
+
 
     @Override
     public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {

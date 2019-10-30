@@ -1,6 +1,5 @@
 package com.any.org.loginmodule
 
-import android.util.Log
 import com.any.org.commonlibrary.CustomToast
 import com.any.org.commonlibrary.LOGIN
 import com.any.org.commonlibrary.NEWS
@@ -11,7 +10,6 @@ import com.any.org.commonlibrary.provide.ShareDataProvide
 import com.any.org.commonlibrary.ui.BaseActivity
 import com.any.org.dslnetlibrary.HttpBaseModel
 import com.any.org.eventbuslibrary.RxNewBus
-import com.any.org.loginmodule.presenter.LoginPresenter
 import com.any.routerannotation.KRouter
 import com.any.routercompliecore.Router
 import kotlinx.android.synthetic.main.login_activity.*
@@ -29,7 +27,7 @@ class LoginActivity : BaseActivity() {
 
     override fun getResourceId(): Int = R.layout.login_activity
 
-    private val loginPresenter by lazy { LoginPresenter(applicationContext, this) }
+//    private val loginPresenter by lazy { LoginPresenter(applicationContext, this) }
 
 
     override fun initView() {
@@ -52,7 +50,7 @@ class LoginActivity : BaseActivity() {
 //            loginPresenter.doLogin(userName,pwd){it,errer->   //直接展开，但是方法代码量过多时，建议不要展开
 //
 //            }
-            loginPresenter.doLogin(userName, pwd, ::onLoginResult)
+//            loginPresenter.doLogin(userName, pwd, ::onLoginResult)
         }
 
 

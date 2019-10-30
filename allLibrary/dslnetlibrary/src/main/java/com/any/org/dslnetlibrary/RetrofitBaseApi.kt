@@ -23,10 +23,6 @@ abstract class RetrofitBaseApi(private val baseUrl: String) {
         mRetrofit = initRetrofit()
     }
 
-    //        //继续添加
-    //        if (sinterceptor != null) {
-    //            builder.addInterceptor(sinterceptor);
-    //        }
     private fun configOkHttpClient(): OkHttpClient {
         val  interceptor = HttpLoggingInterceptor(object :HttpLoggingInterceptor.Logger{
             override fun log(message: String) {
@@ -71,26 +67,20 @@ abstract class RetrofitBaseApi(private val baseUrl: String) {
         return mRetrofit.create(service)
     }
 
-    //新的对象
-    fun createHttpsRetrofit(): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl(baseUrl)
-            .build()
-    }
 
     companion object {
         /**
          * 连接超时时长x秒
          */
-        val CONNECT_TIME_OUT = 30
+        const val CONNECT_TIME_OUT = 30
         /**
          * 读数据超时时长x秒
          */
-        val READ_TIME_OUT = 30
+        const val READ_TIME_OUT = 30
         /**
          * 写数据接超时时长x秒
          */
-        val WRITE_TIME_OUT = 30
+        const val WRITE_TIME_OUT = 30
     }
 
 }

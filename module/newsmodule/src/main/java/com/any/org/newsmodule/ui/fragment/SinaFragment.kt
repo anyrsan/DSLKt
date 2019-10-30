@@ -4,10 +4,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.any.org.commonlibrary.log.KLog
 import com.any.org.commonlibrary.model.SectionModel
-import com.any.org.commonlibrary.ui.BaseFargment
-import com.any.org.commonlibrary.utils.DensityUtil
+import com.any.org.commonlibrary.ui.BaseFragment
 import com.any.org.commonlibrary.widget.SectionItemDecoration
-import com.any.org.commonlibrary.widget.VerticalDecoration
 import com.any.org.newsmodule.R
 import com.any.org.newsmodule.adapter.NewsListAdapter
 import com.any.org.newsmodule.iview.IFragment
@@ -21,7 +19,7 @@ import kotlinx.android.synthetic.main.news_fragment.*
  * @time 2019/10/21 15.37
  * @details  sina 要闻
  */
-class SinaFragment : BaseFargment(), IFragment {
+class SinaFragment : BaseFragment(), IFragment {
 
     var onScrollListener: ((Boolean) -> Unit)? = null
 
@@ -98,7 +96,7 @@ class SinaFragment : BaseFargment(), IFragment {
 
     //处理数据
     private fun loadNewsData(id: Int?, timestamp: String?, hasMore: Boolean = false) {
-        presenter.getList(id, timestamp) { it, error ->
+        presenter.getList(id) { it, error ->
             handlerResultN(it, error, hasMore)
         }
     }
