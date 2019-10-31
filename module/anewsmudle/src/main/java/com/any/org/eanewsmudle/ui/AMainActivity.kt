@@ -2,6 +2,8 @@ package com.any.org.eanewsmudle.ui
 
 import com.any.org.commonlibrary.ui.BaseActivity
 import com.any.org.eanewsmudle.R
+import com.any.org.eanewsmudle.adapter.NewsFragmentAdapter
+import kotlinx.android.synthetic.main.a_main_activity.*
 
 /**
  *
@@ -11,10 +13,16 @@ import com.any.org.eanewsmudle.R
  */
 class AMainActivity : BaseActivity() {
 
-    override fun getResourceId(): Int =R.layout.a_main_activity
+    private val fragmentAdapter by lazy { NewsFragmentAdapter(supportFragmentManager) }
+
+    override fun getResourceId(): Int = R.layout.a_main_activity
 
     override fun initView() {
-        addFragment(AMainFragment(),R.id.mainContainerRl)
+        setStatusBarTransparent(true)
+        setTopPadding(topLL)
+
+        viewPager.offscreenPageLimit = fragmentAdapter.count
+        viewPager.adapter = fragmentAdapter
     }
 
     override fun initGetIntent() {

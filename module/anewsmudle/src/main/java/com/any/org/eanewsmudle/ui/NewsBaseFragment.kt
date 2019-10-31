@@ -1,32 +1,40 @@
 package com.any.org.eanewsmudle.ui
 
 import android.view.View
+import androidx.databinding.ViewDataBinding
 import com.any.org.ankolibrary.bindLifecycle
 import com.any.org.ankolibrary.subOnlyCode
 import com.any.org.commonlibrary.log.KLog
+import com.any.org.commonlibrary.model.SectionModel
 import com.any.org.commonlibrary.ui.BaseVBFragment
 import com.any.org.eanewsmudle.R
-import com.any.org.eanewsmudle.adapter.YLItemAdapter
+import com.any.org.eanewsmudle.adapter.BaseItemAdapter
 import com.any.org.eanewsmudle.adapter.decoration.ObserverItemDecoration
 import com.any.org.eanewsmudle.databinding.ANewsActivityBinding
-import com.any.org.eanewsmudle.viewmodel.YLNewsViewModel
+import com.any.org.eanewsmudle.databinding.ANewsFragmentBinding
+import com.any.org.eanewsmudle.viewmodel.BaseViewModel
 import com.any.org.eanewsmudle.viewpresenter.LoadRefreshListener
 import com.any.org.eanewsmudle.viewpresenter.NDViewClickListener
 import com.any.org.eanewsmudle.viewpresenter.OnScrollListener
 import com.any.org.eanewsmudle.viewpresenter.vpresenter.NewPresenter
-import org.koin.android.viewmodel.ext.android.viewModel
 
 /**
+ *
  * @author any
- * @time 2019/10/31 17.59
+ * @time 2019/10/31 16.44
  * @details
  */
-class AMainFragment : BaseVBFragment<ANewsActivityBinding>() {
+abstract class NewsBaseFragment<T : SectionModel, M, V : ViewDataBinding> :
+    BaseVBFragment<ANewsFragmentBinding>() {
 
+    abstract fun getViewModel(): BaseViewModel<T, M>
 
-    private val newsViewModel by viewModel<YLNewsViewModel>()
+    abstract fun getItemAdapter(): BaseItemAdapter<T, V>
 
-    private val newsAdapter by lazy { YLItemAdapter(newsViewModel.mList) }
+    val newsViewModel by lazy { getViewModel() }
+
+    private val newsAdapter by lazy { getItemAdapter() }
+
 
     private val sectionDt by lazy {
         ObserverItemDecoration(
@@ -35,9 +43,9 @@ class AMainFragment : BaseVBFragment<ANewsActivityBinding>() {
         )
     }
 
-    override fun getResourceId(): Int= R.layout.a_news_activity
+    override fun getResourceId(): Int = R.layout.a_news_fragment
 
-    private val clickListener=object : NDViewClickListener {
+    private val clickListener = object : NDViewClickListener {
         override fun click(v: View) {
             KLog.e("回到顶点")
             mBinding?.recyclerView?.smoothScrollToPosition(0)
@@ -59,13 +67,13 @@ class AMainFragment : BaseVBFragment<ANewsActivityBinding>() {
 
     override fun initData() {
         //设置线条
-        mBinding?.decoration= sectionDt
+        mBinding?.decoration = sectionDt
         // adapter
         mBinding?.adapter = newsAdapter
         // viewmodel
         mBinding?.vm = newsViewModel
         // presenter
-        mBinding?.presenter = NewPresenter(clickListener,loadRefreshListener,onScrollListener)
+        mBinding?.presenter = NewPresenter(clickListener, loadRefreshListener, onScrollListener)
     }
 
     override fun initEvent() {

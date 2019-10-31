@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="vm"
+            type="com.any.org.eanewsmudle.viewmodel.BaseViewModel" />
+
+        <variable
+            name="presenter"
+            type="com.any.org.eanewsmudle.viewpresenter.vpresenter.NewPresenter" />
+
+        <variable
+            name="adapter"
+            type="com.any.org.eanewsmudle.adapter.BaseItemAdapter" />
+
+        <variable
+            name="decoration"
+            type="com.any.org.eanewsmudle.adapter.decoration.ObserverItemDecoration" />
+
+    </data>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_ffffff">
+
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/refreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/topRL"
+            app:onRefreshEvent="@{presenter.loadRefreshListener}"
+            app:refreshing="@{vm.isLoading}">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                app:scrollListener="@{presenter.onScrollListener}"
+                app:bindAdapter="@{adapter}"
+                app:bindDecoration="@{decoration}"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="当前数据为空"
+            android:visibility="@{vm.empty ? View.VISIBLE : View.GONE}" />
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="30dp"
+            android:padding="10dp"
+            android:rotation="180"
+            android:visibility="@{vm.isGone ? View.GONE : View.VISIBLE}"
+            android:src="@drawable/ic_black_50dp"
+            app:onViewClick="@{presenter.clickListener}" />
+    </RelativeLayout>
+
+</layout>

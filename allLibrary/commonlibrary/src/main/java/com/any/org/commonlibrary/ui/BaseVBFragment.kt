@@ -23,7 +23,7 @@ abstract class BaseVBFragment<VB : ViewDataBinding> : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         mBinding = DataBindingUtil.inflate(inflater, getResourceId(), container, false)
-        mBinding?.lifecycleOwner = this
+//        mBinding?.lifecycleOwner = this
         return mBinding?.root
     }
 

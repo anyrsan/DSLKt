@@ -1,4 +1,4 @@
-package com.any.org.eanewsmudle.ui
+package com.any.org.eanewsmudle.ui.deprecated
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.any.org.ankolibrary.*

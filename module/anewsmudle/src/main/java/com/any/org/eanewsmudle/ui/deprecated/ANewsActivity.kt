@@ -1,4 +1,4 @@
-package com.any.org.eanewsmudle.ui
+package com.any.org.eanewsmudle.ui.deprecated
 
 import android.view.View
 import com.any.org.ankolibrary.bindLifecycle
@@ -6,11 +6,9 @@ import com.any.org.ankolibrary.subOnlyCode
 import com.any.org.commonlibrary.log.KLog
 import com.any.org.commonlibrary.ui.BaseVBActivity
 import com.any.org.eanewsmudle.R
-import com.any.org.eanewsmudle.adapter.NewsItemAdapter
 import com.any.org.eanewsmudle.adapter.YLItemAdapter
 import com.any.org.eanewsmudle.adapter.decoration.ObserverItemDecoration
 import com.any.org.eanewsmudle.databinding.ANewsActivityBinding
-import com.any.org.eanewsmudle.viewmodel.NewsViewModel
 import com.any.org.eanewsmudle.viewmodel.YLNewsViewModel
 import com.any.org.eanewsmudle.viewpresenter.LoadRefreshListener
 import com.any.org.eanewsmudle.viewpresenter.NDViewClickListener

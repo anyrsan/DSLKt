@@ -1,4 +1,4 @@
-package com.any.org.eanewsmudle.ui
+package com.any.org.eanewsmudle.ui.deprecated
 
 import com.any.org.ankolibrary.*
 import com.any.org.commonlibrary.ui.BaseVBActivity

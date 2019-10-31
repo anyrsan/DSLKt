@@ -17,12 +17,12 @@ import com.chad.library.adapter.base.BaseViewHolder
  * @time 2019/10/30 15.41
  * @details
  */
-abstract class BaseItemAdapter<M, T : ViewDataBinding>(@LayoutRes layoutId: Int, list: AdapterDataObserver<M>) :
-    BaseQuickAdapter<M, BaseViewHolder>(layoutId) {
+abstract class BaseItemAdapter<T, V : ViewDataBinding>(@LayoutRes layoutId: Int, list: AdapterDataObserver<T>) :
+    BaseQuickAdapter<T, BaseViewHolder>(layoutId) {
 
     init {
-        list.addListener(object : AdObserver<M> {
-            override fun updateData(t: List<M>?, new: Boolean) {
+        list.addListener(object : AdObserver<T> {
+            override fun updateData(t: List<T>?, new: Boolean) {
                 if (new) {
                     setNewData(t)
                     setEnableLoadMore(t?.isNotEmpty() ?: false)
@@ -42,9 +42,9 @@ abstract class BaseItemAdapter<M, T : ViewDataBinding>(@LayoutRes layoutId: Int,
         })
     }
 
-    override fun convert(helper: BaseViewHolder?, item: M?) {
+    override fun convert(helper: BaseViewHolder?, item: T?) {
         helper?.let {
-            val binding = DataBindingUtil.bind<T>(it.itemView)
+            val binding = DataBindingUtil.bind<V>(it.itemView)
             binding?.setVariable(BR.newsItem, item)
             binding?.executePendingBindings()
         }
