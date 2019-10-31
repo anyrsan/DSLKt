@@ -1,4 +1,4 @@
-package com.any.org.eanewsmudle.viewcmd
+package com.any.org.eanewsmudle.viewpresenter
 
 /**
  *

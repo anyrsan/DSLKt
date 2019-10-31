@@ -65,7 +65,12 @@ ext {
 
 
             //第三方UI库
-            adapterHelper        : "com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.45"
+            adapterHelper        : "com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.45",
+
+
+            // Glide
+            GlideSdk             : 'com.github.bumptech.glide:glide:4.10.0',
+            GlideCompilerSdk     : 'com.github.bumptech.glide:compiler:4.10.0'
 
 
     ]

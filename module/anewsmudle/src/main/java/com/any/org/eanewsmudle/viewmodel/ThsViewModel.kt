@@ -5,8 +5,6 @@ import androidx.lifecycle.ViewModel
 import com.any.org.ankolibrary.async
 import com.any.org.commonlibrary.log.KLog
 import com.any.org.eanewsmudle.adapter.obser.AdapterDataObserver
-import com.any.org.eanewsmudle.model.bean.NewsItemModel
-import com.any.org.eanewsmudle.model.bean.NewsModel
 import com.any.org.eanewsmudle.model.bean.ThsItemModel
 import com.any.org.eanewsmudle.model.repository.NewsRepository
 import io.reactivex.Observable
@@ -26,7 +24,6 @@ class ThsViewModel(private val newsRepository: NewsRepository) : ViewModel() {
 
     private var page: Int = 1
 
-    @JvmOverloads
     fun getList(isRefresh: Boolean = true): Observable<List<ThsItemModel>> = kotlin.run {
         if (isRefresh) page = 1
         newsRepository.getThs(page).async().doOnNext {
@@ -46,7 +43,7 @@ class ThsViewModel(private val newsRepository: NewsRepository) : ViewModel() {
 
     override fun onCleared() {
         super.onCleared()
-        mList.clearAllLister()
+        mList.onCleared()
         KLog.e("viewmodel 失效")
     }
 

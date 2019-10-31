@@ -3,6 +3,7 @@ package com.any.org.eanewsmudle.model.remote
 import com.any.org.commonlibrary.CustomToast
 import com.any.org.commonlibrary.log.KLog
 import com.any.org.commonlibrary.net.url.SINA_NEWS
+import com.any.org.commonlibrary.net.url.SINA_YL
 import com.any.org.commonlibrary.net.url.THS_NEWS
 import com.any.org.dslnetlibrary.BaseNetProvider
 import com.any.org.dslnetlibrary.HttpCallBack
@@ -10,6 +11,7 @@ import com.any.org.dslnetlibrary.httpCommon
 import com.any.org.eanewsmudle.model.bean.NewsItemModel
 import com.any.org.eanewsmudle.model.bean.NewsModel
 import com.any.org.eanewsmudle.model.bean.ThsItemModel
+import com.any.org.eanewsmudle.model.bean.YLNewsModel
 import io.reactivex.Observable
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -56,6 +58,25 @@ class NewsNetProvider(private val api: NewsApi) {
     }
 
 
+    fun getYlNews(ctime: Long? = null) = kotlin.run {
+        //?cateid=1Q&cre=tianyi&mod=pcent&merge=3&statics=1&length=15&up=0&down=0$tm=xxx
+        val map = mutableMapOf(
+            "cateid" to "1Q",
+            "cre" to "tianyi",
+            "mod" to "pcent",
+            "merge" to "3",
+            "statics" to "1",
+            "length" to "15",
+            "up" to "0",
+            "down" to "0"
+        )
+        ctime?.let {
+            map["tm"] = "$it"
+        }
+        api.getYLNews(SINA_YL,map)
+    }
+
+
     interface NewsApi {
 
         @GET
@@ -67,6 +88,10 @@ class NewsNetProvider(private val api: NewsApi) {
 
         @GET
         fun getThsNews(@Url url: String, @QueryMap queryMap: Map<String, String>): Observable<List<ThsItemModel>>
+
+
+        @GET
+        fun getYLNews(@Url url: String, @QueryMap queryMap: Map<String, String>): Observable<YLNewsModel>
     }
 
 }

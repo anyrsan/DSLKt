@@ -27,4 +27,8 @@ class NewsRepository(
     //从网络加载
     fun getThs(page:Int)= netProvider.getThsList(page)
 
+
+    //获取
+    fun getYLNews(ctime:Long?=null) = netProvider.getYlNews(ctime)
+
 }

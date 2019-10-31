@@ -1,11 +1,9 @@
 package com.any.org.eanewsmudle.adapter
 
-import androidx.databinding.DataBindingUtil
 import com.any.org.eanewsmudle.R
 import com.any.org.eanewsmudle.adapter.obser.AdapterDataObserver
 import com.any.org.eanewsmudle.databinding.ANewsItemAdapterBinding
 import com.any.org.eanewsmudle.model.bean.NewsItemModel
-import com.chad.library.adapter.base.BaseViewHolder
 
 /**
  *

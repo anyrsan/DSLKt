@@ -1,15 +1,20 @@
-package com.any.org.eanewsmudle
+package com.any.org.eanewsmudle.ui
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.any.org.ankolibrary.bindLifecycle
 import com.any.org.ankolibrary.subOnlyCode
 import com.any.org.commonlibrary.log.KLog
 import com.any.org.commonlibrary.ui.BaseVBActivity
+import com.any.org.commonlibrary.widget.VerticalDecoration
+import com.any.org.eanewsmudle.R
 import com.any.org.eanewsmudle.adapter.NewsItemAdapter
+import com.any.org.eanewsmudle.adapter.YLItemAdapter
 import com.any.org.eanewsmudle.adapter.decoration.ObserverItemDecoration
 import com.any.org.eanewsmudle.databinding.ANewsActivityBinding
+import com.any.org.eanewsmudle.databinding.AYlActivityBinding
 import com.any.org.eanewsmudle.viewpresenter.LoadPresenter
 import com.any.org.eanewsmudle.viewmodel.NewsViewModel
+import com.any.org.eanewsmudle.viewmodel.YLViewModel
 import kotlinx.android.synthetic.main.a_news_activity.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -19,13 +24,13 @@ import org.koin.android.viewmodel.ext.android.viewModel
  * @time 2019/10/25 19.12
  * @details
  */
-class ANewsActivity : BaseVBActivity<ANewsActivityBinding>() {
+class YLActivity : BaseVBActivity<AYlActivityBinding>() {
 
     //完成注入
-    private val newsViewModel by viewModel<NewsViewModel>()
+    private val newsViewModel by viewModel<YLViewModel>()
 
     //自动关联数据
-    private val newsAdapter by lazy { NewsItemAdapter(newsViewModel.mList) }
+    private val newsAdapter by lazy { YLItemAdapter(newsViewModel.mList) }
     //截面item
     private val sectionDt by lazy {
         ObserverItemDecoration(
@@ -34,7 +39,7 @@ class ANewsActivity : BaseVBActivity<ANewsActivityBinding>() {
         )
     }
 
-    override fun getResourceId(): Int = R.layout.a_news_activity
+    override fun getResourceId(): Int = R.layout.a_yl_activity
 
     override fun initView() {
         setStatusBarTransparent(true)
@@ -44,6 +49,7 @@ class ANewsActivity : BaseVBActivity<ANewsActivityBinding>() {
             layoutManager = LinearLayoutManager(applicationContext)
             adapter = newsAdapter
             addItemDecoration(sectionDt)
+            addItemDecoration(VerticalDecoration(applicationContext,mVerticalSpacing = 2),1)
         }
         mBinding.nViewModel = newsViewModel
     }
@@ -78,12 +84,9 @@ class ANewsActivity : BaseVBActivity<ANewsActivityBinding>() {
 
     private fun getListData(isRefresh: Boolean) {
         //通过生命周期关联
-        newsViewModel.getList(isRefresh).bindLifecycle(this)
+        newsViewModel.getYLNews(isRefresh).bindLifecycle(this)
             .subOnlyCode {
                 KLog.e("msg...size... ${newsAdapter.data.size}")
-                if (it != 0) {
-                    newsViewModel.empty.set(true)
-                }
             }
     }
 

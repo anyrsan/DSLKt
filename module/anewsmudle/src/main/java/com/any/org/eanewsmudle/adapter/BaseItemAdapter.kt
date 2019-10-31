@@ -22,15 +22,18 @@ abstract class BaseItemAdapter<M, T : ViewDataBinding>(@LayoutRes layoutId: Int,
 
     init {
         list.addListener(object : AdObserver<M> {
-            override fun updateData(t: List<M>?, news: Boolean) {
-                if (news) {
+            override fun updateData(t: List<M>?, new: Boolean) {
+                if (new) {
                     setNewData(t)
+                    setEnableLoadMore(t?.isNotEmpty() ?: false)
                     KLog.e("刷新数据成功")
                 } else {
                     //这里也可以处理出错情况  t为空时，就是加载出错了
                     t?.run {
                         addData(this)
                         loadMoreComplete()
+                        //如果不为空，则代表还有下一页，否则不存在更多
+                        setEnableLoadMore(isNotEmpty())
                     } ?: loadMoreFail()
                     KLog.e("......添加数据成功")
                 }

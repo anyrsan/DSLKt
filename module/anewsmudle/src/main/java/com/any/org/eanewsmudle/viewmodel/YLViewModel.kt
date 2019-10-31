@@ -5,8 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.any.org.ankolibrary.async
 import com.any.org.commonlibrary.log.KLog
 import com.any.org.eanewsmudle.adapter.obser.AdapterDataObserver
-import com.any.org.eanewsmudle.model.bean.NewsItemModel
-import com.any.org.eanewsmudle.model.bean.NewsModel
+import com.any.org.eanewsmudle.model.bean.YLNewsModel
 import com.any.org.eanewsmudle.model.repository.NewsRepository
 import io.reactivex.Observable
 
@@ -16,37 +15,44 @@ import io.reactivex.Observable
  * @time 2019/10/25 19.46
  * @details
  */
-class NewsViewModel(private val newsRepository: NewsRepository) : ViewModel() {
+class YLViewModel(private val newsRepository: NewsRepository) : ViewModel() {
 
 
-    val mList = AdapterDataObserver<NewsItemModel>()
+    val mList = AdapterDataObserver<YLNewsModel.DataBean>()
 
     val empty = ObservableBoolean(false)
 
     val isLoading = ObservableBoolean(true)
 
-    private var tempId: Int? = null
+    private var cTime: Long? = null
 
-    fun getList(isRefresh: Boolean = true): Observable<NewsModel> = kotlin.run {
+    @JvmOverloads
+    fun getYLNews(isRefresh: Boolean = true): Observable<YLNewsModel> = kotlin.run {
         if (isRefresh) {
-            tempId = null
+            cTime = null
             isLoading.set(true)
         }
-        newsRepository.getList(tempId).async(500).doOnNext {
+        newsRepository.getYLNews(cTime).async(500).doOnNext {
             //刷新数据
             if (isRefresh) {
                 //检查是否为空
-                empty.set(it.result?.data?.feed?.list.isNullOrEmpty())
+                empty.set(it.data.isNullOrEmpty())
                 //关闭刷新
                 isLoading.set(false)
             }
-            it?.result?.data?.feed?.list.let { data ->
-                tempId = if (data?.isNotEmpty() == true) data.last().id else null
+            cTime = it.req_time
+            it?.data.let { data ->
                 mList.updateData(data, isRefresh)
             }
+
             KLog.e("ooommm  load=${isLoading.get()}")
         }.doOnError {
-
+            if (isRefresh) {
+                isLoading.set(false)
+                empty.set(true)
+            }
+            mList.updateData(null, isRefresh)
+            KLog.e("出错了，哈哈")
         }
     }
 

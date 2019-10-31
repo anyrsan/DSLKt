@@ -8,7 +8,7 @@
 
         <variable
             name="nViewModel"
-            type="com.any.org.eanewsmudle.viewmodel.NewsViewModel" />
+            type="com.any.org.eanewsmudle.viewmodel.YLViewModel" />
 
         <variable
             name="loadPresenter"

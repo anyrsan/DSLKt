@@ -8,6 +8,6 @@ package com.any.org.eanewsmudle.adapter.obser
  */
 interface AdObserver<T> {
 
-      fun updateData(t:List<T>?,news:Boolean)
+      fun updateData(t:List<T>?,new:Boolean)
 
 }
