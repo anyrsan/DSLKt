@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -8,6 +9,10 @@
         <variable
             name="thsVM"
             type="com.any.org.eanewsmudle.viewmodel.ThsViewModel" />
+
+        <variable
+            name="loadPresenter"
+            type="com.any.org.eanewsmudle.viewpresenter.LoadRefreshListener" />
 
     </data>
 
@@ -21,7 +26,7 @@
         <LinearLayout
             android:id="@+id/topRL"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:orientation="vertical">
 
             <TextView
@@ -47,7 +52,9 @@
             android:id="@+id/refreshLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/topRL">
+            android:layout_below="@+id/topRL"
+            app:onRefreshEvent="@{loadPresenter}"
+            app:refreshing="@{thsVM.isLoading}">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"

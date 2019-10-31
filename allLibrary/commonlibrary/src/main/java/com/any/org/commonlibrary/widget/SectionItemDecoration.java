@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.any.org.commonlibrary.R;
+import com.any.org.commonlibrary.log.KLog;
 import com.any.org.commonlibrary.model.SectionModel;
 import com.any.org.commonlibrary.utils.DensityUtil;
 
@@ -62,6 +63,7 @@ public class SectionItemDecoration extends RecyclerView.ItemDecoration {
     }
 
     public void addData(@NonNull List<SectionModel> data) {
+        KLog.INSTANCE.e("section 输出");
         mData.addAll(data);
     }
 

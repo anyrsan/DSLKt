@@ -7,14 +7,10 @@ import com.any.org.commonlibrary.log.KLog
 import com.any.org.commonlibrary.ui.BaseVBActivity
 import com.any.org.commonlibrary.widget.VerticalDecoration
 import com.any.org.eanewsmudle.R
-import com.any.org.eanewsmudle.adapter.NewsItemAdapter
 import com.any.org.eanewsmudle.adapter.YLItemAdapter
 import com.any.org.eanewsmudle.adapter.decoration.ObserverItemDecoration
-import com.any.org.eanewsmudle.databinding.ANewsActivityBinding
 import com.any.org.eanewsmudle.databinding.AYlActivityBinding
-import com.any.org.eanewsmudle.viewpresenter.LoadPresenter
-import com.any.org.eanewsmudle.viewmodel.NewsViewModel
-import com.any.org.eanewsmudle.viewmodel.YLViewModel
+import com.any.org.eanewsmudle.viewmodel.YLNewsViewModel
 import kotlinx.android.synthetic.main.a_news_activity.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -27,10 +23,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class YLActivity : BaseVBActivity<AYlActivityBinding>() {
 
     //完成注入
-    private val newsViewModel by viewModel<YLViewModel>()
-
-    //自动关联数据
-    private val newsAdapter by lazy { YLItemAdapter(newsViewModel.mList) }
+    private val newsViewModel by viewModel<YLNewsViewModel>()
     //截面item
     private val sectionDt by lazy {
         ObserverItemDecoration(
@@ -39,6 +32,9 @@ class YLActivity : BaseVBActivity<AYlActivityBinding>() {
         )
     }
 
+    //自动关联数据
+    private val newsAdapter by lazy { YLItemAdapter(newsViewModel.mList) }
+
     override fun getResourceId(): Int = R.layout.a_yl_activity
 
     override fun initView() {
@@ -46,10 +42,10 @@ class YLActivity : BaseVBActivity<AYlActivityBinding>() {
         setTopPadding(topRL)
         //设置
         mBinding.recyclerView.apply {
-            layoutManager = LinearLayoutManager(applicationContext)
-            adapter = newsAdapter
             addItemDecoration(sectionDt)
             addItemDecoration(VerticalDecoration(applicationContext,mVerticalSpacing = 2),1)
+            layoutManager = LinearLayoutManager(applicationContext)
+            adapter = newsAdapter
         }
         mBinding.nViewModel = newsViewModel
     }
@@ -69,12 +65,12 @@ class YLActivity : BaseVBActivity<AYlActivityBinding>() {
             getListData(false)
         }, mBinding.recyclerView)
 
-        //刷新
-        mBinding.loadPresenter = object : LoadPresenter {
-            override fun load(refresh: Boolean) {
-                getListData(refresh)
-            }
-        }
+//        //刷新
+//        mBinding.loadPresenter = object : LoadRefreshListener1 {
+//            override fun load(refresh: Boolean) {
+//                getListData(refresh)
+//            }
+//        }
 
     }
 
@@ -84,7 +80,7 @@ class YLActivity : BaseVBActivity<AYlActivityBinding>() {
 
     private fun getListData(isRefresh: Boolean) {
         //通过生命周期关联
-        newsViewModel.getYLNews(isRefresh).bindLifecycle(this)
+        newsViewModel.freshData(isRefresh).bindLifecycle(this)
             .subOnlyCode {
                 KLog.e("msg...size... ${newsAdapter.data.size}")
             }

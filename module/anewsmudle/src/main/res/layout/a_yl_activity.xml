@@ -8,11 +8,11 @@
 
         <variable
             name="nViewModel"
-            type="com.any.org.eanewsmudle.viewmodel.YLViewModel" />
+            type="com.any.org.eanewsmudle.viewmodel.YLNewsViewModel" />
 
         <variable
             name="loadPresenter"
-            type="com.any.org.eanewsmudle.viewpresenter.LoadPresenter" />
+            type="com.any.org.eanewsmudle.viewpresenter.LoadRefreshListener" />
 
     </data>
 
@@ -68,6 +68,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:textSize="@dimen/ts_30"
             android:text="当前数据为空"
             android:visibility="@{nViewModel.empty ? View.VISIBLE : View.GONE}" />
 

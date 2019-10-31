@@ -6,10 +6,10 @@ import com.any.org.commonlibrary.log.KLog
 import com.any.org.commonlibrary.ui.BaseVBActivity
 import com.any.org.eanewsmudle.R
 import com.any.org.eanewsmudle.adapter.ThsItemAdapter
-import com.any.org.eanewsmudle.adapter.decoration.ObserverItemDecoration
 import com.any.org.eanewsmudle.databinding.AThsActivityBinding
 import com.any.org.eanewsmudle.viewmodel.ThsViewModel
-import kotlinx.android.synthetic.main.a_news_activity.*
+import com.any.org.eanewsmudle.viewpresenter.LoadRefreshListener
+import kotlinx.android.synthetic.main.a_ths_activity.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 /**
@@ -25,13 +25,6 @@ class ThsActivity : BaseVBActivity<AThsActivityBinding>() {
 
     //自动关联数据
     private val thsAdapter by lazy { ThsItemAdapter(thsViewModel.mList) }
-    //截面item
-    private val sectionDt by lazy {
-        ObserverItemDecoration(
-            applicationContext,
-            thsViewModel.mList
-        )
-    }
 
     override fun getResourceId(): Int = R.layout.a_ths_activity
 
@@ -42,7 +35,6 @@ class ThsActivity : BaseVBActivity<AThsActivityBinding>() {
         mBinding.recyclerView.apply {
             layoutManager = LinearLayoutManager(applicationContext)
             adapter = thsAdapter
-//            addItemDecoration(sectionDt)
         }
         mBinding.thsVM = thsViewModel
     }
@@ -63,10 +55,14 @@ class ThsActivity : BaseVBActivity<AThsActivityBinding>() {
             getListData(false)
         }, mBinding.recyclerView)
 
-        //处理
-        mBinding.refreshLayout.setOnRefreshListener {
-            getListData(true)
+
+        mBinding.loadPresenter = object : LoadRefreshListener{
+            override fun load(refresh: Boolean) {
+                 lazyData()
+            }
         }
+
+
     }
 
     override fun lazyData() {
@@ -75,10 +71,9 @@ class ThsActivity : BaseVBActivity<AThsActivityBinding>() {
 
     private fun getListData(isRefresh: Boolean) {
         //通过生命周期关联
-        thsViewModel.getList(isRefresh).bindLifecycle(this)
-            .subOnlyCode {
+        thsViewModel.freshData(isRefresh).bindLifecycle(this)
+            .subResult()
 
-            }
     }
 
 

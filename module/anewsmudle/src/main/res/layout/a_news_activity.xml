@@ -7,12 +7,20 @@
         <import type="android.view.View" />
 
         <variable
-            name="nViewModel"
-            type="com.any.org.eanewsmudle.viewmodel.NewsViewModel" />
+            name="vm"
+            type="com.any.org.eanewsmudle.viewmodel.BaseViewModel" />
 
         <variable
-            name="loadPresenter"
-            type="com.any.org.eanewsmudle.viewpresenter.LoadPresenter" />
+            name="presenter"
+            type="com.any.org.eanewsmudle.viewpresenter.vpresenter.NewPresenter" />
+
+        <variable
+            name="adapter"
+            type="com.any.org.eanewsmudle.adapter.BaseItemAdapter" />
+
+        <variable
+            name="decoration"
+            type="com.any.org.eanewsmudle.adapter.decoration.ObserverItemDecoration" />
 
     </data>
 
@@ -53,11 +61,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/topRL"
-            app:onRefreshEvent="@{loadPresenter}"
-            app:refreshing="@{nViewModel.isLoading}">
+            app:onRefreshEvent="@{presenter.loadRefreshListener}"
+            app:refreshing="@{vm.isLoading}">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
+                app:scrollListener="@{presenter.onScrollListener}"
+                app:bindAdapter="@{adapter}"
+                app:bindDecoration="@{decoration}"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
@@ -69,8 +80,20 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="当前数据为空"
-            android:visibility="@{nViewModel.empty ? View.VISIBLE : View.GONE}" />
+            android:visibility="@{vm.empty ? View.VISIBLE : View.GONE}" />
 
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="30dp"
+            android:padding="10dp"
+            android:rotation="180"
+            android:visibility="@{vm.isGone ? View.GONE : View.VISIBLE}"
+            android:src="@drawable/ic_black_50dp"
+            app:onViewClick="@{presenter.clickListener}" />
     </RelativeLayout>
 
 </layout>

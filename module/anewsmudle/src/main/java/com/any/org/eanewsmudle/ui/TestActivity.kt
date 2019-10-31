@@ -18,6 +18,7 @@ import org.koin.core.parameter.parametersOf
  */
 class TestActivity : BaseVBActivity<ATestActivityBinding>() {
 
+
     //获取 item
     private val itemModel: NewsItemModel by argument("item")
     // 进行初始化
@@ -25,16 +26,19 @@ class TestActivity : BaseVBActivity<ATestActivityBinding>() {
 
     override fun getResourceId(): Int = R.layout.a_test_activity
 
-    override fun initGetIntent() {
-
-    }
 
     override fun initData() {
         //完成订阅关系
         testViewModel.getDetails().async(1000).bindLifecycle(this).subResult(::onResult)
     }
 
+    override fun initView() {
 
+    }
+
+    override fun initEvent() {
+
+    }
 
     override fun lazyData() {
 

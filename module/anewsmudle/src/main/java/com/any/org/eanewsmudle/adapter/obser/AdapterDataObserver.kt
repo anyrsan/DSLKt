@@ -9,7 +9,6 @@ package com.any.org.eanewsmudle.adapter.obser
 class AdapterDataObserver<T> : AdObserver<T> {
 
     override fun updateData(t: List<T>?, news: Boolean) {
-        observerListeners.reverse()
         observerListeners.forEach {
             it.updateData(t,news)
         }

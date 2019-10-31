@@ -22,9 +22,10 @@
 
         <ImageView
             android:id="@+id/locationLabIv"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="90dp"
+            android:layout_height="60dp"
             android:layout_margin="10dp"
+            android:layout_centerVertical="true"
             app:url="@{newsItem.thumb}"
             android:src="@mipmap/news_item_location" />
 
@@ -37,6 +38,7 @@
             android:layout_marginTop="5dp"
             android:textColor="@color/color_666666"
             android:textSize="15dp"
+            android:maxLines="1"
             android:text="@{newsItem.title}"
             tools:text="我是标题" />
 

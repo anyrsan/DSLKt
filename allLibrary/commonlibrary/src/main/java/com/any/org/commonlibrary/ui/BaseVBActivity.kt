@@ -20,11 +20,8 @@ abstract class BaseVBActivity<VB : ViewDataBinding> : BaseActivity() {
     }
 
 
-    override fun initView() {
+    override fun initGetIntent() {
 
-    }
-
-    override fun initEvent() {
     }
 
 }

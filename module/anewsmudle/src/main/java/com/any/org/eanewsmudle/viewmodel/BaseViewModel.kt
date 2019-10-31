@@ -15,36 +15,41 @@ import io.reactivex.Observable
  * @time 2019/10/25 19.46
  * @details
  */
-class YLViewModel(private val newsRepository: NewsRepository) : ViewModel() {
+abstract class BaseViewModel<T, M> : ViewModel() {
 
-
-    val mList = AdapterDataObserver<YLNewsModel.DataBean>()
+    val mList = AdapterDataObserver<T>()
 
     val empty = ObservableBoolean(false)
 
     val isLoading = ObservableBoolean(true)
 
-    private var cTime: Long? = null
+    val isGone = ObservableBoolean(false)
 
-    @JvmOverloads
-    fun getYLNews(isRefresh: Boolean = true): Observable<YLNewsModel> = kotlin.run {
+    abstract fun clearParams()
+
+    abstract fun setParams(m: M,isRefresh:Boolean)
+
+    abstract fun isEmpty(m: M): Boolean
+
+    abstract fun getDataList(m: M): List<T>?
+
+    abstract fun requestList(): Observable<M>
+
+    fun freshData(isRefresh: Boolean = true): Observable<M> = kotlin.run {
         if (isRefresh) {
-            cTime = null
+            clearParams()
             isLoading.set(true)
         }
-        newsRepository.getYLNews(cTime).async(500).doOnNext {
+        requestList().async(200).doOnNext {
             //刷新数据
             if (isRefresh) {
                 //检查是否为空
-                empty.set(it.data.isNullOrEmpty())
+                empty.set(isEmpty(it))
                 //关闭刷新
                 isLoading.set(false)
             }
-            cTime = it.req_time
-            it?.data.let { data ->
-                mList.updateData(data, isRefresh)
-            }
-
+            setParams(it,isRefresh)
+            mList.updateData(getDataList(it), isRefresh)
             KLog.e("ooommm  load=${isLoading.get()}")
         }.doOnError {
             if (isRefresh) {
