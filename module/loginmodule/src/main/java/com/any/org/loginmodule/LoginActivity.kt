@@ -1,5 +1,7 @@
 package com.any.org.loginmodule
 
+import com.any.org.ankolibrary.argument
+import com.any.org.ankolibrary.autoFill
 import com.any.org.commonlibrary.CustomToast
 import com.any.org.commonlibrary.LOGIN
 import com.any.org.commonlibrary.NEWS
@@ -23,18 +25,18 @@ import kotlinx.android.synthetic.main.login_activity.*
 @KRouter(LOGIN)
 class LoginActivity : BaseActivity() {
 
-    private var rKey: String? = null
+    //获取一个key值
+    private val rKey: String? by argument("rKey")
 
     override fun getResourceId(): Int = R.layout.login_activity
 
 //    private val loginPresenter by lazy { LoginPresenter(applicationContext, this) }
 
-
     override fun initView() {
     }
 
     override fun initGetIntent() {
-        rKey = intent.getStringExtra("rKey")
+
     }
 
     override fun initData() {
@@ -51,6 +53,9 @@ class LoginActivity : BaseActivity() {
 //
 //            }
 //            loginPresenter.doLogin(userName, pwd, ::onLoginResult)
+            delayedPost {
+                onLoginResult(null, true)
+            }
         }
 
 
@@ -70,9 +75,7 @@ class LoginActivity : BaseActivity() {
     private fun onLoginResult(it: HttpBaseModel?, error: Boolean) {
 
         //处理结果
-        it?.let {
-            CustomToast.showMsg(applicationContext, "登录成功")
-        }
+        CustomToast.showMsg(applicationContext, "登录成功")
 
         // 尝试恢复对应的页面
         Router.resumeRouter(rKey)
@@ -81,7 +84,7 @@ class LoginActivity : BaseActivity() {
 
         KLog.e("完成登录")
 
-        delayedPost(2000) {
+        delayedPost(500) {
             finish()
         }
 

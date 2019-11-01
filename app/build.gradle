@@ -17,6 +17,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         applicationId "com.any.org.dslkt"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
 
 
@@ -26,6 +27,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    //开启databinding
+    dataBinding {
+        enabled = true
+    }
+
+    buildToolsVersion = '29.0.1'
 }
 
 dependencies {
@@ -45,12 +53,14 @@ dependencies {
 
     implementation project(':routercompilecore')
     implementation project(':routerAnnotation')
-    //引入注解
-    kapt project(':routercompile')
+
 
 
     //不是app模式时,才添加依赖
     if (!isApp) {
+        //引入注解
+        kapt project(':routercompile')
+        implementation project(':anewsmudle')
         implementation project(':loginmodule')
         implementation project(':usermodule')
         implementation project(':newsmodule')
@@ -63,6 +73,6 @@ kapt {
     arguments {
         arg("RouterModule", project.name)
         if (!isApp)
-            arg("RouterApp", "${project.name},loginmodule,usermodule,newsmodule,readmudole")
+            arg("RouterApp", "${project.name},loginmodule,usermodule,newsmodule,readmudole,anewsmudle")
     }
 }

@@ -25,3 +25,6 @@ const val NEWS ="/news"
 
 
 const val READ ="/read"
+
+
+const val MVVM ="/mvvm"

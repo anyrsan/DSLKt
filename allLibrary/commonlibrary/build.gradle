@@ -46,11 +46,11 @@ android {
                 exclude 'debug/**'
             }
             //组件项目时，加载这些资源
-            if (isApp) {
-                res.srcDirs "src/main/res-debug"
-            } else {
-                res.srcDirs "src/main/res"
-            }
+//            if (isApp) {
+//                res.srcDirs "src/main/res-debug"
+//            } else {
+//                res.srcDirs "src/main/res"
+//            }
         }
     }
 

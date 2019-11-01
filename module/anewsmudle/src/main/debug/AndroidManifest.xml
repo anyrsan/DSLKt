@@ -31,6 +31,16 @@
         </activity>
 
 
+        <provider
+            android:name=".app.AppContentProvider"
+            android:authorities="com.any.org.eanewsmudle.app.provider"
+            android:grantUriPermissions="false"
+            android:exported="false" >
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepaths" />
+        </provider>
+
     </application>
 
 </manifest>

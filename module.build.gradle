@@ -40,13 +40,13 @@ android {
         main {
             if (isApp) {
                 manifest.srcFile 'src/main/debug/AndroidManifest.xml'
-                res.srcDirs "src/main/res-debug"
+//                res.srcDirs "src/main/res-debug"
             } else {
                 manifest.srcFile 'src/main/AndroidManifest.xml'
                 java {
                     exclude 'debug/**'
                 }
-                res.srcDirs "src/main/res"
+//                res.srcDirs "src/main/res"
             }
         }
     }
@@ -74,7 +74,9 @@ dependencies {
 
 
     implementation project(':commonlibrary')
+
     implementation project(':routercompilecore')
+
     implementation project(':routerAnnotation')
     if (!isApp) {
         //引入注解

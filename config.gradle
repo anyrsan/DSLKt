@@ -3,7 +3,7 @@ ext {
     /**
      * app pattern
      */
-    isApplication = true
+    isApplication = false
 
     androidVersion = [
             compileSdkVersion: 29,

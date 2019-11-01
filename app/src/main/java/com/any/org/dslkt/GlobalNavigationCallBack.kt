@@ -1,5 +1,6 @@
 package com.any.org.dslkt
 
+import com.any.org.commonlibrary.CustomToast
 import com.any.org.commonlibrary.log.KLog
 import com.any.routerannotation.KNavigation
 import com.any.routercompliecore.NavigationCallback
@@ -16,7 +17,8 @@ import com.any.routercompliecore.RouterConfig
 class GlobalNavigationCallBack : NavigationCallback {
 
     override fun onFound(routerConfig: RouterConfig) {
-
+        KLog.e("找不到页面吗？？？？")
+        CustomToast.showMsg(routerConfig.context,"没有找到 ${routerConfig.target} 对应的页面")
     }
 
     override fun onGoDestination(routerConfig: RouterConfig) {

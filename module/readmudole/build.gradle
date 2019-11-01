@@ -1,89 +1,12 @@
+apply from: "../../module.build.gradle"
 def isApp = rootProject.ext.isApplication
 
-if (isApp) {
-    apply plugin: 'com.android.application'
-} else {
-    apply plugin: 'com.android.library'
-}
-
-apply plugin: 'kotlin-android'
-
-apply plugin: 'kotlin-android-extensions'
-
-apply plugin: 'kotlin-kapt'
-
 android {
-    compileSdkVersion rootProject.ext.androidVersion.compileSdkVersion
-
     defaultConfig {
-        minSdkVersion rootProject.ext.androidVersion.minSdkVersion
-        targetSdkVersion rootProject.ext.androidVersion.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
         if(isApp){
             applicationId "com.any.org.readmudole"
             multiDexEnabled true
         }
-
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
-    sourceSets {
-        main {
-            if (isApp) {
-                manifest.srcFile 'src/main/debug/AndroidManifest.xml'
-            } else {
-                manifest.srcFile 'src/main/AndroidManifest.xml'
-                java {
-                    exclude 'debug/**'
-                }
-            }
-        }
-    }
-
-    buildToolsVersion = '29.0.1'
-}
-
-
-dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-
-
-    implementation rootProject.ext.dependencies.kotlinSdk
-    implementation rootProject.ext.dependencies.superAppcompat
-    implementation rootProject.ext.dependencies.superXCore
-    implementation rootProject.ext.dependencies.superConstraintlayout
-    testImplementation rootProject.ext.dependencies.junitSdk
-    androidTestImplementation rootProject.ext.dependencies.testRunAndroidSdk
-    androidTestImplementation rootProject.ext.dependencies.esoressoRunAndroidSdk
-
-    implementation project(':commonlibrary')
-
-    implementation project(':routercompilecore')
-    implementation project(':routerAnnotation')
-    //引入注解
-    kapt project(':routercompile')
-
-}
-
-
-
-kapt {
-    correctErrorTypes = true
-    arguments {
-        arg("RouterModule", project.name)
     }
 }
+

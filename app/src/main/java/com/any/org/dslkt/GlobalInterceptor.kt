@@ -1,6 +1,7 @@
 package com.any.org.dslkt
 
 import android.content.Context
+import com.any.org.commonlibrary.CustomToast
 import com.any.org.commonlibrary.LOGIN
 import com.any.org.commonlibrary.log.KLog
 import com.any.org.commonlibrary.provide.ShareDataProvide
@@ -31,6 +32,7 @@ class GlobalInterceptor : IInterceptor {
             routerConfig.resumeKey = rKey
             Router.addResumeRouter(routerConfig)
             KLog.e( "后续拦截器不再拦截")
+            CustomToast.showMsg(routerConfig.context,"检查到没有登录，去登录")
             //跳转到目标
             Router.jump(routerConfig.context) {
                 target = LOGIN

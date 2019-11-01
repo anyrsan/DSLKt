@@ -4,7 +4,7 @@
 
     <application>
 
-        <activity android:name=".NewsActivity"/>
+        <activity android:name=".ANewsActivity"/>
     </application>
 
 </manifest>

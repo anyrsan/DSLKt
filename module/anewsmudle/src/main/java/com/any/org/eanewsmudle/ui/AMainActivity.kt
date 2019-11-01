@@ -1,12 +1,14 @@
 package com.any.org.eanewsmudle.ui
 
 import com.any.org.ankolibrary.set
+import com.any.org.commonlibrary.MVVM
 import com.any.org.commonlibrary.ui.BaseVBActivity
 import com.any.org.eanewsmudle.R
 import com.any.org.eanewsmudle.adapter.NewsFragmentAdapter
 import com.any.org.eanewsmudle.databinding.AMainActivityBinding
 import com.any.org.eanewsmudle.viewmodel.AMainViewModel
 import com.any.org.eanewsmudle.viewpresenter.PageChangeListener
+import com.any.routerannotation.KRouter
 import kotlinx.android.synthetic.main.a_main_activity.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -16,6 +18,8 @@ import org.koin.android.viewmodel.ext.android.viewModel
  * @time 2019/10/31 17.58
  * @details
  */
+
+@KRouter(MVVM)
 class AMainActivity : BaseVBActivity<AMainActivityBinding>() {
 
     // 注意，viewmodel 都是 延迟加载的

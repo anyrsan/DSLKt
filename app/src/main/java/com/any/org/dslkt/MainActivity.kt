@@ -1,7 +1,6 @@
 package com.any.org.dslkt
 
 
-import android.util.Log
 import com.any.org.commonlibrary.*
 import com.any.org.commonlibrary.event.viewOnClick
 import com.any.org.commonlibrary.log.KLog
@@ -60,6 +59,12 @@ class MainActivity : BaseActivity() {
                 callDefaultBack {
                     KLog.e("我是自己实现用户页面加载判断")
                 }
+            }
+        }
+
+        gotoANew.viewOnClick {
+            Router.jump(this){
+                target = MVVM
             }
         }
 

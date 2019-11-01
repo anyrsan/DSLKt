@@ -147,12 +147,12 @@ inline fun <reified T : Any> Context.intentFor(vararg params: Pair<String, Any?>
 //获取对应的参数值
 inline fun <reified T : Any> FragmentActivity.argument(key: String) =
     lazy {
-        intent?.extras?.get(key) as? T ?: error("Intent Argument $key is missing")
+        intent?.extras?.get(key) as? T ?: null
     }
 
 //获取对应的参数值
 inline fun <reified T : Any> Fragment.argument(key: String) = lazy {
-    activity?.intent?.extras?.get(key) as? T ?: error("Intent Argument $key is missing")
+    activity?.intent?.extras?.get(key) as? T ?: null
 }
 
 //直接取值 ，不存在
