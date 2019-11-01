@@ -1,15 +1,13 @@
 package com.any.org.eanewsmudle.di
 
-import android.app.Application
 import com.any.org.commonlibrary.net.NetManager
-import com.any.org.eanewsmudle.model.bean.NewsItemModel
-import com.any.org.eanewsmudle.model.bean.NewsModel
-import com.any.org.eanewsmudle.model.bean.YLNewsModel
-import com.any.org.eanewsmudle.model.local.NewsLocalProvider
-import com.any.org.eanewsmudle.model.remote.ANwNetProvider
-import com.any.org.eanewsmudle.model.remote.NewsNetProvider
-import com.any.org.eanewsmudle.model.repository.NewsRepository
-import com.any.org.eanewsmudle.viewmodel.*
+import com.any.org.eanewsmudle.model.local.ANewsLocalProvider
+import com.any.org.eanewsmudle.model.remote.ARemoteProvider
+import com.any.org.eanewsmudle.model.repository.ANewsRepository
+import com.any.org.eanewsmudle.viewmodel.AMainViewModel
+import com.any.org.eanewsmudle.viewmodel.SnViewModel
+import com.any.org.eanewsmudle.viewmodel.ThsViewModel
+import com.any.org.eanewsmudle.viewmodel.YlViewModel
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -19,46 +17,38 @@ import org.koin.dsl.module
  * @time 2019/10/28 10.24
  * @details 通过 koin 处理注入
  */
-
-
+//  single 是 单例模式
+//  factory 是 new对象
 val apiModule = module {
-
-    //完成自动注入
-    single { NetManager.create(NewsNetProvider.NewsApi::class.java) }
-
-    single { NetManager.create(ANwNetProvider.NewsApi::class.java) }
-
+    single { NetManager.create(ARemoteProvider.NewsApi::class.java) }
 }
 
-
-val netProviderModule = module {
-    //区别，如果有多个时  <T> ，加上泛型
-    single { NewsNetProvider(get()) }
-
-    single { ANwNetProvider(get()) }
+//远程提供
+val remoteProviderModule = module {
+    single { ARemoteProvider(get()) }
 }
 
+//本地提供
 val localProviderModule = module {
-
-    single { NewsLocalProvider() }
-
+    single { ANewsLocalProvider() }
 }
 
+// 仓库处理
 val repository = module {
-
-    single { NewsRepository(get(), get()) }
-
+    single { ANewsRepository(get(), get()) }
 }
+
+//  多个参数时，可以定义 表达式 通地 -> 定义，实际调用上，在构建viewmodel时，传入相应参数 ，详情见 TestActivity
+//  定义 viewModel { (app:Application,item:NewsItemModel) ->  TestViewModel(item,app,get())}
+//  viewModel<TestViewModel> { parametersOf(application,itemModel) }
 
 val viewModels = module {
-    viewModel { NewsViewModel(get()) }
-
-    viewModel { (app: Application, item: NewsItemModel) -> TestViewModel(item, app, get()) }
-
+    viewModel { AMainViewModel() }
+    viewModel { SnViewModel(get()) }
     viewModel { ThsViewModel(get()) }
-
-    viewModel { YLNewsViewModel(get()) }
+    viewModel { YlViewModel(get()) }
 }
 
 
-val appModules = listOf(apiModule, netProviderModule, localProviderModule, repository, viewModels)
+val appModules =
+    listOf(apiModule, remoteProviderModule, localProviderModule, repository, viewModels)

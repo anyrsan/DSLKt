@@ -6,10 +6,10 @@ import com.any.org.ankolibrary.subOnlyCode
 import com.any.org.commonlibrary.log.KLog
 import com.any.org.commonlibrary.ui.BaseVBActivity
 import com.any.org.eanewsmudle.R
-import com.any.org.eanewsmudle.adapter.YLItemAdapter
+import com.any.org.eanewsmudle.adapter.YlItemAdapter
 import com.any.org.eanewsmudle.adapter.decoration.ObserverItemDecoration
 import com.any.org.eanewsmudle.databinding.ANewsActivityBinding
-import com.any.org.eanewsmudle.viewmodel.YLNewsViewModel
+import com.any.org.eanewsmudle.viewmodel.YlViewModel
 import com.any.org.eanewsmudle.viewpresenter.LoadRefreshListener
 import com.any.org.eanewsmudle.viewpresenter.NDViewClickListener
 import com.any.org.eanewsmudle.viewpresenter.OnScrollListener
@@ -27,12 +27,12 @@ class ANewsActivity : BaseVBActivity<ANewsActivityBinding>() {
 
     //完成注入 sina
 //    private val newsViewModel by viewModel<NewsViewModel>()
-//    private val newsAdapter by lazy { NewsItemAdapter(newsViewModel.mList) }
+//    private val newsAdapter by lazy { SnItemAdapter(newsViewModel.mList) }
 
 
     //完成注入 yL
-    private val newsViewModel by viewModel<YLNewsViewModel>()
-    private val newsAdapter by lazy { YLItemAdapter(newsViewModel.mList) }
+    private val newsViewModel by viewModel<YlViewModel>()
+    private val newsAdapter by lazy { YlItemAdapter(newsViewModel.mList) }
 
     //自动关联数据
     //截面item

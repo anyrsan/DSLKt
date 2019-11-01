@@ -17,8 +17,8 @@ class ObserverItemDecoration<M : SectionModel>(context: Context, list: AdapterDa
 
     init {
         list.addListener(object : AdObserver<M> {
-            override fun updateData(t: List<M>?, news: Boolean) {
-                if (news) {
+            override fun updateData(t: List<M>?, new: Boolean) {
+                if (new) {
                     setData(t)
                 } else {
                     t?.let {

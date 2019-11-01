@@ -2,14 +2,10 @@ package com.any.org.eanewsmudle.ui
 
 import com.any.org.eanewsmudle.adapter.BaseItemAdapter
 import com.any.org.eanewsmudle.adapter.ThsItemAdapter
-import com.any.org.eanewsmudle.adapter.YLItemAdapter
 import com.any.org.eanewsmudle.databinding.ANewsThsAdapterBinding
-import com.any.org.eanewsmudle.databinding.ANewsYlAdapterBinding
 import com.any.org.eanewsmudle.model.bean.ThsItemModel
-import com.any.org.eanewsmudle.model.bean.YLNewsModel
 import com.any.org.eanewsmudle.viewmodel.BaseViewModel
 import com.any.org.eanewsmudle.viewmodel.ThsViewModel
-import com.any.org.eanewsmudle.viewmodel.YLNewsViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 
 /**
@@ -33,8 +29,5 @@ class ThsFragment :
         return ad
     }
 
-    companion object {
-        fun getInstance(): ThsFragment = ThsFragment()
-    }
 
 }

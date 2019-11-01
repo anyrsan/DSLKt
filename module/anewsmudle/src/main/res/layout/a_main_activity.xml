@@ -1,42 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/mainContainerRl"
-    android:background="@color/color_ffffff">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-    <LinearLayout
-        android:id="@+id/topLL"
+    <data>
+
+
+        <variable
+            name="pageChange"
+            type="com.any.org.eanewsmudle.viewpresenter.PageChangeListener" />
+
+        <variable
+            name="adapter"
+            type="androidx.fragment.app.FragmentPagerAdapter" />
+
+        <variable
+            name="vm"
+            type="com.any.org.eanewsmudle.viewmodel.AMainViewModel" />
+
+    </data>
+
+
+    <RelativeLayout
+        android:id="@+id/mainContainerRl"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:background="@color/color_ffffff">
 
-        <TextView
-            android:id="@+id/newsTv"
-            android:layout_width="wrap_content"
-            android:layout_height="45dp"
-            android:layout_gravity="center"
-            android:drawablePadding="5dp"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="国内要闻"
-            android:textSize="@dimen/ts_18"
-            android:textStyle="bold" />
 
-        <View
+        <LinearLayout
+            android:id="@+id/topLL"
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/color_f4f4f4" />
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/newsTv"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_gravity="center"
+                android:drawablePadding="5dp"
+                android:gravity="center"
+                android:padding="10dp"
+                tools:text="国内要闻"
+                android:text="@{vm.mTitle}"
+                android:textSize="@dimen/ts_18"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/color_f4f4f4" />
+        </LinearLayout>
 
 
-    <androidx.viewpager.widget.ViewPager
-        android:layout_below="@id/topLL"
-        android:id="@+id/viewPager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPager"
+            app:bindVPAdapter="@{adapter}"
+            app:bindPageChange="@{pageChange}"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/topLL" />
 
-</RelativeLayout>
+    </RelativeLayout>
 
+</layout>

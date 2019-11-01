@@ -11,6 +11,8 @@ import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
 import com.any.org.commonlibrary.CustomToast
 import com.any.org.commonlibrary.utils.StatusBarUtils
 
@@ -135,4 +137,14 @@ fun Activity.mToast(@StringRes stringId: Int) {
     runOnUiThread {
         CustomToast.showMsg(this, stringId)
     }
+}
+
+//扩展函数
+fun AppCompatActivity.createFragment(className:String):Fragment = run {
+    supportFragmentManager.fragmentFactory.instantiate(this.classLoader,className)
+}
+
+//处理初始化
+fun FragmentPagerAdapter.createFragment(mFragmentManager:FragmentManager,className: String):Fragment = run {
+    mFragmentManager.fragmentFactory.instantiate(this.javaClass.classLoader!!,className)
 }

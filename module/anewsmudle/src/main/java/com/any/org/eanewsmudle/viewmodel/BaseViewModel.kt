@@ -5,8 +5,6 @@ import androidx.lifecycle.ViewModel
 import com.any.org.ankolibrary.async
 import com.any.org.commonlibrary.log.KLog
 import com.any.org.eanewsmudle.adapter.obser.AdapterDataObserver
-import com.any.org.eanewsmudle.model.bean.YLNewsModel
-import com.any.org.eanewsmudle.model.repository.NewsRepository
 import io.reactivex.Observable
 
 /**

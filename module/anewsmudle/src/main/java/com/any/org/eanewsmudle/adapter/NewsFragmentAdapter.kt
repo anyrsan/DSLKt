@@ -3,10 +3,10 @@ package com.any.org.eanewsmudle.adapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.any.org.commonlibrary.ui.BaseFragment
-import com.any.org.eanewsmudle.ui.SinaFragment
+import com.any.org.commonlibrary.ui.createFragment
+import com.any.org.eanewsmudle.ui.SnFragment
 import com.any.org.eanewsmudle.ui.ThsFragment
-import com.any.org.eanewsmudle.ui.YLFragment
+import com.any.org.eanewsmudle.ui.YlFragment
 
 /**
  *
@@ -17,11 +17,13 @@ import com.any.org.eanewsmudle.ui.YLFragment
 class NewsFragmentAdapter(fm: FragmentManager) :
     FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
+    private val mTitle by lazy { arrayOf("娱乐新闻","新浪新闻","同花顺") }
+
     private val fragmentList by lazy {
-        mutableListOf<BaseFragment>(
-            ThsFragment(),
-            SinaFragment(),
-            YLFragment()
+        mutableListOf(
+            createFragment(fm, YlFragment::class.java.name),
+            createFragment(fm, SnFragment::class.java.name),
+            createFragment(fm, ThsFragment::class.java.name)
         )
     }
 
@@ -30,6 +32,10 @@ class NewsFragmentAdapter(fm: FragmentManager) :
     }
 
     override fun getCount(): Int = fragmentList.size
+
+    override fun getPageTitle(position: Int): CharSequence? {
+        return mTitle[position]
+    }
 
 
 }

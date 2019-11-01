@@ -23,3 +23,7 @@ interface OnScrollListener {
 interface NDViewClickListener {
     fun click(v: View)
 }
+
+interface PageChangeListener {
+    fun onPageSelect(position: Int)
+}

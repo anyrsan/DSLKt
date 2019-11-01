@@ -6,7 +6,7 @@
 
         <variable
             name="newsViewModel"
-            type="com.any.org.eanewsmudle.viewmodel.NewsViewModel" />
+            type="com.any.org.eanewsmudle.viewmodel.ThsViewModel" />
 
     </data>
 

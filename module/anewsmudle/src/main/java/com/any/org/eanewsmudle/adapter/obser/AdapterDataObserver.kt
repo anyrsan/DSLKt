@@ -8,9 +8,9 @@ package com.any.org.eanewsmudle.adapter.obser
  */
 class AdapterDataObserver<T> : AdObserver<T> {
 
-    override fun updateData(t: List<T>?, news: Boolean) {
+    override fun updateData(t: List<T>?, new: Boolean) {
         observerListeners.forEach {
-            it.updateData(t,news)
+            it.updateData(t,new)
         }
     }
 
