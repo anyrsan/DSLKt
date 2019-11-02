@@ -145,7 +145,7 @@ inline fun <reified T : Any> Context.intentFor(vararg params: Pair<String, Any?>
 
 
 //获取对应的参数值
-inline fun <reified T : Any> FragmentActivity.argument(key: String) =
+inline fun <reified T : Any> Activity.argument(key: String) =
     lazy {
         intent?.extras?.get(key) as? T ?: null
     }
@@ -156,13 +156,13 @@ inline fun <reified T : Any> Fragment.argument(key: String) = lazy {
 }
 
 //直接取值 ，不存在
-inline fun <reified T : Any> FragmentActivity.autoFill(key: String, default: T? = null): T? {
+inline fun <reified T : Any> Activity.autoFill(key: String, default: T? = null): T? {
     return intent?.extras?.get(key)?.let {
         if (it is T) it else default
     } ?: default
 }
 
-
+//直接取值 ，不存在
 inline fun <reified T : Any> Fragment.autoFill(key: String, default: T? = null): T? {
     return activity?.intent?.extras?.get(key)?.let {
         if (it is T) it else default
