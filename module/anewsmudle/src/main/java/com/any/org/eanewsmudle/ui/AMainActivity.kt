@@ -1,7 +1,9 @@
 package com.any.org.eanewsmudle.ui
 
+import com.any.org.ankolibrary.argument
 import com.any.org.ankolibrary.set
 import com.any.org.commonlibrary.MVVM
+import com.any.org.commonlibrary.log.KLog
 import com.any.org.commonlibrary.ui.BaseVBActivity
 import com.any.org.eanewsmudle.R
 import com.any.org.eanewsmudle.adapter.NewsFragmentAdapter
@@ -25,6 +27,8 @@ class AMainActivity : BaseVBActivity<AMainActivityBinding>() {
     // 注意，viewmodel 都是 延迟加载的
     private val aViewModel by viewModel<AMainViewModel>()
 
+    private val aKey  by argument<String>("aKey")
+
     private val fragmentAdapter by lazy { NewsFragmentAdapter(supportFragmentManager) }
 
     override fun getResourceId(): Int = R.layout.a_main_activity
@@ -46,6 +50,7 @@ class AMainActivity : BaseVBActivity<AMainActivityBinding>() {
     }
 
     override fun initGetIntent() {
+        KLog.e("aKey is null = $aKey")
     }
 
     override fun initData() {

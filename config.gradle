@@ -3,7 +3,7 @@ ext {
     /**
      * app pattern
      */
-    isApplication = false
+    isApplication = true
 
     androidVersion = [
             compileSdkVersion: 29,
@@ -64,6 +64,9 @@ ext {
             kotlinPoet           : "com.squareup:kotlinpoet:1.3.0",
 
 
+            // 权限库
+            rxPermissions          : "com.github.tbruyelle:rxpermissions:0.10.2",
+
             //第三方UI库
             adapterHelper        : "com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.45",
 
@@ -71,6 +74,7 @@ ext {
             // Glide
             GlideSdk             : 'com.github.bumptech.glide:glide:4.10.0',
             GlideCompilerSdk     : 'com.github.bumptech.glide:compiler:4.10.0'
+
 
 
     ]

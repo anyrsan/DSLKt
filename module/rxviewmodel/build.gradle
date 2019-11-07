@@ -1,0 +1,36 @@
+apply from: "../../module.build.gradle"
+def isApp = rootProject.ext.isApplication
+android {
+
+    defaultConfig {
+        if (isApp) {
+            applicationId "com.any.org.rxviewmodel"
+            multiDexEnabled true
+        }
+    }
+
+}
+
+
+dependencies {
+    implementation rootProject.ext.dependencies.kotlinSdk
+    implementation rootProject.ext.dependencies.superAppcompat
+    implementation rootProject.ext.dependencies.superXCore
+    implementation rootProject.ext.dependencies.superConstraintlayout
+    implementation rootProject.ext.dependencies.adapterHelper
+    implementation rootProject.ext.dependencies.koinSdk
+
+    //room
+    //    implementation 'androidx.room:room-runtime:2.0.0-rc01'
+    //    implementation 'androidx.room:room-rxjava2:2.0.0-rc01'
+    //    kapt 'androidx.room:room-compiler:2.0.0-rc01'
+
+    //     leakcanary sdk
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.3'
+    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.3'
+    // Optional, if you use support library fragments:
+    debugImplementation 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.3'
+
+    implementation 'com.uber.autodispose:autodispose:0.8.0'
+    implementation 'com.uber.autodispose:autodispose-android-archcomponents:0.8.0'
+}

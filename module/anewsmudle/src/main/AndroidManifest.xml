@@ -6,7 +6,7 @@
 
         <provider
             android:name=".app.AppContentProvider"
-            android:authorities="com.any.org.eanewsmudle.app.AppContentProvider"
+            android:authorities="com.any.org.eanewsmudle.app.provider"
             android:exported="false" />
 
         <activity android:name=".ui.AMainActivity" />

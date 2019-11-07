@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package com.any.org.ankolibrary
 
 import android.util.Log
@@ -5,6 +7,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import com.trello.lifecycle2.android.lifecycle.AndroidLifecycle
 import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
@@ -34,6 +37,15 @@ fun <T> Observable<T>.async(): Observable<T> =
     )
 
 
+fun <T> Single<T>.async(withDelay: Long = 0): Single<T> =
+    this.subscribeOn(Schedulers.io()).delay(withDelay, TimeUnit.MILLISECONDS).observeOn(
+        AndroidSchedulers.mainThread()
+    )
+
+fun <T> Single<T>.async(): Single<T> = this.subscribeOn(Schedulers.io()).observeOn(
+    AndroidSchedulers.mainThread()
+)
+
 //订阅
 fun <T> Observable<T>.subResult(onResult: ((t: T?, message: String?, errorCode: Int) -> Unit)? = null) {
     // 定义正确处理
@@ -55,7 +67,7 @@ fun <T> Observable<T>.subResult(onResult: ((t: T?, message: String?, errorCode: 
 fun <T> Observable<T>.subOnlyCode(onResult: ((errorCode: Int) -> Unit)? = null) {
     // 定义正确处理
     val onNext: (t: T) -> Unit = {
-        onResult?.invoke( 0)
+        onResult?.invoke(0)
     }
     //处理错误
     val onError: (t: Throwable) -> Unit = {

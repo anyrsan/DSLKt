@@ -42,7 +42,7 @@ fun handlerException(t: Throwable): CustomException {
             CustomException("解析异常", JSON_ERROR_CODE)
         }
 
-        is ConnectException, is SocketTimeoutException -> {
+        is ConnectException, is SocketTimeoutException-> {
             CustomException("连接异常", CONNECT_ERROR_CODE)
         }
 

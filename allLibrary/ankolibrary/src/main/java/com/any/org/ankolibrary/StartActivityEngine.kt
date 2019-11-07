@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package com.any.org.ankolibrary
 
 import android.app.Activity
@@ -80,8 +82,7 @@ object StartActivityEngine {
 
     private fun fillIntentArguments(intent: Intent, params: Array<out Pair<String, Any?>>) {
         params.forEach {
-            val value = it.second
-            when (value) {
+            when (val value = it.second) {
                 null -> intent.putExtra(it.first, null as Serializable?)
                 is Int -> intent.putExtra(it.first, value)
                 is Long -> intent.putExtra(it.first, value)
@@ -147,12 +148,12 @@ inline fun <reified T : Any> Context.intentFor(vararg params: Pair<String, Any?>
 //获取对应的参数值
 inline fun <reified T : Any> Activity.argument(key: String) =
     lazy {
-        intent?.extras?.get(key) as? T ?: null
+        intent?.extras?.get(key) as? T
     }
 
 //获取对应的参数值
 inline fun <reified T : Any> Fragment.argument(key: String) = lazy {
-    activity?.intent?.extras?.get(key) as? T ?: null
+    activity?.intent?.extras?.get(key) as? T
 }
 
 //直接取值 ，不存在

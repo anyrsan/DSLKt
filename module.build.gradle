@@ -68,6 +68,9 @@ dependencies {
     implementation rootProject.ext.dependencies.superAppcompat
     implementation rootProject.ext.dependencies.superXCore
     implementation rootProject.ext.dependencies.superConstraintlayout
+    implementation rootProject.ext.dependencies.rxPermissions
+
+
     testImplementation rootProject.ext.dependencies.junitSdk
     androidTestImplementation rootProject.ext.dependencies.testRunAndroidSdk
     androidTestImplementation rootProject.ext.dependencies.esoressoRunAndroidSdk

@@ -1,6 +1,7 @@
 package com.any.org.eanewsmudle.ui.deprecated
 
 import android.view.View
+import androidx.lifecycle.Observer
 import com.any.org.ankolibrary.bindLifecycle
 import com.any.org.ankolibrary.subOnlyCode
 import com.any.org.commonlibrary.log.KLog
@@ -9,12 +10,17 @@ import com.any.org.eanewsmudle.R
 import com.any.org.eanewsmudle.adapter.YlItemAdapter
 import com.any.org.eanewsmudle.adapter.decoration.ObserverItemDecoration
 import com.any.org.eanewsmudle.databinding.ANewsActivityBinding
+import com.any.org.eanewsmudle.model.remote.ARemoteProvider
+import com.any.org.eanewsmudle.model.repository.ANewsRepository
+import com.any.org.eanewsmudle.viewmodel.RxYlViewModel
 import com.any.org.eanewsmudle.viewmodel.YlViewModel
 import com.any.org.eanewsmudle.viewpresenter.LoadRefreshListener
 import com.any.org.eanewsmudle.viewpresenter.NDViewClickListener
 import com.any.org.eanewsmudle.viewpresenter.OnScrollListener
 import com.any.org.eanewsmudle.viewpresenter.vpresenter.NewPresenter
 import kotlinx.android.synthetic.main.a_news_activity.*
+import org.koin.android.ext.android.get
+import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 
 /**
@@ -28,6 +34,14 @@ class ANewsActivity : BaseVBActivity<ANewsActivityBinding>() {
     //完成注入 sina
 //    private val newsViewModel by viewModel<NewsViewModel>()
 //    private val newsAdapter by lazy { SnItemAdapter(newsViewModel.mList) }
+
+    private lateinit var api: ARemoteProvider.NewsApi
+
+    private val apiT by inject<ARemoteProvider.NewsApi> ()
+
+//
+//    private val rep by inject<ANewsRepository> ()
+//    private val rxYlVM by lazy { RxYlViewModel(rep) }
 
 
     //完成注入 yL
@@ -65,6 +79,9 @@ class ANewsActivity : BaseVBActivity<ANewsActivityBinding>() {
     }
 
     override fun initView() {
+
+        api = get()
+
         //设置线条
         mBinding.decoration= sectionDt
         // adapter
@@ -75,6 +92,12 @@ class ANewsActivity : BaseVBActivity<ANewsActivityBinding>() {
         mBinding.presenter = NewPresenter(clickListener,loadRefreshListener,onScrollListener)
         setStatusBarTransparent(true)
         setTopPadding(topRL)
+
+//
+//        //
+//        rxYlVM.dataL.observe(this, Observer{
+//
+//        })
 
     }
 
