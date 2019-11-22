@@ -1,14 +1,11 @@
 package com.any.org.rxviewmodel
 
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.Observer
+import com.any.org.ankolibrary.get
 import com.any.org.ankolibrary.startActivity
 import com.any.org.commonlibrary.log.KLog
 import com.any.org.commonlibrary.ui.BaseActivity
 import com.any.org.rxviewmodel.viewmodel.DataViewModel
 import com.tbruyelle.rxpermissions2.RxPermissions
-import com.uber.autodispose.AutoDispose
-import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -33,19 +30,35 @@ class MainActivity : BaseActivity() {
     }
 
     override fun initData() {
-        dataVM.mLd.observe(this, Observer {
-            //            KLog.e("获取到了值 ，我在Activity中监听  $it")
+
+
+        //        dataVM.mLd.observe(this, Observer {
+//            //            KLog.e("获取到了值 ，我在Activity中监听  $it")
+//            tempTv.text = "来自数据  $it"
+//        })
+
+//        dataVM.mOther.observe(this, Observer {
+//            otherTv.text = it
+//        })
+
+//        dataVM.close.observe(this, Observer {
+//            startActivity<TwoActivity>("text" to "Hello")
+//            finish()
+//        })
+
+
+        get(dataVM.mLd) {
             tempTv.text = "来自数据  $it"
-        })
+        }
 
-        dataVM.mOther.observe(this, Observer {
+        get(dataVM.mOther) {
             otherTv.text = it
-        })
+        }
 
-        dataVM.close.observe(this, Observer {
+        get(dataVM.close) {
             startActivity<TwoActivity>("text" to "Hello")
             finish()
-        })
+        }
 
         // 基础 方案， 也不会产生问题
         dataVM.getData()
@@ -71,7 +84,6 @@ class MainActivity : BaseActivity() {
 //            .subscribe { s: String ->
 //                KLog.e("获取的test  $s")
 //            }
-
 
 
     }

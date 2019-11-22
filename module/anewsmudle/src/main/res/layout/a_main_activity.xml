@@ -8,10 +8,6 @@
 
 
         <variable
-            name="pageChange"
-            type="com.any.org.eanewsmudle.viewpresenter.PageChangeListener" />
-
-        <variable
             name="adapter"
             type="androidx.fragment.app.FragmentPagerAdapter" />
 
@@ -58,7 +54,7 @@
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewPager"
             app:bindVPAdapter="@{adapter}"
-            app:bindPageChange="@{pageChange}"
+            app:bindPageChange="@{vm.onPageChangeListener}"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/topLL" />

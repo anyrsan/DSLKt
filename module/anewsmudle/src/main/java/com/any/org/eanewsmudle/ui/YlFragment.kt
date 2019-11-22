@@ -6,6 +6,7 @@ import com.any.org.eanewsmudle.databinding.ANewsYlAdapterBinding
 import com.any.org.eanewsmudle.model.bean.YLNewsModel
 import com.any.org.eanewsmudle.viewmodel.BaseViewModel
 import com.any.org.eanewsmudle.viewmodel.YlViewModel
+import org.koin.android.ext.android.get
 import org.koin.android.viewmodel.ext.android.viewModel
 
 /**
@@ -17,6 +18,9 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class YlFragment :
     NewsBaseFragment<YLNewsModel.DataBean, YLNewsModel, ANewsYlAdapterBinding>() {
 
+
+
+//    private val vm = get<YlViewModel>() 通过get 直接取值
     private val vm by viewModel<YlViewModel>()
 
     private val ad by lazy { YlItemAdapter(vm.mList) }

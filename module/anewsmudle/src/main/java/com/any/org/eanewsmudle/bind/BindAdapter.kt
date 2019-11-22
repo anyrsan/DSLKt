@@ -85,7 +85,8 @@ fun bindViewPagerAdapter(viewPager: ViewPager,adapter: FragmentPagerAdapter,page
     // 处理UI值数据
     viewPager.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
         override fun onPageSelected(position: Int) {
-            pageChange?.onPageSelect(position)
+            val title = adapter.getPageTitle(position)
+            pageChange?.getTitle(title)
         }
     })
 }

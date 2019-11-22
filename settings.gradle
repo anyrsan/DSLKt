@@ -4,13 +4,14 @@ include ':app'
 
 // moduel层
 include ':module'
-include ':loginmodule', ':usermodule', ':newsmodule', ':readmudole', ':anewsmudle',':rxviewmodel'
+include ':loginmodule', ':usermodule', ':newsmodule', ':readmudole', ':anewsmudle',':rxviewmodel',':onemodule'
 project(':loginmodule').projectDir = new File("module/loginmodule")
 project(':usermodule').projectDir = new File("module/usermodule")
 project(':newsmodule').projectDir = new File("module/newsmodule")
 project(':readmudole').projectDir = new File("module/readmudole")
 project(':anewsmudle').projectDir = new File("module/anewsmudle")
 project(':rxviewmodel').projectDir = new File("module/rxviewmodel")
+project(':onemodule').projectDir = new File("module/onemodule")
 
 
 //库项目引入

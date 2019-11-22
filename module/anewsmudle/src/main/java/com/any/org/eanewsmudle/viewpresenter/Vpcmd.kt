@@ -25,5 +25,5 @@ interface NDViewClickListener {
 }
 
 interface PageChangeListener {
-    fun onPageSelect(position: Int)
+    fun getTitle(title:CharSequence?)
 }

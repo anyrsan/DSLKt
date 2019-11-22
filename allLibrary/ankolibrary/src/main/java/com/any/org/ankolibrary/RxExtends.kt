@@ -3,8 +3,10 @@
 package com.any.org.ankolibrary
 
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import com.trello.lifecycle2.android.lifecycle.AndroidLifecycle
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -90,3 +92,7 @@ fun <T> MutableLiveData<T>.get(t: T): T = get() ?: t
 fun <T> MutableLiveData<T>.initData(t: T?) = MutableLiveData<T>().apply {
     postValue(t)
 }
+
+fun <T> AppCompatActivity.get(t:MutableLiveData<T>,value:(t:T?)->Unit) = t.observe(this, Observer {
+    value.invoke(it)
+})

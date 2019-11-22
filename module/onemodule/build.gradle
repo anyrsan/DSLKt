@@ -1,0 +1,27 @@
+apply from: "../../module.build.gradle"
+def isApp = rootProject.ext.isApplication
+android {
+
+    defaultConfig {
+        if (isApp) {
+            applicationId "com.any.org.onemodule"
+            multiDexEnabled true
+        }
+    }
+
+}
+
+
+dependencies {
+    implementation rootProject.ext.dependencies.kotlinSdk
+    implementation rootProject.ext.dependencies.superAppcompat
+    implementation rootProject.ext.dependencies.superXCore
+    implementation rootProject.ext.dependencies.superConstraintlayout
+    implementation rootProject.ext.dependencies.adapterHelper
+    implementation rootProject.ext.dependencies.koinSdk
+
+    //room
+    implementation 'androidx.room:room-runtime:2.1.0-alpha06'
+    implementation 'androidx.room:room-rxjava2:2.1.0-alpha06'
+    kapt 'androidx.room:room-compiler:2.1.0-alpha06'
+}

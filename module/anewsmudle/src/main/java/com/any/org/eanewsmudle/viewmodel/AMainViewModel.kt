@@ -2,6 +2,8 @@ package com.any.org.eanewsmudle.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.any.org.ankolibrary.set
+import com.any.org.eanewsmudle.viewpresenter.PageChangeListener
 
 /**
  * @author any
@@ -11,5 +13,11 @@ import androidx.lifecycle.ViewModel
 class AMainViewModel : ViewModel() {
 
     val mTitle = MutableLiveData<String>()
+
+    val onPageChangeListener = object : PageChangeListener{
+        override fun getTitle(title: CharSequence?) {
+            mTitle.set("$title")
+        }
+    }
 
 }

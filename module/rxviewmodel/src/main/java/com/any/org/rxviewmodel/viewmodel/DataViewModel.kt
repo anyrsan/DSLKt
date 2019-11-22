@@ -32,6 +32,7 @@ class DataViewModel(private val rep: NewRepository) : RxBaseViewModel() {
             }, {
                 KLog.e("有错误来了哦  $it")
             }, {
+                KLog.e("事件结束了")
                 close.set(true)
             })
         }
