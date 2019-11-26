@@ -2,12 +2,14 @@ package com.any.org.onemodule
 
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import com.any.org.ankolibrary.doAsyncTask
+import com.any.org.onemodule.data.CateApi
 import com.any.org.onemodule.extend.getTargetDate
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 import junit.framework.Assert.assertEquals
 import org.junit.Test
+import java.text.SimpleDateFormat
 import java.util.*
 
 /**
@@ -30,6 +32,20 @@ class ExampleUnitTest {
         println(Calendar.getInstance().getTargetDate(0, 1))
         println(Calendar.getInstance().getTargetDate())
 
+    }
+
+
+    @Test
+    fun formatDate() {
+
+        val date = "2019-11-25 06:00:00"
+        val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+
+        val result = sdf.parse(date)
+        println(result)
+
+        val a = sdf.format(result)
+        println(a)
     }
 
 
@@ -60,11 +76,11 @@ class ExampleUnitTest {
     fun testObservable() {
 
         // 按顺序执行，一次一个
-        Observable.concat(oneObservable(),twoObservable()).subscribeOn(Schedulers.io()).subscribe({
+        Observable.concat(oneObservable(), twoObservable()).subscribeOn(Schedulers.io()).subscribe({
             println("接收到了数据  $it")
-        },{
+        }, {
             println("产生异常了")
-        },{
+        }, {
 
         })
 
@@ -87,8 +103,6 @@ class ExampleUnitTest {
         println("执行完成")
 
     }
-
-
 
 
 }

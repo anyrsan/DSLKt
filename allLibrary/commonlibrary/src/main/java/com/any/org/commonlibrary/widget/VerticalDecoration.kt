@@ -8,8 +8,10 @@ import android.graphics.Rect
 import android.text.format.DateUtils
 import android.view.View
 import androidx.annotation.ColorRes
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.any.org.commonlibrary.R
+import com.any.org.commonlibrary.log.KLog
 import com.any.org.commonlibrary.provide.ColorProvide
 
 /**
@@ -42,7 +44,6 @@ class VerticalDecoration(
         parent: RecyclerView,
         state: RecyclerView.State
     ) {
-        super.getItemOffsets(outRect, view, parent, state)
         val position = parent.getChildAdapterPosition(view)
         if (position != 0) {
             outRect.top = mVerticalSpacing
@@ -53,23 +54,25 @@ class VerticalDecoration(
         if (position == lastPosition - 1 && isLastExpand) {  //多预留空间
             outRect.bottom = mLastSpacing
         }
-
-
     }
 
     override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
         val childCount = parent.childCount
+        if (childCount == 0) return
         val left = parent.paddingLeft
         val right = parent.width - parent.paddingRight
         val lastPosition = parent.adapter?.itemCount ?: 0
-        for (i in 0 until childCount - 1) {   //下标从0开始  如果有15个view 则是0..14 所以最后一个是14
-            val view = parent.getChildAt(i)
-            val position = parent.getChildAdapterPosition(view)
-            val bgColor = ColorProvide.getColor(position)
-            mPaint.color = Color.parseColor(bgColor)
-            //绘制
-            drawTopRect(view, left.toFloat(), right.toFloat(), c, position, lastPosition - 1)
+        val layout = parent.layoutManager as LinearLayoutManager
+        val firstP = layout.findFirstVisibleItemPosition()
+        val lastP = layout.findLastVisibleItemPosition()
+        for (i in firstP..lastP) {
+            val view = layout.findViewByPosition(i)
+            view?.let {
+                drawTopRect(it, left.toFloat(), right.toFloat(), c, i, lastPosition - 1)
+            }
         }
+
+
     }
 
 
@@ -94,9 +97,9 @@ class VerticalDecoration(
         c.drawRect(left, top.toFloat(), right, bottom.toFloat(), mPaint)
 
         // 最后一个要加上本身的高度，然后还要加上top的高度
-        if (position + 1 == lastPosition && isLastExpand) {
-            val top = view.bottom + view.height + mVerticalSpacing
-            val bottom = top + mLastSpacing
+        if (position == lastPosition && isLastExpand) {
+            val top = view.bottom
+            val bottom = view.bottom + mLastSpacing
             c.drawRect(left, top.toFloat(), right, bottom.toFloat(), mPaint)
         }
     }

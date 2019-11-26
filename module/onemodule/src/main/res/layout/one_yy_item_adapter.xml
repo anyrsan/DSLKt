@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="oneDM"
+            type="com.any.org.onemodule.model.OneDataItemModel" />
+
+        <variable
+            name="auther"
+            type="com.any.org.onemodule.model.OneAuthorModel" />
+
+        <import type="com.any.org.onemodule.data.CateApi" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:padding="15dp"
+            android:text="@{CateApi.getCateTitle(oneDM.category)}"
+            android:textColor="@color/color_999999" />
+
+
+        <TextView
+            android:text="@{oneDM.title}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:textColor="@color/color_666666"
+            android:textSize="20dp"
+            tools:text="偷走那瓶橘子汽水" />
+
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:paddingTop="3dp"
+            android:text="@{CateApi.getMsg(auther.user_name)}"
+            android:textColor="@color/color_999999"
+            tools:text="文/吴小眼" />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="15dp">
+
+            <View
+                android:background="#f4f4f4"
+                android:layout_width="150dp"
+                android:layout_height="1dp"/>
+
+            <ImageView
+                android:scaleType="centerCrop"
+                app:isCircle="@{true}"
+                app:url="@{oneDM.img_url}"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_centerInParent="true" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_play_circle_filled_black_24dp" />
+
+            <View
+                android:layout_alignParentBottom="true"
+                android:background="#f4f4f4"
+                android:layout_width="150dp"
+                android:layout_height="1dp"/>
+
+        </RelativeLayout>
+
+
+        <TextView
+            android:text="@{oneDM.subtitle}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/color_999999"
+            tools:text="距离2020年还有40天，距离2020年还有40天，距离2020年还有40天。" />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:padding="15dp">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:textColor="@color/color_999999"
+                android:textSize="16dp"
+                android:text="@{CateApi.convertDate(oneDM.post_date)}"
+                tools:text="今天" />
+
+
+            <TextView
+                android:id="@+id/OneFavTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="60dp"
+                android:drawableLeft="@drawable/ic_favorite_black_24dp"
+                tools:text="17"
+                android:text="@{CateApi.formatString(oneDM.like_count)}"
+                android:textColor="@color/color_666666"
+                android:textSize="8dp" />
+
+
+            <ImageView
+                android:id="@+id/oneShareTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="15dp"
+                android:src="@drawable/ic_share_black_24dp" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</layout>
+

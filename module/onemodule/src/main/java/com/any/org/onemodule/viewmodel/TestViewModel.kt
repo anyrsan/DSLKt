@@ -24,13 +24,13 @@ class TestViewModel(private val rep: OneRepository) : BaseViewModel() {
     val articleData by lazy { MutableLiveData<ArticleDetailModel>() }
 
     fun loadOne(view: View) {
-        launch {
-            rep.getOneData().async().subscribe({
-                oneData.set(it)
-            }, {
-                KLog.e("异常 $it")
-            }, {})
-        }
+//        launch {
+//            rep.getOneData().async().subscribe({
+//                oneData.set(it)
+//            }, {
+//                KLog.e("异常 $it")
+//            }, {})
+//        }
     }
 
     fun getArticle(view: View) {

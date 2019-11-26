@@ -10,7 +10,7 @@ import io.reactivex.Observable
  * @time 2019/11/1 14.15
  * @details
  */
-class ThsViewModel(private val rep: ANewsRepository) :
+class  ThsViewModel(private val rep: ANewsRepository) :
     BaseViewModel<ThsItemModel, List<ThsItemModel>>() {
 
 

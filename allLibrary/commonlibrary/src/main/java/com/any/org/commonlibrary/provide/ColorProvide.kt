@@ -1,7 +1,5 @@
 package com.any.org.commonlibrary.provide
 
-import android.view.View
-
 /**
  *
  * @author any

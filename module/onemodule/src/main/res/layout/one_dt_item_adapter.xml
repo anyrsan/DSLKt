@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="oneDM"
+            type="com.any.org.onemodule.model.OneDataItemModel" />
+
+        <variable
+            name="auther"
+            type="com.any.org.onemodule.model.OneAuthorModel" />
+
+        <import type="com.any.org.onemodule.data.CateApi" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="360dp"
+        android:layout_height="200dp"
+        android:background="#00bb22">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:text="ONE\n电台"
+            android:textColor="@color/color_ffffff" />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:gravity="center_vertical">
+
+
+            <ImageView
+                android:id="@+id/oneAuthorIv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_radio_button_checked_black_24dp" />
+
+            <TextView
+                android:id="@+id/oneNameTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/oneAuthorIv"
+                android:textColor="@color/color_999999"
+                tools:text="马小数" />
+
+
+            <TextView
+                android:id="@+id/OneFavTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="60dp"
+                android:drawableLeft="@drawable/ic_favorite_black_24dp"
+                android:text="@{CateApi.formatString(oneDM.like_count)}"
+                android:textColor="@color/color_666666"
+                android:textSize="8dp"
+                tools:text="17" />
+
+
+            <ImageView
+                android:id="@+id/oneShareTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="15dp"
+                android:src="@drawable/ic_share_black_24dp" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+</layout>
+

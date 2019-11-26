@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="refreshListener"
+            type="com.any.org.onemodule.viewevent.LoadRefreshListener" />
+
+        <variable
+            name="vm"
+            type="com.any.org.onemodule.viewmodel.OneViewModel" />
+
+        <variable
+            name="adapter"
+            type="com.any.org.onemodule.adapter.OneAdapter" />
+
+        <variable
+            name="weather"
+            type="com.any.org.onemodule.model.OneDataWeatherModel" />
+
+        <variable
+            name="date"
+            type="String" />
+
+        <import type="com.any.org.onemodule.data.CateApi" />
+
+    </data>
+
+    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/topRl"
+        android:layout_width="360dp"
+        android:background="@color/color_ffffff"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- 天气信息 -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp">
+
+            <TextView
+                android:id="@+id/oneDateTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_333333"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:convertDate="@{date}"
+                tools:text="22 [11.2019]" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/oneDateTv"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/oneDateTv"
+                android:src="@drawable/ic_play_arrow_black_24dp" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/oneDateTv"
+                android:layout_alignParentRight="true"
+                android:text="@{CateApi.formatWeather(weather)}"
+                android:textColor="@color/color_999999"
+                tools:text="深圳 晴 25C" />
+
+
+        </RelativeLayout>
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/oneRefreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:bindRefreshListener="@{refreshListener}"
+            app:refreshing="@{vm.isLoad}">
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/oneRecycleView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:bindAdapter="@{adapter}" />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    </LinearLayout>
+</layout>
+

@@ -1,6 +1,7 @@
 package debug
 
 import android.app.Application
+import com.any.org.commonlibrary.auto.AutoSizeManager
 
 /**
  *
@@ -12,5 +13,7 @@ class OneApp :Application(){
 
     override fun onCreate() {
         super.onCreate()
+        //进行绑定
+        AutoSizeManager(this).registerLifecycleCallbacks()
     }
 }

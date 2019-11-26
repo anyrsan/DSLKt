@@ -19,7 +19,7 @@ class OneRepository(
 ) {
 
 
-    fun getOneData(date: String = Calendar.getInstance().getTargetDate(), address: String = "深圳") =
+    fun getOneData(date: String , address: String ) =
         kotlin.run {
             netProvider.getOneData(date, address)
         }
