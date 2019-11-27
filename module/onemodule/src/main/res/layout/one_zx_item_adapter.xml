@@ -96,7 +96,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="60dp"
                 android:drawableLeft="@drawable/ic_favorite_black_24dp"
-                android:text="@{CateApi.formatString(oneDM.like_count)}"
+                android:text="@{String.valueOf(oneDM.like_count)}"
                 android:textColor="@color/color_666666"
                 android:textSize="8dp"
                 tools:text="17" />

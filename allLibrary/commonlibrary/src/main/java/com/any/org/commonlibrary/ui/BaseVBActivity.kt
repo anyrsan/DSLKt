@@ -24,4 +24,8 @@ abstract class BaseVBActivity<VB : ViewDataBinding> : BaseActivity() {
 
     }
 
+    override fun initEvent() {
+
+    }
+
 }

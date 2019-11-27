@@ -1,5 +1,8 @@
 package com.any.org.onemodule.extend
 
+import com.any.org.commonlibrary.log.KLog
+import com.any.org.onemodule.model.OneMonthSubModel
+import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -36,5 +39,20 @@ inline fun Calendar.getTargetDate(type: Int = 0, diffNum: Int = 0, date: String?
     }
 
 
+//增加函数
+infix fun OneMonthSubModel.getMonthFromDate(date: String?): String {
+    try {
+        KLog.e("输出日期  $date")
+        if (date.isNullOrEmpty()) return "未知日期"
+        val format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        val targetDate = format.parse(date)
+        val calendar = Calendar.getInstance()
+        calendar.time = targetDate
+        return "${calendar.get(Calendar.MONTH) + 1}月"
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
+    return "异常"
+}
 
 

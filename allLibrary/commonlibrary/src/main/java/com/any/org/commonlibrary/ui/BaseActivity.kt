@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.fragment.app.FragmentTransaction
 import com.any.org.commonlibrary.CustomToast
 import com.any.org.commonlibrary.utils.StatusBarUtils
 
@@ -72,6 +73,7 @@ abstract class BaseActivity : AppCompatActivity() {
      */
     protected fun replaceFragment(fragment: Fragment, @IdRes rId: Int) {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
+        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
         fragmentTransaction.replace(rId, fragment)
         fragmentTransaction.commitAllowingStateLoss()
     }
@@ -82,6 +84,7 @@ abstract class BaseActivity : AppCompatActivity() {
      */
     protected fun removeFragment(fragment: Fragment) {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
+        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
         fragmentTransaction.remove(fragment)
         fragmentTransaction.commitAllowingStateLoss()
     }

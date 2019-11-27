@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <data>
+
+        <variable
+            name="monthAdapter"
+            type="com.any.org.onemodule.adapter.MonthMainAdapter" />
+
+        <variable
+            name="dateText"
+            type="String" />
+
+        <variable
+            name="loadListener"
+            type="com.any.org.onemodule.viewevent.LoadScrollListener" />
+
+    </data>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_ffffff">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/dateTv"
+            android:orientation="vertical"
+            app:bindLoadListener="@{loadListener}"
+            app:bindAdapter="@{monthAdapter}"
+            app:bindItemDecoration="@{false}" />
+
+
+        <TextView
+            android:text="@{dateText}"
+            tools:text="2019年11月"
+            android:gravity="center"
+            android:id="@+id/dateTv"
+            android:background="@color/color_f9f9f9"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+
+</layout>

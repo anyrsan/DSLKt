@@ -3,12 +3,16 @@ package com.any.org.onemodule.viewmodel
 import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.MutableLiveData
 import com.any.org.ankolibrary.async
+import com.any.org.ankolibrary.get
 import com.any.org.ankolibrary.set
 import com.any.org.commonlibrary.log.KLog
 import com.any.org.onemodule.data.repository.OneRepository
 import com.any.org.onemodule.extend.getTargetDate
 import com.any.org.onemodule.model.OneDataModel
+import com.any.org.onemodule.model.OneMonthModel
+import com.any.org.onemodule.model.OneMonthSubModel
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  *
@@ -23,14 +27,18 @@ class OneViewModel(private val oneRep: OneRepository) : BaseViewModel() {
 
     val dataModel = MutableLiveData<OneDataModel>()
 
+    val dataMonths = MutableLiveData<ArrayList<OneMonthModel>>()
+
+    //处理多个
+    private val listMons = ArrayList<OneMonthModel>()
 
     fun getOneData(
-        isRefrsh: Boolean = false,
+        isRefresh: Boolean = false,
         date: String = Calendar.getInstance().getTargetDate(),
         address: String = "深圳"
     ) {
         //开启加载
-        if (isRefrsh) {
+        if (isRefresh) {
             isLoad.set(true)
         }
 
@@ -49,5 +57,28 @@ class OneViewModel(private val oneRep: OneRepository) : BaseViewModel() {
         }
 
     }
+
+
+    //获取指定月分数据
+    fun getMonthData(
+        month: String = Calendar.getInstance().getTargetDate(1),
+        isAdd: Boolean = false
+    ) {
+        launch {
+            //清除列表
+            if(!isAdd){
+                listMons.clear()
+            }
+            oneRep.getMonthData(month).async(300).doAfterSuccess {
+                it.date = month
+            }.subscribe { t1, t2 ->
+                // 处理值
+                listMons.add(t1)
+                dataMonths.set(listMons)
+                // t2 是出错了
+            }
+        }
+    }
+
 
 }

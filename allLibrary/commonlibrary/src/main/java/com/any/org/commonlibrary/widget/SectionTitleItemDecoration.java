@@ -8,6 +8,7 @@ import android.text.TextPaint;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,12 +17,11 @@ import com.any.org.commonlibrary.log.KLog;
 import com.any.org.commonlibrary.model.SectionModel;
 import com.any.org.commonlibrary.utils.DensityUtil;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class SectionItemDecoration extends RecyclerView.ItemDecoration {
+public class SectionTitleItemDecoration extends RecyclerView.ItemDecoration {
     private List<SectionModel> mData;
     private Paint mBgPaint;
     private TextPaint mTextPaint;
@@ -30,12 +30,8 @@ public class SectionItemDecoration extends RecyclerView.ItemDecoration {
     private int mSectionHeight;
     private int mTextSize;
 
-    private float paddingLeft;
-
-    public SectionItemDecoration(Context context, List<SectionModel> data) {
-         setData(data);
-
-
+    public SectionTitleItemDecoration(Context context, List<SectionModel> data) {
+        setData(data);
         mSectionHeight = DensityUtil.dp2px(context.getResources(), 35f);
 
         mBgPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -48,12 +44,9 @@ public class SectionItemDecoration extends RecyclerView.ItemDecoration {
         mTextPaint.setTextSize(mTextSize);
 
         mBounds = new Rect();
-
-        paddingLeft = DensityUtil.dip2px(context, 10);
-
     }
 
-    public void setData(List<SectionModel> data) {
+    public void setData(@Nullable List<SectionModel> data) {
         this.mData = data == null ? new ArrayList() : data;
     }
 
@@ -76,12 +69,10 @@ public class SectionItemDecoration extends RecyclerView.ItemDecoration {
             int position = params.getViewLayoutPosition();
             if (mData != null && !mData.isEmpty() && position <= mData.size() - 1 && position > -1) {
                 if (position == 0) {
-//                    drawSection(c, left, right, child, params, position);
-                } else {
-                    if (null != mData.get(position).sectionTitle()
-                            && !mData.get(position).sectionTitle().equals(mData.get(position - 1).sectionTitle())) {
-                        drawSection(c, left, right, child, params, position);
-                    }
+
+                } else if (null != mData.get(position).sectionTitle()
+                        && !mData.get(position).sectionTitle().equals(mData.get(position - 1).sectionTitle())) {
+                    drawSection(c, left, right, child, params, position);
                 }
             }
         }
@@ -99,40 +90,9 @@ public class SectionItemDecoration extends RecyclerView.ItemDecoration {
                 word.length(),
                 mBounds);
         c.drawText(word,
-                paddingLeft,
+                child.getLeft() - params.leftMargin - (child.getWidth() / 2 - mBounds.width() / 2),
                 child.getTop() - params.topMargin - (mSectionHeight / 2 - mBounds.height() / 2),
                 mTextPaint);
-    }
-
-    @Override
-    public void onDrawOver(Canvas c, RecyclerView parent, RecyclerView.State state) {
-        int pos = ((LinearLayoutManager) (parent.getLayoutManager())).findFirstVisibleItemPosition();
-        if (pos < 0) return;
-        if (mData == null || mData.isEmpty()) return;
-        String section = mData.get(pos).sectionTitle();
-        View child = parent.findViewHolderForLayoutPosition(pos).itemView;
-
-        boolean flag = false;
-        if ((pos + 1) < mData.size()) {
-            if (null != section && !section.equals(mData.get(pos + 1).sectionTitle())) {
-                if (child.getHeight() + child.getTop() < mSectionHeight) {
-                    c.save();
-                    flag = true;
-                    c.translate(0, child.getHeight() + child.getTop() - mSectionHeight);
-                }
-            }
-        }
-        c.drawRect(parent.getPaddingLeft(),
-                parent.getPaddingTop(),
-                parent.getRight() - parent.getPaddingRight(),
-                parent.getPaddingTop() + mSectionHeight, mBgPaint);
-        mTextPaint.getTextBounds(section, 0, section.length(), mBounds);
-        c.drawText(section,
-                paddingLeft,
-                parent.getPaddingTop() + mSectionHeight - (mSectionHeight / 2 - mBounds.height() / 2),
-                mTextPaint);
-        if (flag)
-            c.restore();
     }
 
     @Override

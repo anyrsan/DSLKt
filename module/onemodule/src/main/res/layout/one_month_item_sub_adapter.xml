@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+      <variable
+          name="monthDM"
+          type="com.any.org.onemodule.model.OneMonthSubModel" />
+
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="150dp">
+
+
+        <ImageView
+            android:scaleType="centerCrop"
+            app:url="@{monthDM.cover}"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"/>
+
+        <TextView
+            tools:text="2019/10/10"
+            android:text="@{monthDM.date}"
+            android:textSize="14dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:textColor="@color/color_666666"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+</layout>
+

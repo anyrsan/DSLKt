@@ -1,5 +1,7 @@
 package com.any.org.onemodule.viewevent
 
+import android.view.View
+
 /**
  *
  * @author any
@@ -12,4 +14,14 @@ package com.any.org.onemodule.viewevent
  */
 interface LoadRefreshListener {
     fun load(refresh: Boolean)
+}
+
+interface NDViewClick {
+    fun clickView(view: View)
+}
+
+interface LoadScrollListener {
+    fun getCurrPosition(position: Int)
+
+    fun needLoadMore(load: Boolean)
 }

@@ -12,4 +12,8 @@ class NetProvider(private  val api: NetApi) {
 
     fun getOneArticleDetail(cateEnType:String,itemId:String) = api.getOneArticleDetail(cateEnType,itemId)
 
+    fun getMonthData(month:String) = api.getMonthData(month)
+
+
+
 }

@@ -4,6 +4,7 @@ package com.any.org.ankolibrary
 
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
@@ -94,5 +95,9 @@ fun <T> MutableLiveData<T>.initData(t: T?) = MutableLiveData<T>().apply {
 }
 
 fun <T> AppCompatActivity.get(t:MutableLiveData<T>,value:(t:T?)->Unit) = t.observe(this, Observer {
+    value.invoke(it)
+})
+
+fun <T> Fragment.get(t:MutableLiveData<T>,value:(t:T?)->Unit) = t.observe(this, Observer {
     value.invoke(it)
 })

@@ -99,10 +99,6 @@ object CateApi {
 
 
     @JvmStatic
-    fun formatString(intValue: Int?) = intValue?.let { "$it" } ?: ""
-
-
-    @JvmStatic
     fun formatWeather(weather: OneDataWeatherModel?) =
         "${weather?.city_name} ${weather?.climate} ${weather?.temperature}°C"
 
@@ -118,6 +114,8 @@ object CateApi {
         )
         return spannableString
     }
+
+
 
 
 }

@@ -35,38 +35,38 @@ class TestViewModel(private val rep: OneRepository) : BaseViewModel() {
 
     fun getArticle(view: View) {
 
-        launch {
-            // id
-            val id = oneData.value?.data?.content_list?.get(0)?.id ?: "0"
-            // cateId
-            val cateId = oneData.value?.data?.content_list?.get(0)?.category?.toInt() ?: 0
-
-            KLog.e("id=$id   cateId = $cateId")
-
-//            doAsyncResultTask {
-////                val num = rep.deleteAll()
-////               KLog.e("删除数据  $num")
+//        launch {
+//            // id
+//            val id = oneData.value?.data?.content_list?.get(0)?.id ?: "0"
+//            // cateId
+//            val cateId = oneData.value?.data?.content_list?.get(0)?.category?.toInt() ?: 0
 //
-//               val result = rep.getArticle(id)
+////            KLog.e("id=$id   cateId = $cateId")
 //
-//               result.subscribe{it:ArticleDetailData,error:Throwable->
+////            doAsyncResultTask {
+//////                val num = rep.deleteAll()
+//////               KLog.e("删除数据  $num")
+////
+////               val result = rep.getArticle(id)
+////
+////               result.subscribe{it:ArticleDetailData,error:Throwable->
+////
+////                   KLog.e("实际  $it   $error")
+////
+////               }
+////
+////            }
 //
-//                   KLog.e("实际  $it   $error")
+////            rep.getArticleModel(id, cateId).async().subscribe { t1, t2 ->
+////
+////                articleData.set(t1)
+////
+////                KLog.e("出错了？？？。。。 $t2")
+////            }
 //
-//               }
 //
-//            }
-
-            rep.getArticleModel(id, cateId).async().subscribe { t1, t2 ->
-
-                articleData.set(t1)
-
-                KLog.e("出错了？？？。。。 $t2")
-            }
-
-
-
-        }
+//
+//        }
 
     }
 

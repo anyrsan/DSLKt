@@ -14,7 +14,7 @@
 
         <variable
             name="adapter"
-            type="com.any.org.onemodule.adapter.OneAdapter" />
+            type="com.any.org.onemodule.adapter.OneMainAdapter" />
 
         <variable
             name="weather"
@@ -24,6 +24,10 @@
             name="date"
             type="String" />
 
+        <variable
+            name="ndClick"
+            type="com.any.org.onemodule.viewevent.NDViewClick" />
+
         <import type="com.any.org.onemodule.data.CateApi" />
 
     </data>
@@ -31,12 +35,13 @@
     <LinearLayout xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/topRl"
         android:layout_width="360dp"
-        android:background="@color/color_ffffff"
         android:layout_height="match_parent"
+        android:background="@color/color_ffffff"
         android:orientation="vertical">
 
         <!-- 天气信息 -->
         <RelativeLayout
+            app:onNDClick="@{ndClick}"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:gravity="center_vertical"
@@ -53,13 +58,14 @@
                 app:convertDate="@{date}"
                 tools:text="22 [11.2019]" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <com.any.org.onemodule.widget.TriangleLabView
+                android:id="@+id/triangleLbv"
+                android:layout_width="6dp"
+                android:layout_height="6dp"
                 android:layout_alignBottom="@id/oneDateTv"
                 android:layout_marginLeft="5dp"
-                android:layout_toRightOf="@id/oneDateTv"
-                android:src="@drawable/ic_play_arrow_black_24dp" />
+                android:layout_marginBottom="5dp"
+                android:layout_toRightOf="@id/oneDateTv" />
 
 
             <TextView
@@ -74,21 +80,33 @@
 
         </RelativeLayout>
 
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/oneRefreshLayout"
+
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:bindRefreshListener="@{refreshListener}"
-            app:refreshing="@{vm.isLoad}">
+            android:layout_height="match_parent">
 
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/oneRecycleView"
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/oneRefreshLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:bindAdapter="@{adapter}" />
+                app:bindRefreshListener="@{refreshListener}"
+                app:refreshing="@{vm.isLoad}">
 
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/oneRecycleView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:bindAdapter="@{adapter}" />
+
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+            <FrameLayout
+                android:id="@+id/oneContainerFl"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </FrameLayout>
 
     </LinearLayout>
 </layout>
