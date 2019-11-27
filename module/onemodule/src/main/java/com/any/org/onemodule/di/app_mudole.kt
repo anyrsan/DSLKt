@@ -8,7 +8,6 @@ import com.any.org.onemodule.data.repository.OneRepository
 import com.any.org.onemodule.data.room.ArticleDatabase
 import com.any.org.onemodule.net.OneNetManager
 import com.any.org.onemodule.viewmodel.OneViewModel
-import com.any.org.onemodule.viewmodel.TestViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -68,8 +67,6 @@ val repModule = module {
 
 val viewModels = module {
    viewModel {
-       TestViewModel(get())
-
        OneViewModel(get())
    }
 }

@@ -2,7 +2,7 @@ package com.any.org.onemodule.adapter
 
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
-import com.any.org.commonlibrary.log.KLog
+import com.any.org.eventbuslibrary.RxNewBus
 import com.any.org.onemodule.BR
 import com.any.org.onemodule.R
 import com.any.org.onemodule.databinding.OneMonthItemSubAdapterBinding
@@ -24,6 +24,11 @@ class MonthSubAdapter : BaseAdapter<OneMonthSubModel>() {
     }
 
     override fun handlerVariable(dataBind: ViewDataBinding?, t: OneMonthSubModel) {
-        dataBind?.setVariable(BR.monthDM,t)
+        dataBind?.setVariable(BR.monthDM, t)
     }
+
+    override fun onClickItem(t: OneMonthSubModel) {
+        RxNewBus.postEvent(t)
+    }
+
 }

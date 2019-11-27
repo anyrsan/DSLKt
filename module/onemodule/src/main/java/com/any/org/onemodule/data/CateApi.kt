@@ -89,7 +89,7 @@ object CateApi {
                 "今天"
             } else {
                 format.applyPattern("MM-dd")
-                format.format(target)
+                format.format(targetDate)
             }
         } catch (e: Exception) {
             e.printStackTrace()

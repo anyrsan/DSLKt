@@ -16,8 +16,6 @@ import com.any.org.onemodule.model.OneMonthModel
  */
 class MonthMainAdapter : BaseAdapter<OneMonthModel>() {
 
-//    private val adapter by lazy { MonthSubAdapter() }
-
     override fun getViewType(t: OneMonthModel): Int = 0
 
     override fun makeBaseItemView(parent: ViewGroup, viewType: Int): BaseItemView<ViewDataBinding> {

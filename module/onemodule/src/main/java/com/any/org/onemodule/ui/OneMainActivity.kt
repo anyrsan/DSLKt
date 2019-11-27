@@ -6,9 +6,12 @@ import com.any.org.commonlibrary.auto.IAdjustDensity
 import com.any.org.commonlibrary.log.KLog
 import com.any.org.commonlibrary.ui.BaseVBActivity
 import com.any.org.commonlibrary.ui.createFragment
+import com.any.org.eventbuslibrary.RxNewBus
+import com.any.org.eventbuslibrary.ktanno.Subscribe
 import com.any.org.onemodule.R
 import com.any.org.onemodule.adapter.OneMainAdapter
 import com.any.org.onemodule.databinding.OneMainActivityBinding
+import com.any.org.onemodule.model.OneMonthSubModel
 import com.any.org.onemodule.viewevent.LoadRefreshListener
 import com.any.org.onemodule.viewevent.NDViewClick
 import com.any.org.onemodule.viewmodel.OneViewModel
@@ -41,17 +44,21 @@ class OneMainActivity : BaseVBActivity<OneMainActivityBinding>(), IAdjustDensity
 
     private val ndClick = object : NDViewClick {
         override fun clickView(view: View) {
-            KLog.e("msg...  clickView...")
-            if (isAdd) {
-                mBinding.triangleLbv.animRotation(false)
-                removeFragment(oneDateFragment)
-            } else {
-                mBinding.triangleLbv.animRotation(true)
-                //添加fragment
-                replaceFragment(oneDateFragment, R.id.oneContainerFl)
-            }
-            isAdd = !isAdd
+              handlerOneFragment()
         }
+    }
+
+    private fun handlerOneFragment(){
+        KLog.e("msg...  clickView...")
+        if (isAdd) {
+            mBinding.triangleLbv.animRotation(false)
+            removeFragment(oneDateFragment)
+        } else {
+            mBinding.triangleLbv.animRotation(true)
+            //添加fragment
+            replaceFragment(oneDateFragment, R.id.oneContainerFl)
+        }
+        isAdd = !isAdd
     }
 
     override fun initView() {
@@ -69,17 +76,32 @@ class OneMainActivity : BaseVBActivity<OneMainActivityBinding>(), IAdjustDensity
         // 处理数据
         setStatusBarTransparent(true)
         setTopPadding(mBinding.topRl)
-
+        RxNewBus.registerEvent(this)
     }
 
     override fun initData() {
-        oneVM.getOneData(true)
+
     }
 
 
     override fun lazyData() {
-
+        oneVM.getOneData(true)
     }
 
     override fun pxInDp(): Int = 360
+
+
+    //处理事件
+    @Subscribe
+    fun loadDate(t: OneMonthSubModel) {
+        handlerOneFragment()
+        KLog.e("收到事件了。。。 $t")
+        oneVM.getOneData(true,t.date)
+    }
+
+    override fun onDestroy() {
+        RxNewBus.unRegisterEvent(this)
+        super.onDestroy()
+    }
+
 }

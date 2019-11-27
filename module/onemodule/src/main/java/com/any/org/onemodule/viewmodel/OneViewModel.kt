@@ -23,7 +23,7 @@ import kotlin.collections.ArrayList
 class OneViewModel(private val oneRep: OneRepository) : BaseViewModel() {
 
 
-    val isLoad = ObservableBoolean()
+    val isLoad = ObservableBoolean(true)
 
     val dataModel = MutableLiveData<OneDataModel>()
 

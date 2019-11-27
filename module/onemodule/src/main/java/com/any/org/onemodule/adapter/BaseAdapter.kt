@@ -7,6 +7,7 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
+import com.any.org.commonlibrary.event.viewOnClick
 
 //fun <T> ArrayList<T>?.newInstance(): ArrayList<T> = this ?: arrayListOf()
 /**
@@ -84,12 +85,19 @@ abstract class BaseAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
 
     abstract fun handlerVariable(dataBind: ViewDataBinding?, t: T)
 
+    open fun onClickItem(t:T){
+
+    }
+
     inner class BaseItemView<VM : ViewDataBinding>(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
 
         private val dataBind by lazy { DataBindingUtil.bind<VM>(itemView) }
 
         fun setData(t: T) {
+            itemView.viewOnClick {
+                onClickItem(t)
+            }
             handlerVariable(dataBind, t)
             dataBind?.executePendingBindings()
         }
