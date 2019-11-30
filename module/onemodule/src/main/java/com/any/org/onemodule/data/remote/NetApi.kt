@@ -1,9 +1,7 @@
 package com.any.org.onemodule.data.remote
 
-import com.any.org.onemodule.model.ArticleDetailModel
 import com.any.org.onemodule.model.OneDataModel
 import com.any.org.onemodule.model.OneMonthModel
-import com.any.org.onemodule.model.OneMonthSubModel
 import com.any.org.onemodule.net.ARTICLE_DETAIL_URL
 import com.any.org.onemodule.net.ONE_DATA_URL
 import com.any.org.onemodule.net.ONE_MONTH_URL
@@ -27,7 +25,7 @@ interface NetApi {
 
 
     @GET(ARTICLE_DETAIL_URL)
-    fun getOneArticleDetail(@Path("type") cateEnType:String,@Path("itemId") itemId:String):Observable<ArticleDetailModel>
+    fun < T> getOneArticleDetail(@Path("type") cateEnType:String,@Path("itemId") itemId:String):Observable<T>
 
     @GET(ONE_MONTH_URL)
     fun getMonthData(@Path("month") month:String):Single<OneMonthModel>

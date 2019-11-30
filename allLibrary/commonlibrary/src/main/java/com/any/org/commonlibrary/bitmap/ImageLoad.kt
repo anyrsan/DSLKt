@@ -17,7 +17,7 @@ fun ImageView.load(url: String, isCircle: Boolean = false) = kotlin.run {
         Glide.with(context).load(url).centerCrop().apply(RequestOptions.circleCropTransform())
             .placeholder(R.drawable.toast_bg).into(this)
     } else {
-        Glide.with(context).load(url).centerCrop().placeholder(R.drawable.toast_bg)
+        Glide.with(context).load(url).centerCrop().placeholder(R.drawable.default_bg)
             .into(this)
     }
 }

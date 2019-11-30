@@ -11,7 +11,10 @@ import com.any.org.eventbuslibrary.ktanno.Subscribe
 import com.any.org.onemodule.R
 import com.any.org.onemodule.adapter.OneMainAdapter
 import com.any.org.onemodule.databinding.OneMainActivityBinding
+import com.any.org.onemodule.model.ArticleDetailModel
+import com.any.org.onemodule.model.OneDataItemModel
 import com.any.org.onemodule.model.OneMonthSubModel
+import com.any.org.onemodule.model.SerialContentModel
 import com.any.org.onemodule.viewevent.LoadRefreshListener
 import com.any.org.onemodule.viewevent.NDViewClick
 import com.any.org.onemodule.viewmodel.OneViewModel
@@ -44,11 +47,11 @@ class OneMainActivity : BaseVBActivity<OneMainActivityBinding>(), IAdjustDensity
 
     private val ndClick = object : NDViewClick {
         override fun clickView(view: View) {
-              handlerOneFragment()
+            handlerOneFragment()
         }
     }
 
-    private fun handlerOneFragment(){
+    private fun handlerOneFragment() {
         KLog.e("msg...  clickView...")
         if (isAdd) {
             mBinding.triangleLbv.animRotation(false)
@@ -96,8 +99,44 @@ class OneMainActivity : BaseVBActivity<OneMainActivityBinding>(), IAdjustDensity
     fun loadDate(t: OneMonthSubModel) {
         handlerOneFragment()
         KLog.e("收到事件了。。。 $t")
-        oneVM.getOneData(true,t.date)
+        oneVM.getOneData(true, t.date)
     }
+
+
+    //点击事件
+    @Subscribe
+    fun clickOneItemModel(t: OneDataItemModel) {
+        KLog.e("加载数据。。。 $t")
+        when(t.category){
+            "0" -> {
+                KLog.e("可以不处理")
+            }
+            "1" -> {
+                KLog.e("去阅读")
+            }
+            "2" ->{
+                KLog.e("连载")
+                t.item_id?.let {
+                    oneVM.getArticleOne<SerialContentModel>(t.category, it)
+                }
+            }
+            "3" ->{
+                KLog.e("问答")
+            }
+            "4" -> {
+                KLog.e("音乐")
+            }
+            "5" -> {
+                KLog.e("影视")
+            }
+            "8" -> {
+                KLog.e("电台")
+            }
+        }
+
+
+    }
+
 
     override fun onDestroy() {
         RxNewBus.unRegisterEvent(this)

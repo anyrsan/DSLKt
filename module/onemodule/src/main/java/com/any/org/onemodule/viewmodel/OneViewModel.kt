@@ -6,6 +6,8 @@ import com.any.org.ankolibrary.async
 import com.any.org.ankolibrary.get
 import com.any.org.ankolibrary.set
 import com.any.org.commonlibrary.log.KLog
+import com.any.org.dslnetlibrary.HttpBaseModel
+import com.any.org.onemodule.data.CateApi
 import com.any.org.onemodule.data.repository.OneRepository
 import com.any.org.onemodule.extend.getTargetDate
 import com.any.org.onemodule.model.OneDataModel
@@ -66,7 +68,7 @@ class OneViewModel(private val oneRep: OneRepository) : BaseViewModel() {
     ) {
         launch {
             //清除列表
-            if(!isAdd){
+            if (!isAdd) {
                 listMons.clear()
             }
             oneRep.getMonthData(month).async(300).doAfterSuccess {
@@ -76,6 +78,16 @@ class OneViewModel(private val oneRep: OneRepository) : BaseViewModel() {
                 listMons.add(t1)
                 dataMonths.set(listMons)
                 // t2 是出错了
+            }
+        }
+    }
+
+
+    fun <T> getArticleOne(cateType: String?, itemId: String) {
+        val cateEn = CateApi.getCateEn(cateType)
+        launch {
+            oneRep.getOneArticleDetail<T>(cateEn, itemId).async().subscribe {
+                KLog.e("msg", "获取到数据了。  $it")
             }
         }
     }

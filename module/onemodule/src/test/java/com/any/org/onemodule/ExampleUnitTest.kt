@@ -18,6 +18,25 @@ import java.util.*
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 class ExampleUnitTest {
+
+    @Test
+    fun testFor(){
+
+
+        for (m in 0 until 1){
+            run breaking@{
+                (0..10).forEach {
+                    if(it == 5){
+                        return@breaking
+                    }
+                    println(it)
+                }
+            }
+            println(".....ddddd")
+        }
+    }
+
+
     @Test
     fun addition_isCorrect() {
         assertEquals(4, 2 + 2)

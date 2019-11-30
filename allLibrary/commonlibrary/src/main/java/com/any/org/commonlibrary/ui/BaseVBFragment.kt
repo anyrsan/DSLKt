@@ -27,4 +27,10 @@ abstract class BaseVBFragment<VB : ViewDataBinding> : BaseFragment() {
         return mBinding?.root
     }
 
+
+    override fun onDestroy() {
+        mBinding?.unbind()
+        super.onDestroy()
+    }
+
 }

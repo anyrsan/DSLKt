@@ -32,6 +32,7 @@ class OneDataItemModel {
 
     var words_info: String? = null
 
+    var item_id:String?=null
 
     var author: OneAuthorModel? = null
 

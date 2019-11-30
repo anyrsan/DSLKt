@@ -20,8 +20,15 @@ dependencies {
     implementation rootProject.ext.dependencies.adapterHelper
     implementation rootProject.ext.dependencies.koinSdk
 
+    //扩展库
+    implementation rootProject.ext.dependencies.superVmKtx
+
     //room
     implementation 'androidx.room:room-runtime:2.1.0-alpha06'
     implementation 'androidx.room:room-rxjava2:2.1.0-alpha06'
     kapt 'androidx.room:room-compiler:2.1.0-alpha06'
+
+
+    //添加协程
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.0"
 }

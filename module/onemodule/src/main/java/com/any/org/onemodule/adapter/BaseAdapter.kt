@@ -85,6 +85,7 @@ abstract class BaseAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
 
     abstract fun handlerVariable(dataBind: ViewDataBinding?, t: T)
 
+    //给外层重写调用，并不是所有UI需要事件
     open fun onClickItem(t:T){
 
     }

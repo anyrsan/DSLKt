@@ -2,6 +2,7 @@ package com.any.org.onemodule.adapter
 
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
+import com.any.org.eventbuslibrary.RxNewBus
 import com.any.org.onemodule.BR
 import com.any.org.onemodule.R
 import com.any.org.onemodule.data.CateApi
@@ -46,5 +47,9 @@ class OneMainAdapter : BaseAdapter<OneDataItemModel>() {
     }
 
     override fun getViewType(t: OneDataItemModel): Int = CateApi.getType(t.category)
+
+    override fun onClickItem(t: OneDataItemModel) {
+        RxNewBus.postEvent(t)
+    }
 
 }

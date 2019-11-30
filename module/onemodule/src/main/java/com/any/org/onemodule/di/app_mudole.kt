@@ -4,9 +4,11 @@ import androidx.room.Room
 import com.any.org.onemodule.data.local.LocalProvider
 import com.any.org.onemodule.data.remote.NetApi
 import com.any.org.onemodule.data.remote.NetProvider
+import com.any.org.onemodule.data.remote.TestApi
 import com.any.org.onemodule.data.repository.OneRepository
 import com.any.org.onemodule.data.room.ArticleDatabase
 import com.any.org.onemodule.net.OneNetManager
+import com.any.org.onemodule.viewmodel.OneVM
 import com.any.org.onemodule.viewmodel.OneViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.dsl.viewModel
@@ -40,6 +42,10 @@ val apiModule = module {
         OneNetManager.create(NetApi::class.java)
     }
 
+    single {
+        OneNetManager.create(TestApi::class.java)
+    }
+
 }
 
 val remoteModule = module {
@@ -60,16 +66,21 @@ val localModule = module {
 
 val repModule = module {
     single {
-        OneRepository(get(),get())
+        OneRepository(get(), get())
     }
 }
 
 
 val viewModels = module {
-   viewModel {
-       OneViewModel(get())
-   }
+    viewModel {
+        OneViewModel(get())
+    }
+
+
+    viewModel {
+        OneVM(get())
+    }
 }
 
 
-val appModules = listOf(roomModule, apiModule, remoteModule, localModule,repModule,viewModels)
+val appModules = listOf(roomModule, apiModule, remoteModule, localModule, repModule, viewModels)

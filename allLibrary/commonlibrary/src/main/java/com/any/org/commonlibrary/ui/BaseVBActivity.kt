@@ -28,4 +28,10 @@ abstract class BaseVBActivity<VB : ViewDataBinding> : BaseActivity() {
 
     }
 
+
+    override fun onDestroy() {
+        mBinding.unbind()
+        super.onDestroy()
+    }
+
 }

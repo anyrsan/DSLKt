@@ -1,12 +1,10 @@
 package com.any.org.onemodule.data
 
-import android.annotation.SuppressLint
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.AbsoluteSizeSpan
 import com.any.org.commonlibrary.log.KLog
 import com.any.org.onemodule.model.OneDataWeatherModel
-import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -49,10 +47,20 @@ object CateApi {
         map
     }
 
-    val cateMenuZH by cateFullData(false)
+    private val cateMenuZH by cateFullData(false)
 
-    val cateMenuEN by cateFullData()
+    private val cateMenuEN by cateFullData()
 
+
+    fun getCateEn(cateType: String?): String {
+        return try {
+            val key = cateType?.toInt() ?: 0
+            return "${cateMenuEN[key]}"
+        } catch (e: Exception) {
+            e.printStackTrace()
+            "hp"
+        }
+    }
 
     @JvmStatic
     fun getCateTitle(cateType: String?): String {
@@ -109,13 +117,11 @@ object CateApi {
         spannableString.setSpan(
             AbsoluteSizeSpan(fontSize),
             index,
-            spannableString.length ,
+            spannableString.length,
             Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
         )
         return spannableString
     }
-
-
 
 
 }

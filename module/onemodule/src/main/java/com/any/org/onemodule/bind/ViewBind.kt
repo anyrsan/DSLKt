@@ -1,7 +1,6 @@
 package com.any.org.onemodule.bind
 
 import android.view.View
-import android.widget.AbsListView
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.Nullable
@@ -9,7 +8,6 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.any.org.commonlibrary.bitmap.load
 import com.any.org.commonlibrary.event.viewOnClick

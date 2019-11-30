@@ -44,6 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
             android:layout_marginTop="10dp"
             android:textColor="@color/color_666666"
             tools:text="每个人的心目中都有一位'时代ICON',\n每个人的生命中都有一段'向上马拉松'。" />

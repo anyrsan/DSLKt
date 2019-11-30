@@ -12,7 +12,6 @@ class ArticleDetailDataModel {
 
     var hp_title: String? = null
 
-
     var sub_title: String? = null
 
     var hp_author: String? = null

@@ -57,6 +57,9 @@ ext {
             superConstraintlayout: "androidx.constraintlayout:constraintlayout:1.1.3",
             superRecyclerView    : "androidx.recyclerview:recyclerview:1.0.0",
 
+            superLifecycleEx: "androidx.lifecycle:lifecycle-extensions:2.2.0-rc02",
+            superVmKtx :"androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0-rc02",
+
             superLocalbroadcast  : "androidx.localbroadcastmanager:localbroadcastmanager:1.0.0",
 
 
