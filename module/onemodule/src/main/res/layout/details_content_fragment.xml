@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.any.org.onemodule.viewmodel.DetailsViewModel" />
+
+        <variable
+            name="titleTypeName"
+            type="String" />
+
+        <import type="android.text.TextUtils" />
+
+        <import type="android.view.View" />
+
+        <variable
+            name="adapter"
+            type="com.any.org.onemodule.adapter.obser.BaseLoadAdapter" />
+
+    </data>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_ffffff">
+
+
+        <RelativeLayout
+            android:id="@+id/topRL"
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+
+            <ImageView
+                android:id="@+id/backIv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:padding="10dp"
+                android:src="@drawable/ic_arrow_back_24dp" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@{titleTypeName}"
+                android:textColor="@color/color_666666"
+                android:textSize="17sp" />
+
+        </RelativeLayout>
+
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/bottomRl"
+            android:layout_below="@id/topRL"
+            android:scrollbarStyle="insideOverlay"
+            android:scrollbars="vertical">
+
+            <LinearLayout
+                android:id="@+id/contentLl"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="@{vm.cTitle}"
+                    android:textColor="@color/color_333333"
+                    android:textSize="18sp"
+                    tools:text="这是标题" />
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{@string/author+vm.cAnchor}"
+                        android:textColor="@color/color_999999"
+                        android:textSize="12sp"
+                        tools:text="文/陈陈" />
+
+
+                    <ImageView
+                        android:visibility="@{vm.isMenu ? View.VISIBLE : View.GONE}"
+                        android:padding="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/ic_menu_black_24dp" />
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/default_bg"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="10dp"
+                    android:visibility="@{ TextUtils.isEmpty(vm.baseModel.audio) ? View.GONE : View.VISIBLE}"
+                    app:onNDClick="@{vm.ndClick}">
+
+
+                    <com.any.org.onemodule.widget.ChatAnimImageView
+                        android:id="@+id/animIv"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_marginLeft="5dp"
+                        android:src="@drawable/ic_voice_v_3"
+                        app:bindAnim="@{vm.animPlay}" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:text='@{@string/audio_books+vm.cAnchor}'
+                        android:textColor="@color/color_666666"
+                        android:textSize="12sp"
+                        tools:text="有声读物/陈陈" />
+
+
+                    <TextView
+                        android:id="@+id/audioTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="@{vm.progress}"
+                        android:textColor="@color/color_666666"
+                        android:textSize="12sp"
+                        tools:text="22:55" />
+
+                </RelativeLayout>
+
+
+                <WebView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:scrollbars="none"
+                    app:bindHtml="@{vm.cContent}" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:padding="5dp"
+                    android:text="评论列表"
+                    android:textColor="@color/color_666666"
+                    android:textSize="17sp" />
+
+                <!-- 虚线部分 -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:background="@drawable/line_x_gap"
+                    android:layerType="software" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/commentRv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    app:bindLoadAdapter="@{adapter}" />
+
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+
+        <include
+            android:id="@+id/bottomRl"
+            layout="@layout/details_bottom_layout"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/color_f4f4f4"
+            android:gravity="center_vertical"
+            bind:commentnum="@{String.valueOf(vm.baseModel.commentnum)}"
+            bind:praisenum="@{String.valueOf(vm.baseModel.praisenum)}"
+            bind:sharenum="@{String.valueOf(vm.baseModel.sharenum)}" />
+
+    </RelativeLayout>
+
+</layout>

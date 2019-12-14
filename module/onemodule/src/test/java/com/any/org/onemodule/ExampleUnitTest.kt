@@ -22,18 +22,43 @@ class ExampleUnitTest {
     @Test
     fun testFor(){
 
+//        val a = "25.05".toBigDecimal()*(12.toBigDecimal())
+//
+//        val b = "22.11".toDouble() * 12
+//
+//
+//        val m  = "11.22".toFloat()*1.5f
+//        println(m)
+//        val n = m.toDouble()
+//        println(n)
 
-        for (m in 0 until 1){
-            run breaking@{
-                (0..10).forEach {
-                    if(it == 5){
-                        return@breaking
-                    }
-                    println(it)
-                }
-            }
-            println(".....ddddd")
-        }
+
+//        for (m in 0 until 1){
+//            run breaking@{
+//                (0..10).forEach {
+//                    if(it == 5){
+//                        return@breaking
+//                    }
+//                    println(it)
+//                }
+//            }
+//            println(".....ddddd")
+//        }
+
+
+        //  180
+
+        val priceT = 5.20 * 2100
+
+        val result = 0.186 * 2100
+
+        println(priceT)
+
+        println(result)
+
+        val mm = 37.8 * 3
+        println(mm.times(1.0))
+
     }
 
 

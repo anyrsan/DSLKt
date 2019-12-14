@@ -14,10 +14,11 @@ const val BASE_URL = "http://v3.wufazhuce.com:8000/api/"
 //oneMainURL
 const val ONE_DATA_URL = "channel/one/{date}/{address}"
 //详情
-const val ARTICLE_DETAIL_URL="{type}/detail/{itemId}?channel=cool"
-
+const val ARTICLE_DETAIL_URL = "{type}/detail/{itemId}?channel=cool"
 // 月分
-const val ONE_MONTH_URL ="feeds/list/{month}?channel=cool"
+const val ONE_MONTH_URL = "feeds/list/{month}?channel=cool"
+//评论 支持分页
+const val COMMENT_DATA_URL = "comment/praiseandtime/{type}/{contentId}/{commentId}?channel=cool"
 
 object OneNetManager : RetrofitBaseApi(BASE_URL) {
     override fun rLog(message: String) {

@@ -9,24 +9,30 @@ package com.any.org.onemodule.model
 data class SerialContentModel(val res: Int, val data: SerialContentSubModel?)
 
 data class SerialContentSubModel(
-    val audio_duration: String,
     val author: OneAuthorModel,
     val charge_edt: String,
-    val commentnum: Int,
     val content: String,
     val copyright: String,
     val cover: String,
+    val editor_email: String,
     val enable_pay: String,
     val excerpt: String,
+    val hide_flag: String,
     val id: String,
+    val input_name: String,
     val last_update_date: String,
+    val last_update_name: String,
     val lastid: String,
     val maketime: String,
     val nextid: Int,
     val number: String,
-    val praisenum: Int,
     val read_num: String,
     val serial_id: String,
-    val sharenum: Int,
-    val title: String
-)
+    val start_video: String,
+    val title: String,
+    val top_media_file: String,
+    val top_media_image: String,
+    val top_media_type: String,
+    val anchor: String,
+    val web_url: String
+) : ContentDetailsModel()

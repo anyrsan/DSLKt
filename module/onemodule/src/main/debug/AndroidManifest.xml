@@ -18,7 +18,7 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
 
-        <activity android:name="com.any.org.onemodule.ui.TestActivity">
+        <activity android:name="com.any.org.onemodule.ui.OneMainActivity">
 
             <intent-filter>
 
@@ -40,6 +40,9 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/filepaths" />
         </provider>
+
+
+        <activity android:name=".ui.DetailsActivity" />
 
     </application>
 

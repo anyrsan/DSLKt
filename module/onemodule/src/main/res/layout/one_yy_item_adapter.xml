@@ -15,6 +15,10 @@
 
         <import type="com.any.org.onemodule.data.CateApi" />
 
+        <import type="com.any.org.onemodule.extend.StringEx"/>
+
+        <import type="com.any.org.onemodule.extend.DateEx"/>
+
     </data>
 
     <LinearLayout
@@ -48,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:paddingTop="3dp"
-            android:text="@{CateApi.getMsg(auther.user_name)}"
+            android:text="@{StringEx.getMsg(auther.user_name)}"
             android:textColor="@color/color_999999"
             tools:text="文/吴小眼" />
 
@@ -113,7 +117,7 @@
                 android:gravity="center"
                 android:textColor="@color/color_999999"
                 android:textSize="16dp"
-                android:text="@{CateApi.convertDate(oneDM.post_date)}"
+                android:text="@{DateEx.convertDate(oneDM.post_date)}"
                 tools:text="今天" />
 
 

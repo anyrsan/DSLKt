@@ -1,13 +1,5 @@
 package com.any.org.onemodule.data
 
-import android.text.SpannableString
-import android.text.Spanned
-import android.text.style.AbsoluteSizeSpan
-import com.any.org.commonlibrary.log.KLog
-import com.any.org.onemodule.model.OneDataWeatherModel
-import java.text.SimpleDateFormat
-import java.util.*
-
 /**
  *
  * @author any
@@ -63,64 +55,20 @@ object CateApi {
     }
 
     @JvmStatic
-    fun getCateTitle(cateType: String?): String {
+    @JvmOverloads
+    fun getCateTitle(cateType: String?, isLine: Boolean = true): String {
         return try {
             val key = cateType?.toInt() ?: 0
-            return "- ${cateMenuZH[key]} -"
+            return if (isLine) "- ${cateMenuZH[key]} -" else "${cateMenuZH[key]}"
         } catch (e: Exception) {
             e.printStackTrace()
-            "- 未知 -"
+            if (isLine) "- 未知 -" else "未知"
         }
     }
-
-    @JvmStatic
-    fun getMsg(msg: String?): String = if (msg.isNullOrEmpty()) "" else msg
 
 
     fun getType(cateType: String?): Int {
         return cateType?.toInt() ?: -1
-    }
-
-
-    //2019-11-25 06:00:00  //今天，日期
-    @JvmStatic
-    fun convertDate(date: String?): String {
-        try {
-            KLog.e("输出日期  $date")
-            if (date.isNullOrEmpty()) return "未知日期"
-            val format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-            val targetDate = format.parse(date)
-            format.applyPattern("yyyy-MM-dd")
-            val now = format.format(Date())
-            val target = format.format(targetDate)
-            return if (now == target) {
-                "今天"
-            } else {
-                format.applyPattern("MM-dd")
-                format.format(targetDate)
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-        return "异常"
-    }
-
-
-    @JvmStatic
-    fun formatWeather(weather: OneDataWeatherModel?) =
-        "${weather?.city_name} ${weather?.climate} ${weather?.temperature}°C"
-
-
-    fun getValue(fontSize: Int, bigValue: String, smallValue: String): SpannableString {
-        val spannableString = SpannableString("$bigValue   $smallValue")
-        val index = bigValue.length
-        spannableString.setSpan(
-            AbsoluteSizeSpan(fontSize),
-            index,
-            spannableString.length,
-            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
-        return spannableString
     }
 
 

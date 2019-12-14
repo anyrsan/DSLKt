@@ -6,8 +6,10 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.any.org.commonlibrary.event.viewOnClick
+import com.any.org.commonlibrary.log.KLog
 
 //fun <T> ArrayList<T>?.newInstance(): ArrayList<T> = this ?: arrayListOf()
 /**
@@ -48,6 +50,14 @@ abstract class BaseAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
         notifyDataSetChanged()
     }
 
+
+    fun l(){
+        this.listData.apply {
+            clear()
+        }
+        notifyDataSetChanged()
+    }
+
     fun getItemModel(position: Int): T? =
         if (position >= 0 && position < listData.size) listData[position] else null
 
@@ -71,39 +81,36 @@ abstract class BaseAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return makeBaseItemView(parent, viewType)
+        val vm = DataBindingUtil.inflate<ViewDataBinding>(LayoutInflater.from(parent.context),getLayoutId(viewType),parent,false)
+        return BaseItemView(vm)
     }
 
-    fun makeView(parent: ViewGroup, @LayoutRes rLayout: Int): View =
-        LayoutInflater.from(parent.context).inflate(rLayout, parent, false)
+    @LayoutRes
+    abstract fun getLayoutId(viewType:Int):Int
 
+    abstract fun handlerVariable(dataBind: ViewDataBinding, t: T)
 
-    abstract fun makeBaseItemView(
-        parent: ViewGroup,
-        viewType: Int
-    ): BaseItemView<ViewDataBinding>
-
-    abstract fun handlerVariable(dataBind: ViewDataBinding?, t: T)
+    fun onDestroy(dataBind: ViewDataBinding?){
+        dataBind?.unbind()
+    }
 
     //给外层重写调用，并不是所有UI需要事件
     open fun onClickItem(t:T){
 
     }
 
-    inner class BaseItemView<VM : ViewDataBinding>(itemView: View) :
-        RecyclerView.ViewHolder(itemView) {
-
-        private val dataBind by lazy { DataBindingUtil.bind<VM>(itemView) }
+    inner class BaseItemView<VM:ViewDataBinding>(private val  vm:VM) : RecyclerView.ViewHolder(vm.root) {
 
         fun setData(t: T) {
+            KLog.e("setData...... ${vm.lifecycleOwner}")
             itemView.viewOnClick {
                 onClickItem(t)
             }
-            handlerVariable(dataBind, t)
-            dataBind?.executePendingBindings()
+            handlerVariable(vm, t)
+            vm.executePendingBindings()
         }
-
     }
+
 }
 
 

@@ -85,9 +85,10 @@ dependencies {
     api rootProject.ext.dependencies.retrofit2Gson
     api rootProject.ext.dependencies.retrofit2RxJava
     api rootProject.ext.dependencies.okhttp3Logging
+    api rootProject.ext.dependencies.adapterHelper
+
 
     api rootProject.ext.dependencies.superRecyclerView
-
 
     api rootProject.ext.dependencies.GlideSdk
     annotationProcessor  rootProject.ext.dependencies.GlideCompilerSdk

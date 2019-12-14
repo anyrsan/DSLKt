@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <data>
+
+        <variable
+            name="praisenum"
+            type="String" />
+
+        <variable
+            name="sharenum"
+            type="String" />
+
+        <variable
+            name="commentnum"
+            type="String" />
+
+    </data>
+
+
+
+    <RelativeLayout
+        android:id="@+id/bottomRl"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/color_f4f4f4"
+        android:gravity="center_vertical">
+
+
+        <TextView
+            android:id="@+id/favTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="150dp"
+            android:drawableLeft="@drawable/ic_favorite_black_24dp"
+            android:text="@{praisenum}"
+            android:textColor="@color/color_666666"
+            android:textSize="8dp"
+            tools:text="17" />
+
+        <TextView
+            android:id="@+id/shareTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="90dp"
+            android:drawableLeft="@drawable/ic_share_black_24dp"
+            android:text="@{sharenum}"
+            android:textColor="@color/color_666666"
+            android:textSize="8dp"
+            tools:text="17" />
+
+
+        <TextView
+            android:id="@+id/commentTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="30dp"
+            android:drawableLeft="@drawable/ic_mode_comment_black_24dp"
+            android:text="@{commentnum}"
+            android:textColor="@color/color_666666"
+            android:textSize="8dp"
+            tools:text="17" />
+
+    </RelativeLayout>
+
+
+</layout>

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">onemodule</string>
+
+
+    <string name="audio_books">有声读物/</string>
+    <string name="author">文/</string>
 </resources>

@@ -2,6 +2,7 @@ package com.any.org.commonlibrary.log
 
 import android.util.Log
 import com.any.org.commonlibrary.BuildConfig
+
 /**
  *
  * @author any
@@ -37,5 +38,9 @@ object KLog {
     }
 
 
+}
 
+
+fun String.e() {
+    KLog.e(this)
 }

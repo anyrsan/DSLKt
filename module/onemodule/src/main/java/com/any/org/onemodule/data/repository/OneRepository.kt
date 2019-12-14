@@ -1,7 +1,7 @@
 package com.any.org.onemodule.data.repository
 
 import com.any.org.onemodule.data.local.LocalProvider
-import com.any.org.onemodule.data.remote.NetProvider
+import com.any.org.onemodule.data.remote.NetApi
 
 /**
  *
@@ -10,10 +10,9 @@ import com.any.org.onemodule.data.remote.NetProvider
  * @details
  */
 class OneRepository(
-    private val netProvider: NetProvider,
+    private val netProvider: NetApi,
     private val localProvider: LocalProvider
 ) {
-
 
     fun getOneData(date: String, address: String) =
         kotlin.run {
@@ -22,6 +21,4 @@ class OneRepository(
 
     fun getMonthData(month: String) = netProvider.getMonthData(month)
 
-    fun <T> getOneArticleDetail(cateEnType: String, itemId: String) =
-        netProvider.getOneArticleDetail<T>(cateEnType, itemId)
 }

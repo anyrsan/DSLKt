@@ -1,7 +1,5 @@
 package com.any.org.onemodule.widget
 
-import android.animation.Animator
-import android.animation.AnimatorInflater
 import android.animation.ObjectAnimator
 import android.content.Context
 import android.graphics.Canvas
@@ -10,7 +8,6 @@ import android.graphics.Paint
 import android.graphics.Path
 import android.util.AttributeSet
 import android.view.View
-import com.any.org.onemodule.R
 
 /**
  *

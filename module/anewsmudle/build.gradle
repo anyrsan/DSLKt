@@ -24,4 +24,9 @@ dependencies {
     //    implementation 'androidx.room:room-runtime:2.0.0-rc01'
     //    implementation 'androidx.room:room-rxjava2:2.0.0-rc01'
     //    kapt 'androidx.room:room-compiler:2.0.0-rc01'
+
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.3'
+    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.3'
+    // Optional, if you use support library fragments:
+    debugImplementation 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.3'
 }

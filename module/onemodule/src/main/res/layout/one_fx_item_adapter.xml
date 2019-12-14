@@ -13,7 +13,6 @@
             name="auther"
             type="com.any.org.onemodule.model.OneAuthorModel" />
 
-        <import type="com.any.org.onemodule.data.CateApi" />
     </data>
 
     <LinearLayout

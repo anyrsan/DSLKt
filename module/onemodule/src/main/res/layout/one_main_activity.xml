@@ -30,6 +30,8 @@
 
         <import type="com.any.org.onemodule.data.CateApi" />
 
+        <import type="com.any.org.onemodule.extend.StringEx"/>
+
     </data>
 
     <LinearLayout xmlns:tools="http://schemas.android.com/tools"
@@ -73,7 +75,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@id/oneDateTv"
                 android:layout_alignParentRight="true"
-                android:text="@{CateApi.formatWeather(weather)}"
+                android:text="@{StringEx.formatWeather(weather)}"
                 android:textColor="@color/color_999999"
                 tools:text="深圳 晴 25C" />
 

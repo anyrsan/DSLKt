@@ -9,11 +9,7 @@ package com.any.org.onemodule.model
 data class EssayModel (val res: Int, val data: EssaySubModel?)
 
 data class EssaySubModel(
-    val anchor: String,
-    val audio: String,
-    val audio_duration: String,
     val auth_it: String,
-    val commentnum: Int,
     val content_id: String,
     val copyright: String,
     val cover: String,
@@ -29,9 +25,7 @@ data class EssaySubModel(
     val last_update_date: String,
     val maketime: String,
     val next_id: Int,
-    val praisenum: Int,
     val previous_id: String,
-    val sharenum: Int,
     val start_video: String,
     val sub_title: String,
     val top_media_file: String,
@@ -40,4 +34,4 @@ data class EssaySubModel(
     val wb_img_url: String,
     val wb_name: String,
     val web_url: String
-)
+):ContentDetailsModel()

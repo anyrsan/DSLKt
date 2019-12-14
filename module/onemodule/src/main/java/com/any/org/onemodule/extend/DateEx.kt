@@ -13,6 +13,31 @@ import java.util.*
  * @details
  */
 
+object DateEx {
+
+    //2019-11-25 06:00:00  //今天，日期
+    @JvmStatic
+    fun convertDate(date: String?): String {
+        try {
+            KLog.e("输出日期  $date")
+            if (date.isNullOrEmpty()) return "未知日期"
+            val format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+            val targetDate = format.parse(date)
+            format.applyPattern("yyyy-MM-dd")
+            val now = format.format(Date())
+            val target = format.format(targetDate)
+            return if (now == target) {
+                "今天"
+            } else {
+                format.applyPattern("MM-dd")
+                format.format(targetDate)
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return "异常"
+    }
+}
 
 inline fun Calendar.getTargetDate(type: Int = 0, diffNum: Int = 0, date: String? = null): String =
     run {
@@ -54,5 +79,8 @@ infix fun OneMonthSubModel.getMonthFromDate(date: String?): String {
     }
     return "异常"
 }
+
+
+
 
 

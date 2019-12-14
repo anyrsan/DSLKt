@@ -24,15 +24,9 @@ import kotlin.collections.ArrayList
  */
 class OneViewModel(private val oneRep: OneRepository) : BaseViewModel() {
 
-
     val isLoad = ObservableBoolean(true)
 
     val dataModel = MutableLiveData<OneDataModel>()
-
-    val dataMonths = MutableLiveData<ArrayList<OneMonthModel>>()
-
-    //处理多个
-    private val listMons = ArrayList<OneMonthModel>()
 
     fun getOneData(
         isRefresh: Boolean = false,
@@ -58,38 +52,6 @@ class OneViewModel(private val oneRep: OneRepository) : BaseViewModel() {
             }.subscribe()
         }
 
-    }
-
-
-    //获取指定月分数据
-    fun getMonthData(
-        month: String = Calendar.getInstance().getTargetDate(1),
-        isAdd: Boolean = false
-    ) {
-        launch {
-            //清除列表
-            if (!isAdd) {
-                listMons.clear()
-            }
-            oneRep.getMonthData(month).async(300).doAfterSuccess {
-                it.date = month
-            }.subscribe { t1, t2 ->
-                // 处理值
-                listMons.add(t1)
-                dataMonths.set(listMons)
-                // t2 是出错了
-            }
-        }
-    }
-
-
-    fun <T> getArticleOne(cateType: String?, itemId: String) {
-        val cateEn = CateApi.getCateEn(cateType)
-        launch {
-            oneRep.getOneArticleDetail<T>(cateEn, itemId).async().subscribe {
-                KLog.e("msg", "获取到数据了。  $it")
-            }
-        }
     }
 
 

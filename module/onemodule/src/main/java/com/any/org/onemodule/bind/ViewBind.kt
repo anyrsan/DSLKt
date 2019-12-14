@@ -1,10 +1,12 @@
 package com.any.org.onemodule.bind
 
 import android.view.View
+import android.webkit.WebView
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.Nullable
 import androidx.databinding.BindingAdapter
+import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,10 +17,14 @@ import com.any.org.commonlibrary.log.KLog
 import com.any.org.commonlibrary.utils.DensityUtil
 import com.any.org.commonlibrary.widget.GridSpacingItemDecorationextend
 import com.any.org.commonlibrary.widget.VerticalDecoration
+import com.any.org.onemodule.adapter.obser.BaseLoadAdapter
 import com.any.org.onemodule.data.CateApi
+import com.any.org.onemodule.extend.StringEx
+import com.any.org.onemodule.manager.VoicePlayerManager
 import com.any.org.onemodule.viewevent.LoadRefreshListener
 import com.any.org.onemodule.viewevent.LoadScrollListener
 import com.any.org.onemodule.viewevent.NDViewClick
+import com.any.org.onemodule.widget.ChatAnimImageView
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -51,7 +57,7 @@ fun <VH : RecyclerView.ViewHolder> bindRecycleViewAdapter(
     adapter: RecyclerView.Adapter<VH>,
     isItemDt: Boolean?
 ) {
-    val mContext = recyclerView.context
+    val mContext = recyclerView.context.applicationContext
     val space = DensityUtil.dip2px(mContext, 10f)
     recyclerView.adapter = adapter
     recyclerView.layoutManager = LinearLayoutManager(mContext)
@@ -59,6 +65,22 @@ fun <VH : RecyclerView.ViewHolder> bindRecycleViewAdapter(
         recyclerView.addItemDecoration(VerticalDecoration(mContext, space, 0, space * 3))
     }
 
+}
+
+
+@BindingAdapter("app:bindLoadAdapter")
+fun <M, T : ViewDataBinding> bindRecycleViewAdapter(
+    view: RecyclerView,
+    adapter: BaseLoadAdapter<M, T>
+) {
+    view.apply {
+        val mContext = view.context.applicationContext
+        val space = DensityUtil.dip2px(mContext, 1f)
+        layoutManager = LinearLayoutManager(view.context)
+        this.adapter = adapter
+        isNestedScrollingEnabled = false
+        addItemDecoration(VerticalDecoration(mContext, space, 0, 0))
+    }
 }
 
 
@@ -106,7 +128,7 @@ fun <VH : RecyclerView.ViewHolder> bindRecycleViewGridAdapter(
     recyclerView: RecyclerView,
     adapter: RecyclerView.Adapter<VH>
 ) {
-    val mContext = recyclerView.context
+    val mContext = recyclerView.context.applicationContext
     val space = DensityUtil.dip2px(mContext, 10f)
     KLog.e("bindRecycleViewGridAdapter ...  ${recyclerView.itemDecorationCount}")
     if (recyclerView.itemDecorationCount > 0) {
@@ -130,7 +152,7 @@ fun convertDateToValue(textView: TextView, date: String?) {
         sdf.applyPattern("MM/yyyy")
         val smallValue = sdf.format(mDate)
         val fontSize = DensityUtil.dip2px(textView.context, 10f)
-        textView.text = CateApi.getValue(fontSize, "$day", smallValue)
+        textView.text = StringEx.getValue(fontSize, "$day", smallValue)
     }
 }
 
@@ -140,3 +162,18 @@ fun addNDClickView(view: View, ndViewClick: NDViewClick) {
         ndViewClick.clickView(it)
     }
 }
+
+@BindingAdapter("app:bindHtml", requireAll = false)
+fun bindWebHtml(webView: WebView, data: String?) {
+    KLog.e("bindweb... $data")
+    data?.let {
+        webView.loadData(it, "text/html", "utf-8")
+    }
+}
+
+@BindingAdapter("app:bindAnim")
+fun bindAnimView(anim: ChatAnimImageView,play:Boolean){
+    if(play) anim.startAnim() else anim.stopAnim()
+}
+
+

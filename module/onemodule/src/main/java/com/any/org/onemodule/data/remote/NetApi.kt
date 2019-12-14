@@ -24,8 +24,7 @@ interface NetApi {
     fun getOneData(@Path("date") date: String, @Path("address") address: String): Observable<OneDataModel>
 
 
-    @GET(ARTICLE_DETAIL_URL)
-    fun < T> getOneArticleDetail(@Path("type") cateEnType:String,@Path("itemId") itemId:String):Observable<T>
+
 
     @GET(ONE_MONTH_URL)
     fun getMonthData(@Path("month") month:String):Single<OneMonthModel>

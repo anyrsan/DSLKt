@@ -1,15 +1,11 @@
 package com.any.org.onemodule.adapter
 
-import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.LifecycleOwner
 import com.any.org.eventbuslibrary.RxNewBus
 import com.any.org.onemodule.BR
 import com.any.org.onemodule.R
 import com.any.org.onemodule.data.CateApi
-import com.any.org.onemodule.databinding.OneDtItemAdapterBinding
-import com.any.org.onemodule.databinding.OneFxItemAdapterBinding
-import com.any.org.onemodule.databinding.OneYyItemAdapterBinding
-import com.any.org.onemodule.databinding.OneZxItemAdapterBinding
 import com.any.org.onemodule.model.OneDataItemModel
 
 /**
@@ -20,30 +16,28 @@ import com.any.org.onemodule.model.OneDataItemModel
  */
 class OneMainAdapter : BaseAdapter<OneDataItemModel>() {
 
-    override fun makeBaseItemView(parent: ViewGroup, viewType: Int): BaseItemView<ViewDataBinding> {
+
+    override fun getLayoutId(viewType: Int): Int {
         return when (viewType) {
             0 -> {
-                val itemView = makeView(parent, R.layout.one_fx_item_adapter)
-                BaseItemView<OneFxItemAdapterBinding>(itemView)
+                R.layout.one_fx_item_adapter
             }
             4 -> {
-                val itemView = makeView(parent, R.layout.one_yy_item_adapter)
-                BaseItemView<OneYyItemAdapterBinding>(itemView)
+                R.layout.one_yy_item_adapter
             }
             8 -> {
-                val itemView = makeView(parent, R.layout.one_dt_item_adapter)
-                BaseItemView<OneDtItemAdapterBinding>(itemView)
+                R.layout.one_dt_item_adapter
             }
             else -> {
-                val itemView = makeView(parent, R.layout.one_zx_item_adapter)
-                BaseItemView<OneZxItemAdapterBinding>(itemView)
+                R.layout.one_zx_item_adapter
             }
-        } as BaseItemView<ViewDataBinding>
+        }
     }
 
-    override fun handlerVariable(dataBind: ViewDataBinding?, oneData: OneDataItemModel) {
-        dataBind?.setVariable(BR.oneDM, oneData)
-        dataBind?.setVariable(BR.auther, oneData.author)
+
+    override fun handlerVariable(dataBind: ViewDataBinding, oneData: OneDataItemModel) {
+        dataBind.setVariable(BR.oneDM, oneData)
+        dataBind.setVariable(BR.auther, oneData.author)
     }
 
     override fun getViewType(t: OneDataItemModel): Int = CateApi.getType(t.category)

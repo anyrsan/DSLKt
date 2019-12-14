@@ -2,6 +2,7 @@ package com.any.org.commonlibrary.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Environment;
 import android.view.View;
@@ -23,15 +24,19 @@ import java.util.Properties;
 public class StatusBarUtils {
 
 
-    // 获取状态栏高度，一般为 25dp
-    public static int getStatusBarHeight(Context context) {
+    public static int getStatusBarHeight(Resources resources){
         int result = 0;
-        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        int resourceId = resources.getIdentifier("status_bar_height", "dimen", "android");
         if (resourceId > 0) {
-            result = context.getResources().getDimensionPixelSize(resourceId);
+            result = resources.getDimensionPixelSize(resourceId);
         }
 //        Log.e("msg", "getStatusBarHeight...." + result);
         return result;
+    }
+
+    // 获取状态栏高度，一般为 25dp
+    public static int getStatusBarHeight(Context context) {
+        return getStatusBarHeight(context.getResources());
     }
 
 

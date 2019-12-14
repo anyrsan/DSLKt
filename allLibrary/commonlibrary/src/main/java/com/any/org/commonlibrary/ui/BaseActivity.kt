@@ -128,6 +128,19 @@ abstract class BaseActivity : AppCompatActivity() {
 
 }
 
+
+//扩展函数
+fun Activity.setStatusBar(isDark: Boolean, color: Int=Color.TRANSPARENT){
+    StatusBarUtils.setStatusBar(this, isDark, color)
+}
+
+//扩展函数
+fun View.setTopPadding(){
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        this.setPadding(0, StatusBarUtils.getStatusBarHeight(resources), 0, 0)
+    }
+}
+
 //处理
 fun Activity.mToast(message: String?) {
     runOnUiThread {

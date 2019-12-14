@@ -3,12 +3,13 @@ package com.any.org.onemodule.di
 import androidx.room.Room
 import com.any.org.onemodule.data.local.LocalProvider
 import com.any.org.onemodule.data.remote.NetApi
-import com.any.org.onemodule.data.remote.NetProvider
-import com.any.org.onemodule.data.remote.TestApi
+import com.any.org.onemodule.data.remote.DetailsApi
+import com.any.org.onemodule.data.repository.DetailsRepository
 import com.any.org.onemodule.data.repository.OneRepository
 import com.any.org.onemodule.data.room.ArticleDatabase
 import com.any.org.onemodule.net.OneNetManager
-import com.any.org.onemodule.viewmodel.OneVM
+import com.any.org.onemodule.viewmodel.DetailsViewModel
+import com.any.org.onemodule.viewmodel.MonthViewModel
 import com.any.org.onemodule.viewmodel.OneViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.dsl.viewModel
@@ -43,16 +44,15 @@ val apiModule = module {
     }
 
     single {
-        OneNetManager.create(TestApi::class.java)
+        OneNetManager.create(DetailsApi::class.java)
     }
 
 }
 
 val remoteModule = module {
-
-    single {
-        NetProvider(get())
-    }
+    //    single {
+//        NetProvider(get())
+//    }
 
 }
 
@@ -68,6 +68,10 @@ val repModule = module {
     single {
         OneRepository(get(), get())
     }
+
+    single {
+        DetailsRepository(get())
+    }
 }
 
 
@@ -76,10 +80,14 @@ val viewModels = module {
         OneViewModel(get())
     }
 
+    viewModel {
+        MonthViewModel(get())
+    }
 
     viewModel {
-        OneVM(get())
+        DetailsViewModel(get())
     }
+
 }
 
 

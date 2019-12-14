@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.any.org.ankolibrary.handlerException
 import com.any.org.commonlibrary.log.KLog
+import com.any.org.commonlibrary.log.e
 import kotlinx.coroutines.*
 import java.lang.Exception
 import kotlin.coroutines.CoroutineContext
@@ -27,7 +28,7 @@ abstract class BaseCoroutineViewModel : ViewModel() {
         timeMillis: Long,
         task: suspend () -> Unit
     ) {
-        viewModelScope.delayLaunch(timeMillis) {
+        viewModelScope.delayLaunch(timeMillis,throwableHandler) {
             task()
         }
     }
@@ -37,7 +38,7 @@ abstract class BaseCoroutineViewModel : ViewModel() {
     suspend fun <T> executiveRequest(
         throwableHandler: CoroutineException = DefaultHandler,
         dispatcher: CoroutineDispatcher = Dispatchers.IO,
-        block: suspend () -> T
+        block: suspend CoroutineScope.() -> T
     ): T? =
         withContext(dispatcher) {
             try {
@@ -60,6 +61,7 @@ object DefaultHandler : CoroutineException {
     override fun invoke(p1: Throwable) {
         p1.printStackTrace()
         KLog.e("全局处理 异常  $p1")
+        "输出错误".e()
     }
 }
 
