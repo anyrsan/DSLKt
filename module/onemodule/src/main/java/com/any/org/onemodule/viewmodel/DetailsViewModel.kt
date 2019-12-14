@@ -63,10 +63,10 @@ class DetailsViewModel(private val rep: DetailsRepository) : BaseCoroutineViewMo
 
 
     init {
-//        VoicePlayerManager.vPlayer.onStopCallBack = {
-//            animPlay.set(false)
-//            progress.set(StringEx.formatTime(baseModel.value?.audio_duration))
-//        }
+        VoicePlayerManager.vPlayer.onStopCallBack = {
+            animPlay.set(false)
+            progress.set(StringEx.formatTime(baseModel.value?.audio_duration))
+        }
     }
 
 
@@ -176,6 +176,7 @@ class DetailsViewModel(private val rep: DetailsRepository) : BaseCoroutineViewMo
 
     override fun onCleared() {
         super.onCleared()
+        VoicePlayerManager.vPlayer.onStopCallBack = null
         commentList.onCleared()
     }
 

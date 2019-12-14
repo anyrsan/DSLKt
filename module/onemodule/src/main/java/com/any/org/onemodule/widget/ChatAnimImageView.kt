@@ -71,6 +71,14 @@ class ChatAnimImageView : ImageView {
         //取出一张图片
         setImageResource(mDrawableId[currIndex])
     }
+
+
+    override fun onDetachedFromWindow() {
+        objectAnim?.addUpdateListener(null)
+        objectAnim?.cancel()
+        super.onDetachedFromWindow()
+    }
+
 }
 
 //震动效果
