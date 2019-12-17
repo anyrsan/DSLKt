@@ -1,7 +1,6 @@
 package com.any.org.onemodule.ui
 
 import android.view.View
-import com.any.org.ankolibrary.get
 import com.any.org.ankolibrary.startActivity
 import com.any.org.commonlibrary.auto.IAdjustDensity
 import com.any.org.commonlibrary.log.KLog
@@ -54,12 +53,10 @@ class OneMainActivity : BaseVBActivityEx<OneMainActivityBinding>(), IAdjustDensi
         KLog.e("msg...  clickView...")
         if (isAdd) {
             mBinding.triangleLbv.animRotation(false)
-//            removeFragment(oneDateFragment)
             hideFragment(oneDateFragment)
         } else {
             mBinding.triangleLbv.animRotation(true)
             //添加fragment
-//            addFragment(oneDateFragment, R.id.oneContainerFl)
             addOrShowFragment(oneDateFragment, R.id.oneContainerFl)
         }
         isAdd = !isAdd
@@ -71,22 +68,11 @@ class OneMainActivity : BaseVBActivityEx<OneMainActivityBinding>(), IAdjustDensi
         mBinding.refreshListener = refreshListener
         mBinding.ndClick = ndClick
         mBinding.adapter = adapter
-        //设置数据
-        get(oneVM.dataModel) {
-            adapter.setNewData(it?.data?.content_list)
-            mBinding.date = it?.data?.date
-            mBinding.weather = it?.data?.weather
-            //回到顶部
-            scrollToTop()
-        }
         // 处理数据
         mBinding.topRl.setTopPadding()
         RxNewBus.registerEvent(this)
     }
 
-    private fun scrollToTop() {
-        mBinding.oneRecycleView.scrollToPosition(0)
-    }
 
     override fun initData() {
 

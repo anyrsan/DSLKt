@@ -17,4 +17,5 @@ class CommonAdapter(list:AdapterDataObserver<CommentItemModel>) :BaseLoadAdapter
     override fun handlerData(binding: ViewDataBinding?, item: CommentItemModel?) {
         binding?.setVariable(BR.cModel,item)
     }
+
 }

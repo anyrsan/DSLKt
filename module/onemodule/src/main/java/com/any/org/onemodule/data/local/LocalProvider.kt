@@ -2,6 +2,7 @@ package com.any.org.onemodule.data.local
 
 import com.any.org.commonlibrary.log.KLog
 import com.any.org.onemodule.data.room.ArticleDao
+import com.any.org.onemodule.extend.DateEx
 import com.any.org.onemodule.model.ArticleDetailDataModel
 import com.any.org.onemodule.model.ArticleDetailModel
 import io.reactivex.Observable
@@ -40,5 +41,12 @@ class LocalProvider(private val artDao:ArticleDao) {
     fun deleteAll() = artDao.deleteAllArticleData()
 
     fun getArticle(id:String) = artDao.getArticleData(id)
+
+
+    //获取指定月分的日期
+    fun getListDate(month:Int) = DateEx.getListDate(month)
+
+
+
 
 }

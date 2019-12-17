@@ -8,9 +8,7 @@ import com.any.org.onemodule.data.repository.DetailsRepository
 import com.any.org.onemodule.data.repository.OneRepository
 import com.any.org.onemodule.data.room.ArticleDatabase
 import com.any.org.onemodule.net.OneNetManager
-import com.any.org.onemodule.viewmodel.DetailsViewModel
-import com.any.org.onemodule.viewmodel.MonthViewModel
-import com.any.org.onemodule.viewmodel.OneViewModel
+import com.any.org.onemodule.viewmodel.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -86,6 +84,14 @@ val viewModels = module {
 
     viewModel {
         DetailsViewModel(get())
+    }
+
+    viewModel {
+        OneVpShareViewModel(get())
+    }
+
+    viewModel {
+        OneVpNViewModel(get())
     }
 
 }

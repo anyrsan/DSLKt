@@ -7,7 +7,6 @@ import android.os.Build
 import android.provider.Settings
 import android.util.Log
 import com.any.org.commonlibrary.auto.AutoSizeManager
-import com.squareup.leakcanary.LeakCanary
 
 /**
  *
@@ -22,18 +21,10 @@ class OneApp :Application(){
         //进行绑定
         AutoSizeManager(this).registerLifecycleCallbacks()
 
-        // 添加监听
-        initLeakCanary()
     }
 
 
 
-    private fun initLeakCanary() {
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            return
-        }
-        LeakCanary.install(this)
-    }
 
 
     /**

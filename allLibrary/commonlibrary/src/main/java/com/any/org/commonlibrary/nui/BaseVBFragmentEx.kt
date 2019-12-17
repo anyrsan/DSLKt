@@ -6,12 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import com.any.org.commonlibrary.log.KLog
 
 /**
  *
  * @author any
  * @time 2019/10/31 17.46
- * @details
+ * @details  onCreateView vs onDestroyView
  */
 abstract class BaseVBFragmentEx<VB : ViewDataBinding> : BaseFragmentEx() {
 
@@ -22,7 +23,10 @@ abstract class BaseVBFragmentEx<VB : ViewDataBinding> : BaseFragmentEx() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        mBinding = DataBindingUtil.inflate(inflater, getResourceId(), container, false)
+        KLog.e("onCreateView.... ...  $mBinding")
+        if (mBinding == null) {
+            mBinding = DataBindingUtil.inflate(inflater, getResourceId(), container, false)
+        }
         mBinding?.lifecycleOwner = this
         return mBinding?.root
     }
@@ -30,8 +34,13 @@ abstract class BaseVBFragmentEx<VB : ViewDataBinding> : BaseFragmentEx() {
 
     override fun onDestroyView() {
         mBinding?.unbind()
+        val rootView = mBinding?.root as? ViewGroup
+        rootView?.let {
+            it.removeAllViews()
+        }
         mBinding = null
         super.onDestroyView()
+        KLog.e("onDestroyView.... .... ")
     }
 
 }

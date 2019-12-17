@@ -34,10 +34,12 @@
         android:background="@color/color_ffffff">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/oneRecycleView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/dateTv"
             android:orientation="vertical"
+            app:bindData="@{monthVM.listDataMonths}"
             app:bindAdapter="@{monthAdapter}"
             app:bindItemDecoration="@{false}"
             app:bindLoadListener="@{loadListener}" />

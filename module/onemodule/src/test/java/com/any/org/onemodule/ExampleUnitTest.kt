@@ -1,11 +1,9 @@
 package com.any.org.onemodule
 
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import com.any.org.ankolibrary.doAsyncTask
-import com.any.org.onemodule.data.CateApi
+import com.any.org.onemodule.extend.DateEx
 import com.any.org.onemodule.extend.getTargetDate
 import io.reactivex.Observable
-import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 import junit.framework.Assert.assertEquals
 import org.junit.Test
@@ -145,6 +143,17 @@ class ExampleUnitTest {
 
         Thread.sleep(7000)
         println("执行完成")
+
+    }
+
+
+
+
+
+    @Test
+    fun testListDate(){
+
+        DateEx.getListDate(-2)
 
     }
 

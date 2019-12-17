@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="refreshListener"
+            type="com.any.org.onemodule.viewevent.LoadRefreshListener" />
+
+        <variable
+            name="mDate"
+            type="String" />
+
+        <variable
+            name="vm"
+            type="com.any.org.onemodule.viewmodel.OneVpNViewModel" />
+
+        <variable
+            name="adapter"
+            type="com.any.org.onemodule.adapter.OneMainAdapter" />
+
+        <import type="android.view.View" />
+
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/oneRefreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:bindRefreshListener="@{refreshListener}"
+            app:refreshing="@{vm.isLoad}">
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/oneRecycleView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:bindAdapter="@{adapter}"
+                app:bindData="@{vm.mapContentData}"
+                app:scrollTop="@{vm.isTop}" />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="加载失败了，重新刷新加载"
+            android:textColor="@color/color_e50000"
+            android:textSize="26sp"
+            android:visibility="@{vm.errorShow ? View.VISIBLE :View.GONE}" />
+
+    </FrameLayout>
+
+</layout>
+

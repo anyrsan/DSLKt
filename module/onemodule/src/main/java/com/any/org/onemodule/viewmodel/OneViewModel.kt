@@ -10,9 +10,7 @@ import com.any.org.dslnetlibrary.HttpBaseModel
 import com.any.org.onemodule.data.CateApi
 import com.any.org.onemodule.data.repository.OneRepository
 import com.any.org.onemodule.extend.getTargetDate
-import com.any.org.onemodule.model.OneDataModel
-import com.any.org.onemodule.model.OneMonthModel
-import com.any.org.onemodule.model.OneMonthSubModel
+import com.any.org.onemodule.model.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -26,7 +24,17 @@ class OneViewModel(private val oneRep: OneRepository) : BaseViewModel() {
 
     val isLoad = ObservableBoolean(true)
 
-    val dataModel = MutableLiveData<OneDataModel>()
+    //天气
+    val weatherModel = MutableLiveData<OneDataWeatherModel>()
+
+    //是否滑动顶部
+    val isTop = MutableLiveData<Boolean>()
+
+    //日期
+    val mDate =  MutableLiveData<String>()
+
+    //数据
+    val contentList = MutableLiveData<List<OneDataItemModel>>()
 
     fun getOneData(
         isRefresh: Boolean = false,
@@ -41,9 +49,15 @@ class OneViewModel(private val oneRep: OneRepository) : BaseViewModel() {
         launch {
             oneRep.getOneData(date, address).async(300).doOnNext {
 
-                dataModel.set(it)
+                contentList.set(it.data?.content_list)
+
+                mDate.set(it.data?.date)
+
+                weatherModel.set(it.data?.weather)
 
                 isLoad.set(false)
+
+                isTop.set(true)
 
             }.doOnError {
 

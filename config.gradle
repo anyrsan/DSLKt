@@ -16,7 +16,7 @@ ext {
 
     softVersion = [
             klVersion: "1.3.50",
-            kiVersion: "2.0.1"
+            kiVersion: "2.1.0-alpha-8"
     ]
 
 
@@ -56,6 +56,7 @@ ext {
             superXCore           : "androidx.core:core-ktx:1.1.0",
             superConstraintlayout: "androidx.constraintlayout:constraintlayout:1.1.3",
             superRecyclerView    : "androidx.recyclerview:recyclerview:1.0.0",
+            refreshLayout:"androidx.swiperefreshlayout:swiperefreshlayout:1.0.0",
 
             superLifecycleEx: "androidx.lifecycle:lifecycle-extensions:2.2.0-rc02",
             superVmKtx :"androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0-rc02",

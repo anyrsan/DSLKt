@@ -7,16 +7,21 @@ import android.widget.TextView
 import androidx.annotation.Nullable
 import androidx.databinding.BindingAdapter
 import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.FragmentPagerAdapter
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
 import com.any.org.commonlibrary.bitmap.load
 import com.any.org.commonlibrary.event.viewOnClick
 import com.any.org.commonlibrary.log.KLog
 import com.any.org.commonlibrary.utils.DensityUtil
 import com.any.org.commonlibrary.widget.GridSpacingItemDecorationextend
 import com.any.org.commonlibrary.widget.VerticalDecoration
+import com.any.org.onemodule.adapter.BaseAdapter
 import com.any.org.onemodule.adapter.obser.BaseLoadAdapter
 import com.any.org.onemodule.data.CateApi
 import com.any.org.onemodule.extend.StringEx
@@ -32,7 +37,8 @@ import java.util.*
  *
  * @author any
  * @time 2019/11/22 17.30
- * @details view 绑定事件
+ * @details view 绑定事件  ,多个属性时，建议写多个方法，如果合在一起，一定要注意方法重复调用问题
+ *
  */
 @JvmOverloads
 @BindingAdapter("app:url", "app:isCircle", requireAll = false)
@@ -51,20 +57,30 @@ fun refreshListener(refreshLayout: SwipeRefreshLayout, @Nullable refresh: LoadRe
 }
 
 @JvmOverloads
-@BindingAdapter("app:bindAdapter", "app:bindItemDecoration", requireAll = false)
-fun <VH : RecyclerView.ViewHolder> bindRecycleViewAdapter(
+@BindingAdapter("app:bindAdapter", "app:bindItemDecoration", "app:bindData", requireAll = false)
+fun <T> bindRecycleViewAdapter(
     recyclerView: RecyclerView,
-    adapter: RecyclerView.Adapter<VH>,
-    isItemDt: Boolean?
+    adapter: BaseAdapter<T>,
+    isItemDt: Boolean?,
+    data: List<T>?
 ) {
-    val mContext = recyclerView.context.applicationContext
-    val space = DensityUtil.dip2px(mContext, 10f)
-    recyclerView.adapter = adapter
-    recyclerView.layoutManager = LinearLayoutManager(mContext)
-    if (isItemDt == null) {
-        recyclerView.addItemDecoration(VerticalDecoration(mContext, space, 0, space * 3))
+    data?.let {
+        adapter.setNewData(it)
+        return
     }
-
+    val tempAdapter = recyclerView.adapter
+    val mContext = recyclerView.context.applicationContext
+    if (tempAdapter == null) {
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(mContext)
+    }
+    val itemDtSize = recyclerView.itemDecorationCount
+    if (itemDtSize == 0) {
+        val space = DensityUtil.dip2px(mContext, 10f)
+        if (isItemDt == null) {
+            recyclerView.addItemDecoration(VerticalDecoration(mContext, space, 0, space * 3))
+        }
+    }
 }
 
 
@@ -76,7 +92,7 @@ fun <M, T : ViewDataBinding> bindRecycleViewAdapter(
     view.apply {
         val mContext = view.context.applicationContext
         val space = DensityUtil.dip2px(mContext, 1f)
-        layoutManager = LinearLayoutManager(view.context)
+        layoutManager = LinearLayoutManager(mContext)
         this.adapter = adapter
         isNestedScrollingEnabled = false
         addItemDecoration(VerticalDecoration(mContext, space, 0, 0))
@@ -154,6 +170,7 @@ fun convertDateToValue(textView: TextView, date: String?) {
         val fontSize = DensityUtil.dip2px(textView.context, 10f)
         textView.text = StringEx.getValue(fontSize, "$day", smallValue)
     }
+    KLog.e("有数据 来了。。。 $date")
 }
 
 @BindingAdapter("app:onNDClick")
@@ -172,8 +189,83 @@ fun bindWebHtml(webView: WebView, data: String?) {
 }
 
 @BindingAdapter("app:bindAnim")
-fun bindAnimView(anim: ChatAnimImageView,play:Boolean){
-    if(play) anim.startAnim() else anim.stopAnim()
+fun bindAnimView(anim: ChatAnimImageView, play: Boolean) {
+    if (play) anim.startAnim() else anim.stopAnim()
+}
+
+@BindingAdapter("app:scrollTop", requireAll = false)
+fun bindScrollToTop(recyclerView: RecyclerView, isTop: Boolean?) {
+     if (isTop == true) recyclerView.scrollToPosition(0)
 }
 
 
+//@BindingAdapter("app:bindVpAdapter", requireAll = false)
+//fun bindVpAdapter(
+//    viewPager2: ViewPager2,
+//    fAdapter: FragmentStateAdapter
+//) {
+//    viewPager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+//    viewPager2.adapter = fAdapter
+//}
+//
+//
+//@BindingAdapter("app:bindLoadListener", requireAll = false)
+//fun bindVpListener(viewPager2: ViewPager2, loadListener: LoadScrollListener?) {
+//    viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+//        override fun onPageSelected(position: Int) {
+//            loadListener?.getCurrPosition(position)
+//            val lastPosition = viewPager2.adapter?.itemCount ?: 0
+//            //最后一个时，要加载数据
+//            loadListener?.needLoadMore(position == lastPosition - 1)
+//        }
+//    })
+//}
+//
+//
+//@BindingAdapter("app:bindToPosition", requireAll = false)
+//fun bindVpToPosition(viewPager2: ViewPager2, position: Int) {
+//    viewPager2.setCurrentItem(position, true)
+//}
+
+
+@BindingAdapter("app:bindVpAdapter", requireAll = false)
+fun bindVpAdapter(
+    viewPager: ViewPager,
+    fAdapter: FragmentPagerAdapter
+) {
+    viewPager.adapter = fAdapter
+    viewPager.offscreenPageLimit = 3
+}
+
+
+@BindingAdapter("app:bindLoadListener", requireAll = false)
+fun bindVpListener(viewPager: ViewPager, loadListener: LoadScrollListener?) {
+
+    viewPager.clearOnPageChangeListeners()
+    viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+        override fun onPageScrollStateChanged(state: Int) {
+        }
+
+        override fun onPageScrolled(
+            position: Int,
+            positionOffset: Float,
+            positionOffsetPixels: Int
+        ) {
+        }
+
+        override fun onPageSelected(position: Int) {
+            loadListener?.getCurrPosition(position)
+            val lastPosition = viewPager.adapter?.count ?: 0
+            //最后一个时，要加载数据
+            loadListener?.needLoadMore(position == lastPosition - 1)
+
+        }
+
+    })
+}
+
+
+@BindingAdapter("app:bindToPosition", requireAll = false)
+fun bindVpToPosition(viewPager: ViewPager, position: Int) {
+    viewPager.setCurrentItem(position, true)
+}

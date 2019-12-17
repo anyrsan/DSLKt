@@ -26,7 +26,10 @@ class MonthViewModel(private val oneRep: OneRepository) : BaseViewModel() {
 
     val isLoad = ObservableBoolean(true)
 
-    val dataMonths = SingleLiveEvent<OneMonthModel>()
+    //设置数据
+    val listDataMonths = SingleLiveEvent<MutableList<OneMonthModel>>()
+
+    private val listData = mutableListOf<OneMonthModel>()
 
     //获取指定月分数据
     fun getMonthData(
@@ -38,13 +41,18 @@ class MonthViewModel(private val oneRep: OneRepository) : BaseViewModel() {
             if(!isAdd){
                 //show
                 isLoad.set(true)
+                listData.clear()
+                //设置数据为空数组
+                listDataMonths.set(listData)
             }
 
             oneRep.getMonthData(month).async(300).doAfterSuccess {
                 it.date = month
             }.subscribe { t1, t2 ->
-                //获取值
-                dataMonths.set(t1)
+                //添加数据
+                listData.add(t1)
+                //设置更新
+                listDataMonths.set(listData)
                 // t2 是出错了
                 isLoad.set(false)
             }

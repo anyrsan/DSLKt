@@ -187,11 +187,11 @@ fun FragmentPagerAdapter.createFragment(
 /***
  *  提供添加
  */
-fun AppCompatActivity.addFragment(fragment: Fragment, @IdRes rId: Int) {
+fun AppCompatActivity.addFragment(fragment: Fragment, @IdRes rId: Int,tag: String="fragment") {
     val fragmentTransaction = supportFragmentManager.beginTransaction()
     fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-    fragmentTransaction.add(rId, fragment)
-    fragmentTransaction.commitAllowingStateLoss()
+    fragmentTransaction.add(rId, fragment, tag)
+    fragmentTransaction.commitNowAllowingStateLoss()
 }
 
 
@@ -229,14 +229,24 @@ fun AppCompatActivity.replaceFragment(fragment: Fragment, @IdRes rId: Int) {
 }
 
 
-/***
- * 移除
- */
-fun AppCompatActivity.removeFragment(fragment: Fragment) {
+fun AppCompatActivity.removeFragment(fragment: Fragment){
     val fragmentTransaction = supportFragmentManager.beginTransaction()
     fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
     fragmentTransaction.remove(fragment)
     fragmentTransaction.commitAllowingStateLoss()
+}
+
+/***
+ * 移除  ,注意内存泄漏问题
+ */
+fun AppCompatActivity.removeFragment(tag: String) {
+    val fragment = supportFragmentManager.findFragmentByTag(tag)
+    fragment?.let {
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
+        fragmentTransaction.remove(it)
+        fragmentTransaction.commitAllowingStateLoss()
+    }
 }
 
 

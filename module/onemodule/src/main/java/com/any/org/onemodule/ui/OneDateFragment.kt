@@ -29,15 +29,11 @@ class OneDateFragment : BaseVBFragmentEx<OneDateFragmentBinding>(), IAdjustDensi
 
     private var diffNum = 0
 
-    private val listData by lazy { ArrayList<OneMonthModel>() }
-
-    private var isAdd = false
-
     private val loadListener = object : LoadScrollListener {
 
         override fun getCurrPosition(position: Int) {
             KLog.e("获取 position 位置  $position")
-            val data =  mBinding?.monthAdapter?.getItemModel(position)
+            val data = montAdapter.getItemModel(position)
             data?.let {
                 mBinding?.dateText = it.date
             }
@@ -53,27 +49,18 @@ class OneDateFragment : BaseVBFragmentEx<OneDateFragmentBinding>(), IAdjustDensi
 
     override fun getResourceId(): Int = R.layout.one_date_fragment
 
-    private var index = 0
 
     override fun initData() {
         //处理数据
         mBinding?.monthVM = monthViewModel
         mBinding?.monthAdapter = montAdapter
         mBinding?.loadListener = loadListener
-        //处理数据
-        get(monthViewModel.dataMonths) {
-            it?.let { model ->
-                if (isAdd) {
-                    listData.add(model)
-                } else {
-                    listData.clear()
-                    listData.add(model)
-                }
-            }
-            mBinding?.monthAdapter?.setNewData(listData)
-            KLog.e("msg... index...  $index")
-            index++
-        }
+
+//        //可以获取数据，绑定生命周期
+//        get(monthViewModel.listDataMonths){
+//
+//
+//        }
 
     }
 
@@ -85,7 +72,6 @@ class OneDateFragment : BaseVBFragmentEx<OneDateFragmentBinding>(), IAdjustDensi
 
 
     private fun loadMonthData(diffNum: Int, isAdd: Boolean = false) {
-        this.isAdd = isAdd
         monthViewModel.getMonthData(Calendar.getInstance().getTargetDate(1, diffNum), isAdd)
     }
 
@@ -98,7 +84,7 @@ class OneDateFragment : BaseVBFragmentEx<OneDateFragmentBinding>(), IAdjustDensi
 
     override fun onDestroy() {
         super.onDestroy()
-       "结束".e()
+        "结束".e()
     }
 
 }

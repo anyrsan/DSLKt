@@ -51,12 +51,7 @@ abstract class BaseAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
     }
 
 
-    fun l(){
-        this.listData.apply {
-            clear()
-        }
-        notifyDataSetChanged()
-    }
+
 
     fun getItemModel(position: Int): T? =
         if (position >= 0 && position < listData.size) listData[position] else null
@@ -81,7 +76,7 @@ abstract class BaseAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val vm = DataBindingUtil.inflate<ViewDataBinding>(LayoutInflater.from(parent.context),getLayoutId(viewType),parent,false)
+        val vm = DataBindingUtil.inflate<ViewDataBinding>(LayoutInflater.from(parent.context.applicationContext),getLayoutId(viewType),parent,false)
         return BaseItemView(vm)
     }
 
@@ -89,10 +84,6 @@ abstract class BaseAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
     abstract fun getLayoutId(viewType:Int):Int
 
     abstract fun handlerVariable(dataBind: ViewDataBinding, t: T)
-
-    fun onDestroy(dataBind: ViewDataBinding?){
-        dataBind?.unbind()
-    }
 
     //给外层重写调用，并不是所有UI需要事件
     open fun onClickItem(t:T){
@@ -102,7 +93,6 @@ abstract class BaseAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
     inner class BaseItemView<VM:ViewDataBinding>(private val  vm:VM) : RecyclerView.ViewHolder(vm.root) {
 
         fun setData(t: T) {
-            KLog.e("setData...... ${vm.lifecycleOwner}")
             itemView.viewOnClick {
                 onClickItem(t)
             }

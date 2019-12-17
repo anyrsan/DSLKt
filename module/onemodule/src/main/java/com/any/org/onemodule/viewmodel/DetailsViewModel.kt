@@ -180,4 +180,9 @@ class DetailsViewModel(private val rep: DetailsRepository) : BaseCoroutineViewMo
         commentList.onCleared()
     }
 
+
+    fun onDestroy(){
+        onCleared()
+    }
+
 }

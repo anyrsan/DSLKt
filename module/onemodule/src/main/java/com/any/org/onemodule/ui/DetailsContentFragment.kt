@@ -82,8 +82,17 @@ class DetailsContentFragment : BaseVBFragmentEx<DetailsContentFragmentBinding>()
         mBinding?.vm?.animPlay?.set(false)
         VoicePlayerManager.vPlayer.onStopCallBack = null
         VoicePlayerManager.vPlayer.onDestroy()
+        KLog.e("over... kk:  ${mBinding?.vm}")
         super.onDestroy()
+
     }
+
+
+    override fun onDetach() {
+        super.onDetach()
+        KLog.e("msg..... onDetach")
+    }
+
 
     override fun pxInDp(): Int = 360
 }

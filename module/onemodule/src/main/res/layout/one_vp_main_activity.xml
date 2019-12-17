@@ -5,24 +5,24 @@
     <data>
 
         <variable
-            name="refreshListener"
-            type="com.any.org.onemodule.viewevent.LoadRefreshListener" />
-
-        <variable
-            name="vm"
-            type="com.any.org.onemodule.viewmodel.OneViewModel" />
-
-        <variable
-            name="adapter"
-            type="com.any.org.onemodule.adapter.OneMainAdapter" />
-
-        <variable
             name="ndClick"
             type="com.any.org.onemodule.viewevent.NDViewClick" />
 
-        <import type="com.any.org.onemodule.data.CateApi" />
+        <variable
+            name="vm"
+            type="com.any.org.onemodule.viewmodel.OneVpNViewModel" />
+
+        <variable
+            name="adapter"
+            type="androidx.fragment.app.FragmentPagerAdapter" />
+
+        <variable
+            name="loadListener"
+            type="com.any.org.onemodule.viewevent.LoadScrollListener" />
+
 
         <import type="com.any.org.onemodule.extend.StringEx"/>
+
 
     </data>
 
@@ -79,26 +79,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-                android:id="@+id/oneRefreshLayout"
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/oneVpViewpager"
+                app:bindVpAdapter="@{adapter}"
+                app:bindLoadListener="@{loadListener}"
+                app:bindToPosition="@{vm.toPosition}"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:bindRefreshListener="@{refreshListener}"
-                app:refreshing="@{vm.isLoad}">
+                android:layout_height="match_parent"/>
 
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/oneRecycleView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:bindData="@{vm.contentList}"
-                    app:scrollTop="@{vm.isTop}"
-                    app:bindAdapter="@{adapter}" />
-
-            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
             <FrameLayout
-                android:id="@+id/oneContainerFl"
+                android:id="@+id/oneVpContainerFl"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 

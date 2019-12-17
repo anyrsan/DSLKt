@@ -2,6 +2,7 @@ package com.any.org.onemodule.extend
 
 import com.any.org.commonlibrary.log.KLog
 import com.any.org.onemodule.model.OneMonthSubModel
+import io.reactivex.Observer
 import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
@@ -37,6 +38,48 @@ object DateEx {
         }
         return "异常"
     }
+
+
+
+    fun isToday(date: String): Boolean {
+        val format = SimpleDateFormat("yyyy-MM-dd")
+        val now = format.format(Date())
+        KLog.e("isToday... $date  $now")
+        return now == date
+    }
+
+    fun convertDate(timeInMillis: Long): String {
+        val format = SimpleDateFormat("yyyy-MM-dd")
+        return format.format(Date(timeInMillis))
+    }
+
+
+    /**
+     * 获取当前月分的前N个月日期
+     */
+    fun getListDate(diffMonth: Int = 0): List<String> {
+        val list = mutableListOf<String>()
+        // 获取当前时间
+        val now = Calendar.getInstance()
+        now.timeInMillis = Date().time
+        now.add(Calendar.MONTH, diffMonth)
+        val day = now.get(Calendar.DAY_OF_MONTH)
+        println("day... $day")
+        val maxDay = if (diffMonth != 0) {
+            now.getActualMaximum(Calendar.DAY_OF_MONTH)
+        } else {
+            day
+        }
+        println("count... $maxDay")
+        now.set(Calendar.DAY_OF_MONTH, maxDay)
+        for (i in 1..maxDay) {
+            list.add(convertDate(now.timeInMillis))
+            println("... $i    ${convertDate(now.timeInMillis)}")
+            now.add(Calendar.DAY_OF_MONTH, -1)
+        }
+        return list
+    }
+
 }
 
 inline fun Calendar.getTargetDate(type: Int = 0, diffNum: Int = 0, date: String? = null): String =
@@ -79,8 +122,6 @@ infix fun OneMonthSubModel.getMonthFromDate(date: String?): String {
     }
     return "异常"
 }
-
-
 
 
 

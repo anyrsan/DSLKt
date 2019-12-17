@@ -3,8 +3,12 @@ package com.any.org.onemodule.extend
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.AbsoluteSizeSpan
+import android.widget.TextView
+import com.any.org.commonlibrary.utils.DensityUtil
 import com.any.org.onemodule.model.OneDataWeatherModel
 import java.lang.Exception
+import java.text.SimpleDateFormat
+import java.util.*
 import kotlin.math.roundToInt
 
 /**
@@ -38,6 +42,20 @@ object StringEx {
     }
 
 
+    fun showTitleDate(date: String, textView: TextView) {
+        val sdf = SimpleDateFormat("yyyy-MM-dd")
+        val mDate = sdf.parse(date)
+        //设置日期
+        val calendar = Calendar.getInstance()
+        calendar.time = mDate
+        // 取日期
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+        sdf.applyPattern("MM/yyyy")
+        val smallValue = sdf.format(mDate)
+        val fontSize = DensityUtil.dip2px(textView.context, 10f)
+        textView.text = getValue(fontSize, "$day", smallValue)
+    }
+
     @JvmStatic
     fun formatTime(duration: String?): String {
         try {
@@ -52,8 +70,6 @@ object StringEx {
         }
         return "error"
     }
-
-
 
 
 }

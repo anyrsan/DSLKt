@@ -19,12 +19,12 @@ class DetailsActivity : BaseVBActivityEx<MonthActivityBinding>(),IAdjustDensity 
 
     override fun getResourceId(): Int = R.layout.month_activity
 
+    //多fragment，不能声明为全局 ，容易引起内存泄漏
     private val oneDateFragment by lazy { createFragment(DetailsContentFragment::class.java.name) }
 
     override fun initView() {
         addFragment(oneDateFragment, R.id.monthContainerLl)
         mBinding.monthContainerLl.setTopPadding()
-        KLog.e("msg ...  initView...")
     }
 
     override fun initGetIntent() {
