@@ -14,7 +14,7 @@
 
         <variable
             name="vm"
-            type="com.any.org.onemodule.viewmodel.OneVpNViewModel" />
+            type="com.any.org.onemodule.nviewmodel.OneVpNViewModel" />
 
         <variable
             name="adapter"

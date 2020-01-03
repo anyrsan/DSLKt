@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="titleTypeName"
+            type="String" />
+
+        <variable
+            name="commentnum"
+            type="String" />
+
+        <variable
+            name="praisenum"
+            type="String" />
+
+        <variable
+            name="sharenum"
+            type="String" />
+
+
+        <variable
+            name="isHasMenu"
+            type="Boolean" />
+
+        <import type="android.view.View" />
+
+    </data>
+
+
+    <RelativeLayout
+        android:id="@+id/mainRL"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_ffffff">
+
+
+        <!-- 头部布局 -->
+        <RelativeLayout
+            android:id="@+id/topRL"
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+
+            <ImageView
+                android:id="@+id/backIv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:padding="10dp"
+                android:src="@drawable/ic_arrow_back_24dp" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@{titleTypeName}"
+                android:textColor="@color/color_666666"
+                android:textSize="17sp" />
+
+        </RelativeLayout>
+
+        <!-- viewPager 添加 内容  -->
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/contentVP"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/bottomRl"
+            android:layout_marginTop="45dp"
+            android:visibility="@{isHasMenu ? View.VISIBLE : View.GONE}" />
+
+        <FrameLayout
+            android:id="@+id/contentFl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/bottomRl"
+            android:layout_marginTop="45dp"
+            android:visibility="@{isHasMenu ? View.GONE : View.VISIBLE}" />
+
+        <!--  底部菜单  -->
+        <include
+            android:id="@+id/bottomRl"
+            layout="@layout/details_bottom_layout"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/color_f4f4f4"
+            android:gravity="center_vertical"
+            bind:commentnum="@{commentnum}"
+            bind:praisenum="@{praisenum}"
+            bind:sharenum="@{sharenum}" />
+
+    </RelativeLayout>
+
+</layout>
+
+
+

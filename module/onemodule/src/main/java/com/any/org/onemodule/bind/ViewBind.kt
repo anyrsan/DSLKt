@@ -60,14 +60,11 @@ fun refreshListener(refreshLayout: SwipeRefreshLayout, @Nullable refresh: LoadRe
 @BindingAdapter("app:bindAdapter", "app:bindItemDecoration", "app:bindData", requireAll = false)
 fun <T> bindRecycleViewAdapter(
     recyclerView: RecyclerView,
-    adapter: BaseAdapter<T>,
+    adapter: BaseAdapter<T>?,
     isItemDt: Boolean?,
     data: List<T>?
 ) {
-    data?.let {
-        adapter.setNewData(it)
-        return
-    }
+
     val tempAdapter = recyclerView.adapter
     val mContext = recyclerView.context.applicationContext
     if (tempAdapter == null) {
@@ -77,17 +74,20 @@ fun <T> bindRecycleViewAdapter(
     val itemDtSize = recyclerView.itemDecorationCount
     if (itemDtSize == 0) {
         val space = DensityUtil.dip2px(mContext, 10f)
-        if (isItemDt == null) {
+        if (isItemDt == null || isItemDt) {
             recyclerView.addItemDecoration(VerticalDecoration(mContext, space, 0, space * 3))
         }
+    }
+    data?.let {
+        adapter?.setNewData(it)
     }
 }
 
 
-@BindingAdapter("app:bindLoadAdapter")
+@BindingAdapter("app:bindLoadAdapter", requireAll = false)
 fun <M, T : ViewDataBinding> bindRecycleViewAdapter(
     view: RecyclerView,
-    adapter: BaseLoadAdapter<M, T>
+    adapter: BaseLoadAdapter<M, T>?
 ) {
     view.apply {
         val mContext = view.context.applicationContext
@@ -173,16 +173,15 @@ fun convertDateToValue(textView: TextView, date: String?) {
     KLog.e("有数据 来了。。。 $date")
 }
 
-@BindingAdapter("app:onNDClick")
-fun addNDClickView(view: View, ndViewClick: NDViewClick) {
+@BindingAdapter("app:onNDClick",requireAll = false)
+fun addNDClickView(view: View, ndViewClick: NDViewClick?) {
     view.viewOnClick {
-        ndViewClick.clickView(it)
+        ndViewClick?.clickView(it)
     }
 }
 
 @BindingAdapter("app:bindHtml", requireAll = false)
 fun bindWebHtml(webView: WebView, data: String?) {
-    KLog.e("bindweb... $data")
     data?.let {
         webView.loadData(it, "text/html", "utf-8")
     }
@@ -195,37 +194,37 @@ fun bindAnimView(anim: ChatAnimImageView, play: Boolean) {
 
 @BindingAdapter("app:scrollTop", requireAll = false)
 fun bindScrollToTop(recyclerView: RecyclerView, isTop: Boolean?) {
-     if (isTop == true) recyclerView.scrollToPosition(0)
+//     if (isTop == true) recyclerView.scrollToPosition(0)
 }
 
 
-//@BindingAdapter("app:bindVpAdapter", requireAll = false)
-//fun bindVpAdapter(
-//    viewPager2: ViewPager2,
-//    fAdapter: FragmentStateAdapter
-//) {
-//    viewPager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-//    viewPager2.adapter = fAdapter
-//}
-//
-//
-//@BindingAdapter("app:bindLoadListener", requireAll = false)
-//fun bindVpListener(viewPager2: ViewPager2, loadListener: LoadScrollListener?) {
-//    viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-//        override fun onPageSelected(position: Int) {
-//            loadListener?.getCurrPosition(position)
-//            val lastPosition = viewPager2.adapter?.itemCount ?: 0
-//            //最后一个时，要加载数据
-//            loadListener?.needLoadMore(position == lastPosition - 1)
-//        }
-//    })
-//}
-//
-//
-//@BindingAdapter("app:bindToPosition", requireAll = false)
-//fun bindVpToPosition(viewPager2: ViewPager2, position: Int) {
-//    viewPager2.setCurrentItem(position, true)
-//}
+@BindingAdapter("app:bindVpAdapter", requireAll = false)
+fun bindVpAdapter(
+    viewPager2: ViewPager2,
+    fAdapter: FragmentStateAdapter
+) {
+    viewPager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+    viewPager2.adapter = fAdapter
+}
+
+
+@BindingAdapter("app:bindLoadListener", requireAll = false)
+fun bindVpListener(viewPager2: ViewPager2, loadListener: LoadScrollListener?) {
+    viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+        override fun onPageSelected(position: Int) {
+            loadListener?.getCurrPosition(position)
+            val lastPosition = viewPager2.adapter?.itemCount ?: 0
+            //最后一个时，要加载数据
+            loadListener?.needLoadMore(position == lastPosition - 1)
+        }
+    })
+}
+
+
+@BindingAdapter("app:bindToPosition", requireAll = false)
+fun bindVpToPosition(viewPager2: ViewPager2, position: Int) {
+    viewPager2.setCurrentItem(position, true)
+}
 
 
 @BindingAdapter("app:bindVpAdapter", requireAll = false)

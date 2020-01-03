@@ -10,11 +10,11 @@
 
         <variable
             name="vm"
-            type="com.any.org.onemodule.viewmodel.OneVpNViewModel" />
+            type="com.any.org.onemodule.nviewmodel.OneVpNViewModel" />
 
         <variable
             name="adapter"
-            type="androidx.fragment.app.FragmentPagerAdapter" />
+            type="com.any.org.onemodule.adapter.ViewPagerAdapter" />
 
         <variable
             name="loadListener"
@@ -86,6 +86,14 @@
                 app:bindToPosition="@{vm.toPosition}"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
+
+<!--            <androidx.viewpager2.widget.ViewPager2-->
+<!--                android:id="@+id/oneVpViewpager"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                app:bindLoadListener="@{loadListener}"-->
+<!--                app:bindToPosition="@{vm.toPosition}"-->
+<!--                app:bindVpAdapter="@{adapter}" />-->
 
 
             <FrameLayout

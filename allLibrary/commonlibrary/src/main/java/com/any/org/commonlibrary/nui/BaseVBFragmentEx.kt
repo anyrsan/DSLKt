@@ -24,15 +24,15 @@ abstract class BaseVBFragmentEx<VB : ViewDataBinding> : BaseFragmentEx() {
         savedInstanceState: Bundle?
     ): View? {
         KLog.e("onCreateView.... ...  $mBinding")
-        if (mBinding == null) {
-            mBinding = DataBindingUtil.inflate(inflater, getResourceId(), container, false)
-        }
+        mBinding = DataBindingUtil.inflate(inflater, getResourceId(), container, false)
         mBinding?.lifecycleOwner = this
         return mBinding?.root
     }
 
 
     override fun onDestroyView() {
+        // 如果不这样写，存在adapter context 关联 泄漏风险
+        // 主要是因为viewModel 生命周期强于 fragment
         mBinding?.unbind()
         val rootView = mBinding?.root as? ViewGroup
         rootView?.let {

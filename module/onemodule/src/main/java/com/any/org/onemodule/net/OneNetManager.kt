@@ -20,6 +20,9 @@ const val ONE_MONTH_URL = "feeds/list/{month}?channel=cool"
 //评论 支持分页
 const val COMMENT_DATA_URL = "comment/praiseandtime/{type}/{contentId}/{commentId}?channel=cool"
 
+//指定月分连载
+const val SERIAL_MONTH_URL ="serialcontent/bymonth/{yearMonth}"
+
 object OneNetManager : RetrofitBaseApi(BASE_URL) {
     override fun rLog(message: String) {
         KLog.e("OneNet", message)

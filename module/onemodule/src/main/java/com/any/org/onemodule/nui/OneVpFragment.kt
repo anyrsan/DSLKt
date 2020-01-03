@@ -1,4 +1,4 @@
-package com.any.org.onemodule.ui
+package com.any.org.onemodule.nui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,8 +7,8 @@ import com.any.org.commonlibrary.nui.BaseVBFragmentEx
 import com.any.org.onemodule.R
 import com.any.org.onemodule.adapter.OneMainAdapter
 import com.any.org.onemodule.databinding.OneVpFragmentBinding
+import com.any.org.onemodule.nviewmodel.OneVpNViewModel
 import com.any.org.onemodule.viewevent.LoadRefreshListener
-import com.any.org.onemodule.viewmodel.OneVpNViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 
 /**

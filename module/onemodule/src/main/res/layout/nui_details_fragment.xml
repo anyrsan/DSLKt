@@ -9,11 +9,7 @@
 
         <variable
             name="vm"
-            type="com.any.org.onemodule.viewmodel.DetailsViewModel" />
-
-        <variable
-            name="titleTypeName"
-            type="String" />
+            type="com.any.org.onemodule.nviewmodel.NDetailsViewModel" />
 
         <import type="android.text.TextUtils" />
 
@@ -26,43 +22,10 @@
     </data>
 
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/color_ffffff">
-
-
-        <RelativeLayout
-            android:id="@+id/topRL"
-            android:layout_width="match_parent"
-            android:layout_height="45dp">
-
-            <ImageView
-                android:id="@+id/backIv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:padding="10dp"
-                android:src="@drawable/ic_arrow_back_24dp" />
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="@{titleTypeName}"
-                android:textColor="@color/color_666666"
-                android:textSize="17sp" />
-
-        </RelativeLayout>
-
-
         <androidx.core.widget.NestedScrollView
             android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/bottomRl"
-            android:layout_below="@id/topRL"
             android:scrollbarStyle="insideOverlay"
             android:scrollbars="vertical">
 
@@ -91,12 +54,13 @@
                     android:layout_height="40dp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="15dp"
-                    android:gravity="center_vertical">
+                    android:gravity="center_vertical"
+                    android:visibility="@{vm.showAuthor ? View.VISIBLE:View.GONE}">
 
                     <TextView
-                        android:layout_centerVertical="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
                         android:text="@{@string/author+vm.cAnchor}"
                         android:textColor="@color/color_999999"
                         android:textSize="12sp"
@@ -104,16 +68,29 @@
 
 
                     <ImageView
-                        android:visibility="@{vm.isMenu ? View.VISIBLE : View.GONE}"
-                        android:padding="5dp"
+                        android:id="@+id/menuIv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:src="@drawable/ic_menu_black_24dp" />
+                        android:padding="5dp"
+                        android:src="@drawable/ic_menu_black_24dp"
+                        android:visibility="@{vm.isMenu ? View.VISIBLE : View.GONE}" />
 
                 </RelativeLayout>
 
 
+                <!-- 动态加载 问答 的头部 -->
+                <include
+                    layout="@layout/details_question_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="@{vm.isQt ? View.VISIBLE : View.GONE}"
+                    bind:answererName="@{vm.answererName}"
+                    bind:askerName="@{vm.askerName}"
+                    bind:cTitle="@{vm.cTitle}" />
+
+
+                <!-- 语音 -->
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
@@ -197,18 +174,6 @@
         </androidx.core.widget.NestedScrollView>
 
 
-        <include
-            android:id="@+id/bottomRl"
-            layout="@layout/details_bottom_layout"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_alignParentBottom="true"
-            android:background="@color/color_f4f4f4"
-            android:gravity="center_vertical"
-            bind:commentnum="@{String.valueOf(vm.baseModel.commentnum)}"
-            bind:praisenum="@{String.valueOf(vm.baseModel.praisenum)}"
-            bind:sharenum="@{String.valueOf(vm.baseModel.sharenum)}" />
 
-    </RelativeLayout>
 
 </layout>

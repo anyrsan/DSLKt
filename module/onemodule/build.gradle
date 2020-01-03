@@ -20,8 +20,14 @@ dependencies {
     implementation rootProject.ext.dependencies.adapterHelper
     implementation rootProject.ext.dependencies.koinSdk
 
+
+    implementation rootProject.ext.dependencies.superLiveDatEx
+
     //扩展库
     implementation rootProject.ext.dependencies.superVmKtx
+
+    //添加盒子模型
+    implementation rootProject.ext.dependencies.flexBox
 
     //room
     implementation 'androidx.room:room-runtime:2.1.0-alpha06'

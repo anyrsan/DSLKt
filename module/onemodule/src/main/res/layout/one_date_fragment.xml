@@ -9,7 +9,7 @@
 
         <variable
             name="monthVM"
-            type="com.any.org.onemodule.viewmodel.MonthViewModel" />
+            type="com.any.org.onemodule.nviewmodel.MonthViewModel" />
 
         <variable
             name="monthAdapter"

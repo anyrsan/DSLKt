@@ -14,7 +14,7 @@ import com.chad.library.adapter.base.BaseViewHolder
  * @time 2019/10/30 15.41
  * @details 封装适配器，自动完成数据装载
  */
-abstract class BaseLoadAdapter<T, V : ViewDataBinding>(@LayoutRes layoutId: Int, private val list: AdapterDataObserver<T>) :
+abstract class BaseLoadAdapter<T, V : ViewDataBinding>(@LayoutRes layoutId: Int,  list: AdapterDataObserver<T>) :
     BaseQuickAdapter<T, BaseViewHolder>(layoutId) {
 
     private val pageNum = 16
@@ -24,11 +24,12 @@ abstract class BaseLoadAdapter<T, V : ViewDataBinding>(@LayoutRes layoutId: Int,
 
     private val observer = object : AdObserver<T> {
         override fun updateData(t: List<T>?, new: Boolean) {
-            loadMoreData = !(t.isNullOrEmpty() || (t.size < pageNum))
+            loadMoreData = !(t.isNullOrEmpty() || (t.size < pageNum)  || t.isEmpty())
             if (new) {
                 setNewData(t)
                 setEnableLoadMore(loadMoreData)
-                KLog.e("刷新数据成功")
+                if (!loadMoreData) loadMoreEnd()
+                KLog.e("AAA","刷新数据成功   $loadMoreData")
             } else {
                 //这里也可以处理出错情况  t为空时，就是加载出错了
                 t?.run {
@@ -38,7 +39,7 @@ abstract class BaseLoadAdapter<T, V : ViewDataBinding>(@LayoutRes layoutId: Int,
                     if (!loadMoreData) loadMoreEnd()
                     KLog.e("有没有更多数据 。。。  ${isEmpty()}")
                 } ?: loadMoreFail()
-                KLog.e("......添加数据成功")
+                KLog.e("......添加数据成功  $loadMoreData")
             }
         }
     }

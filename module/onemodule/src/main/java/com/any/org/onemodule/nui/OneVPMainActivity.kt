@@ -1,4 +1,4 @@
-package com.any.org.onemodule.ui
+package com.any.org.onemodule.nui
 
 import android.view.View
 import com.any.org.ankolibrary.get
@@ -13,16 +13,14 @@ import com.any.org.commonlibrary.ui.createFragment
 import com.any.org.eventbuslibrary.RxNewBus
 import com.any.org.eventbuslibrary.ktanno.Subscribe
 import com.any.org.onemodule.R
-import com.any.org.onemodule.adapter.ViewPager2Adapter
 import com.any.org.onemodule.adapter.ViewPagerAdapter
 import com.any.org.onemodule.databinding.OneVpMainActivityBinding
 import com.any.org.onemodule.extend.StringEx
 import com.any.org.onemodule.model.OneDataItemModel
 import com.any.org.onemodule.model.OneMonthSubModel
+import com.any.org.onemodule.nviewmodel.OneVpNViewModel
 import com.any.org.onemodule.viewevent.LoadScrollListener
 import com.any.org.onemodule.viewevent.NDViewClick
-import com.any.org.onemodule.viewmodel.OneVpNViewModel
-import com.any.org.onemodule.viewmodel.OneVpShareViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
@@ -30,7 +28,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
  *
  * @author any
  * @time 2019/12/16 17.34
- * @details 滑动详情首页
+ * @details app主页
  */
 class OneVPMainActivity : BaseVBActivityEx<OneVpMainActivityBinding>(), IAdjustDensity {
 
@@ -39,6 +37,7 @@ class OneVPMainActivity : BaseVBActivityEx<OneVpMainActivityBinding>(), IAdjustD
 
     private val oneVpVM by viewModel<OneVpNViewModel>()
 
+    //建议用viewpager, 发现viewpager2事件解决不太好，滑动有冲突
     private val vpAdapter by lazy { ViewPagerAdapter(listData, supportFragmentManager) }
 
     private var currMonth = 0
@@ -146,13 +145,14 @@ class OneVPMainActivity : BaseVBActivityEx<OneVpMainActivityBinding>(), IAdjustD
             }
             "1" -> {
                 KLog.e("去阅读")
-                startActivity<DetailsActivity>("itemId" to t.item_id, "category" to t.category)
+                startActivity<NDetailsActivity>("itemId" to t.item_id, "category" to t.category)
             }
             "2" -> {
-                startActivity<DetailsActivity>("itemId" to t.item_id, "category" to t.category)
+                startActivity<NDetailsActivity>("itemId" to t.item_id, "category" to t.category)
                 KLog.e("连载")
             }
             "3" -> {
+                startActivity<NDetailsActivity>("itemId" to t.item_id, "category" to t.category)
                 KLog.e("问答")
             }
             "4" -> {

@@ -4,4 +4,7 @@
 
     <string name="audio_books">有声读物/</string>
     <string name="author">文/</string>
+
+    <string name="asker_">提问:</string>
+    <string name="answer_">回答:</string>
 </resources>

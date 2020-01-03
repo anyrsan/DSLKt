@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="menuM"
+            type="com.any.org.onemodule.model.MenuModel" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:padding="5dp"
+            android:text="@{menuM.page}"
+            android:textColor="@color/color_666666"
+            android:textSize="18sp"
+            tools:text="1" />
+
+
+        <View
+            android:layout_width="30dp"
+            android:layout_height="1dp"
+            android:background="@color/color_999999"
+            android:visibility="@{ menuM.show ? View.VISIBLE : View.GONE}" />
+
+    </LinearLayout>
+</layout>
+
+
+

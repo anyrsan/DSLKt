@@ -1,14 +1,12 @@
-package com.any.org.onemodule.viewmodel
+package com.any.org.onemodule.nviewmodel
 
-import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.MutableLiveData
 import com.any.org.ankolibrary.async
 import com.any.org.ankolibrary.set
-import com.any.org.commonlibrary.log.KLog
 import com.any.org.onemodule.data.repository.OneRepository
-import com.any.org.onemodule.extend.DateEx
 import com.any.org.onemodule.extend.getTargetDate
-import com.any.org.onemodule.model.*
+import com.any.org.onemodule.model.OneDataItemModel
+import com.any.org.onemodule.model.OneDataWeatherModel
 import java.util.*
 
 /**
@@ -38,6 +36,10 @@ class OneVpNViewModel(private val oneRep: OneRepository) : BaseViewModel() {
 
     //处理计算
     val toPosition = MutableLiveData<Int>()
+
+
+
+
 
     /**
      * 获取天气
@@ -122,6 +124,11 @@ class OneVpNViewModel(private val oneRep: OneRepository) : BaseViewModel() {
             }
         }
     }
+
+
+
+
+
 
 
 }

@@ -80,7 +80,7 @@ class VoicePlayerManager private constructor() {
                     start()
                     onPlayState.invoke(true, true, false)
                     //播放进度
-                    setOnErrorListener { mp, _, _ ->
+                    setOnErrorListener { _, _, _ ->
                         KLog.e("aaa", "<<<<<<>>>>>error<<<<>>>>>>.... $path")
                         onPlayState.invoke(false, true, false)
                         true

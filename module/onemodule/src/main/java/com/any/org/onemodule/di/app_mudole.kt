@@ -8,7 +8,7 @@ import com.any.org.onemodule.data.repository.DetailsRepository
 import com.any.org.onemodule.data.repository.OneRepository
 import com.any.org.onemodule.data.room.ArticleDatabase
 import com.any.org.onemodule.net.OneNetManager
-import com.any.org.onemodule.viewmodel.*
+import com.any.org.onemodule.nviewmodel.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -48,9 +48,7 @@ val apiModule = module {
 }
 
 val remoteModule = module {
-    //    single {
-//        NetProvider(get())
-//    }
+
 
 }
 
@@ -75,23 +73,27 @@ val repModule = module {
 
 val viewModels = module {
     viewModel {
-        OneViewModel(get())
-    }
-
-    viewModel {
         MonthViewModel(get())
     }
 
     viewModel {
-        DetailsViewModel(get())
-    }
-
-    viewModel {
-        OneVpShareViewModel(get())
-    }
-
-    viewModel {
         OneVpNViewModel(get())
+    }
+
+    viewModel {
+        NSericalViewModel(get())
+    }
+
+    viewModel {
+        NQtViewModel(get())
+    }
+
+    viewModel {
+        NDetailsViewModel(get())
+    }
+
+    viewModel {
+        NMenuViewModel(get())
     }
 
 }

@@ -14,11 +14,8 @@ data class QuestionSubModel(
     val answer_title: String,
     val answerer: Answerer,
     val asker: Asker,
-    val audio: String,
-    val audio_duration: String,
     val charge_edt: String,
     val charge_email: String,
-    val commentnum: Int,
     val content_bgcolor: String,
     val copyright: String,
     val cover: String,
@@ -28,7 +25,6 @@ data class QuestionSubModel(
     val guide_word: String,
     val last_update_date: String,
     val next_id: Int,
-    val praisenum: Int,
     val previous_id: String,
     val question_content: String,
     val question_id: String,
@@ -36,10 +32,9 @@ data class QuestionSubModel(
     val question_title: String,
     val read_num: String,
     val recommend_flag: String,
-    val sharenum: Int,
     val start_video: String,
     val web_url: String
-)
+) : ContentDetailsModel()
 
 data class Answerer(
     val desc: String,

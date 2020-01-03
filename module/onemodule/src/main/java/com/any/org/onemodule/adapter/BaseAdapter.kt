@@ -57,7 +57,7 @@ abstract class BaseAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
         if (position >= 0 && position < listData.size) listData[position] else null
 
     override fun getItemViewType(position: Int): Int {
-        val oneDM = listData?.get(position)
+        val oneDM = listData[position]
         return oneDM?.let {
             getViewType(it)
         } ?: super.getItemViewType(position)
@@ -68,7 +68,7 @@ abstract class BaseAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
     override fun getItemCount(): Int = listData.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val oneData = listData?.get(position)
+        val oneData = this.listData[position]
         oneData?.let {
             (holder as? BaseItemView<*>)?.setData(it)
         }

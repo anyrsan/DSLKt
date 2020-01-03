@@ -1,4 +1,4 @@
-package com.any.org.onemodule.viewmodel
+package com.any.org.onemodule.nviewmodel
 
 import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.MutableLiveData
@@ -20,7 +20,7 @@ import kotlin.collections.ArrayList
  *
  * @author any
  * @time 2019/11/25 10.46
- * @details
+ * @details 月分适配器
  */
 class MonthViewModel(private val oneRep: OneRepository) : BaseViewModel() {
 

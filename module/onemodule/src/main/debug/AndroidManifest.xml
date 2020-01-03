@@ -18,7 +18,7 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
 
-        <activity android:name="com.any.org.onemodule.ui.OneVPMainActivity">
+        <activity android:name="com.any.org.onemodule.nui.OneVPMainActivity">
 
             <intent-filter>
 
@@ -41,8 +41,7 @@
                 android:resource="@xml/filepaths" />
         </provider>
 
-
-        <activity android:name=".ui.DetailsActivity" />
+        <activity android:name=".nui.NDetailsActivity"/>
 
     </application>
 

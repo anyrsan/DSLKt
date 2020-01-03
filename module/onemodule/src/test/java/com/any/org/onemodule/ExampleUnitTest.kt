@@ -18,7 +18,7 @@ import java.util.*
 class ExampleUnitTest {
 
     @Test
-    fun testFor(){
+    fun testFor() {
 
 //        val a = "25.05".toBigDecimal()*(12.toBigDecimal())
 //
@@ -147,15 +147,60 @@ class ExampleUnitTest {
     }
 
 
-
-
-
     @Test
-    fun testListDate(){
+    fun testListDate() {
 
         DateEx.getListDate(-2)
 
     }
 
 
+    @Test
+    fun testListToMap() {
+
+        val list = mutableListOf<Model>()
+
+        for (i in 0..15) {
+            val itemId = if (i % 4 == 0) 555 else i
+            val name = "$i 个"
+            list.add(Model(itemId, name))
+        }
+        list.forEach {
+            println("item... $it")
+        }
+
+
+        val newList = list.groupBy {
+            it.itemId
+        }
+
+        val kkkList = newList.values.first()
+
+        val listMap = kkkList.map {
+            it.itemId to it
+        }.toMap()
+
+        listMap.keys.forEach {
+            println(" key = $it...... value = ${listMap[it]}")
+        }
+
+
+//        val map = list.map {
+//            it.itemId to it
+//        }.toMap()
+//
+//        map.keys.forEach {
+//            println("key.... $it")
+//        }
+//
+//
+//        map.values.forEach {
+//            println("value...  $it")
+//        }
+
+    }
+
+
 }
+
+data class Model(val itemId: Int, val name: String)

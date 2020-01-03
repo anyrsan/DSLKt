@@ -12,9 +12,15 @@ class DetailsRepository(private val api: DetailsApi) {
 
     suspend fun getEssayDetail(cateEn: String, itemId: String) = api.getEssayDetail(cateEn, itemId)
 
-    suspend fun getSerialDetail(cateEn: String, itemId: String) = api.getSerialDetail(cateEn, itemId)
+    suspend fun getSerialDetail(cateEn: String, itemId: String) =
+        api.getSerialDetail(cateEn, itemId)
+
+    suspend fun getQuestionModel(cateEn: String, itemId: String) =
+        api.getQuestionModel(cateEn, itemId)
 
     suspend fun getComment(cateEn: String, contentId: String, commentId: String) =
         api.getComment(cateEn, contentId, commentId)
+
+    suspend fun getSerialMenu(yearMonth: String) = api.getSerialMenu(yearMonth)
 
 }

@@ -152,8 +152,12 @@ inline fun <reified T : Any> Activity.argument(key: String) =
     }
 
 //获取对应的参数值
-inline fun <reified T : Any> Fragment.argument(key: String) = lazy {
+inline fun <reified T : Any> Fragment.getArgument(key: String) = lazy {
     activity?.intent?.extras?.get(key) as? T
+}
+
+inline fun <reified T : Any> Fragment.myArgument(key: String) = lazy {
+      arguments?.get(key) as? T
 }
 
 //直接取值 ，不存在

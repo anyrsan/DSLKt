@@ -1,10 +1,9 @@
-package com.any.org.onemodule.viewmodel
+package com.any.org.onemodule.nviewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.any.org.ankolibrary.handlerException
 import com.any.org.commonlibrary.log.KLog
-import com.any.org.commonlibrary.log.e
+import com.any.org.commonlibrary.log.eLog
 import kotlinx.coroutines.*
 import java.lang.Exception
 import kotlin.coroutines.CoroutineContext
@@ -15,7 +14,7 @@ import kotlin.coroutines.CoroutineContext
  * @time 2019/11/29 17.20
  * @details  协程处理 自动处理关闭 (如果是Fragment中用， 由于onCleared 只在activity中回调，所以不会取消协程任务)
  */
-abstract class BaseCoroutineViewModel : ViewModel() {
+abstract class NBaseCoroutineViewModel : ViewModel() {
 
     fun doTask(throwableHandler: CoroutineException? = null, task: suspend () -> Unit) {
         viewModelScope.safeLaunch(throwableHandler) {
@@ -61,7 +60,7 @@ object DefaultHandler : CoroutineException {
     override fun invoke(p1: Throwable) {
         p1.printStackTrace()
         KLog.e("全局处理 异常  $p1")
-        "输出错误".e()
+        "输出错误".eLog()
     }
 }
 

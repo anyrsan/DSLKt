@@ -41,6 +41,6 @@ object KLog {
 }
 
 
-fun String.e() {
+fun String.eLog() {
     KLog.e(this)
 }

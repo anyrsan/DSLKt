@@ -1,17 +1,15 @@
-package com.any.org.onemodule.ui
+package com.any.org.onemodule.nui
 
-import com.any.org.ankolibrary.get
 import com.any.org.commonlibrary.auto.IAdjustDensity
 import com.any.org.commonlibrary.log.KLog
-import com.any.org.commonlibrary.log.e
+import com.any.org.commonlibrary.log.eLog
 import com.any.org.commonlibrary.nui.BaseVBFragmentEx
 import com.any.org.onemodule.R
 import com.any.org.onemodule.adapter.MonthMainAdapter
 import com.any.org.onemodule.databinding.OneDateFragmentBinding
 import com.any.org.onemodule.extend.getTargetDate
-import com.any.org.onemodule.model.OneMonthModel
+import com.any.org.onemodule.nviewmodel.MonthViewModel
 import com.any.org.onemodule.viewevent.LoadScrollListener
-import com.any.org.onemodule.viewmodel.MonthViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.util.*
 
@@ -56,12 +54,6 @@ class OneDateFragment : BaseVBFragmentEx<OneDateFragmentBinding>(), IAdjustDensi
         mBinding?.monthAdapter = montAdapter
         mBinding?.loadListener = loadListener
 
-//        //可以获取数据，绑定生命周期
-//        get(monthViewModel.listDataMonths){
-//
-//
-//        }
-
     }
 
     override fun lazyData() {
@@ -84,7 +76,7 @@ class OneDateFragment : BaseVBFragmentEx<OneDateFragmentBinding>(), IAdjustDensi
 
     override fun onDestroy() {
         super.onDestroy()
-        "结束".e()
+        "结束".eLog()
     }
 
 }

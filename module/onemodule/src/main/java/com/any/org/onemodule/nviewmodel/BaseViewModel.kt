@@ -1,4 +1,4 @@
-package com.any.org.onemodule.viewmodel
+package com.any.org.onemodule.nviewmodel
 
 import androidx.lifecycle.ViewModel
 import io.reactivex.disposables.CompositeDisposable
@@ -8,7 +8,7 @@ import io.reactivex.disposables.Disposable
  *
  * @author any
  * @time 2019/11/16 14.25
- * @details
+ * @details  RxJava 处理
  */
 abstract class BaseViewModel :ViewModel(){
 

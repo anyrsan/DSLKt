@@ -3,7 +3,7 @@ package com.any.org.onemodule.adapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.any.org.onemodule.ui.OneVpFragment
+import com.any.org.onemodule.nui.OneVpFragment
 
 /**
  *

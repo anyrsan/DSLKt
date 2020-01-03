@@ -1,10 +1,9 @@
-package com.any.org.onemodule.viewmodel
+package com.any.org.onemodule.nviewmodel
 
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import com.any.org.ankolibrary.set
 import com.any.org.commonlibrary.log.KLog
-import com.any.org.commonlibrary.nui.runUI
 import com.any.org.onemodule.adapter.obser.AdapterDataObserver
 import com.any.org.onemodule.data.CateApi
 import com.any.org.onemodule.data.repository.DetailsRepository
@@ -13,37 +12,46 @@ import com.any.org.onemodule.manager.VoicePlayerManager
 import com.any.org.onemodule.model.CommentItemModel
 import com.any.org.onemodule.model.ContentDetailsModel
 import com.any.org.onemodule.viewevent.NDViewClick
-
 /**
  *
  * @author any
  * @time 2019/12/12 19.11
- * @details
+ * @details 内容详情（基础类，主要定义了公共数据）
  */
-class DetailsViewModel(private val rep: DetailsRepository) : BaseCoroutineViewModel() {
+open class NDetailsViewModel(private val rep: DetailsRepository) : NBaseCoroutineViewModel() {
 
-    //设置初始值
+    //设置初始值 基础数据
     val baseModel = MutableLiveData<ContentDetailsModel>()
-
+    //标题
     val cTitle = MutableLiveData<String>()
-
+    //正文
     val cContent = MutableLiveData<String>()
-
+    //作者
     val cAnchor = MutableLiveData<String>()
-
+    //评论
     val commentList = AdapterDataObserver<CommentItemModel>()
-
+    //音频播放时进度
     val progress = MutableLiveData<String>()
-
+    // 动画
     val animPlay = MutableLiveData<Boolean>()
-
+    //连载菜单
     val isMenu = MutableLiveData<Boolean>()
+    //是否显示作者信息（包括菜单）
+    val showAuthor = MutableLiveData<Boolean>()
 
-    private var lastCommentId = "0"
+    //问答
+    val isQt = MutableLiveData<Boolean>()
+    //问答用到的数据
+    val askerName = MutableLiveData<String>()
+    val answererName = MutableLiveData<String>()
 
-    private var contentId = "0"
 
-    private var contentType = ""
+    // 最后一个评论id
+    protected var lastCommentId = "0"
+    //文章id
+    protected var contentId = "0"
+    // 评论类型,进行加载评论时用
+    protected var commentType = ""
 
     //处理事件
     val ndClick = object : NDViewClick {
@@ -67,6 +75,8 @@ class DetailsViewModel(private val rep: DetailsRepository) : BaseCoroutineViewMo
             animPlay.set(false)
             progress.set(StringEx.formatTime(baseModel.value?.audio_duration))
         }
+
+
     }
 
 
@@ -82,12 +92,13 @@ class DetailsViewModel(private val rep: DetailsRepository) : BaseCoroutineViewMo
     }
 
 
-    fun getDetailsContent(category: String?, itemId: String) {
+   open fun getDetailsContent(category: String?, itemId: String) {
+        showAuthor.set(true)
         when (category) {
             "0" -> {
 
             }
-            "1" -> {
+            else -> {
                 doTask({
                     it.printStackTrace()
                     KLog.e("msg... $it")
@@ -107,7 +118,7 @@ class DetailsViewModel(private val rep: DetailsRepository) : BaseCoroutineViewMo
                     //延后加载
                     doDelayTask(timeMillis = 1000) {
                         KLog.e("getComment.... 开始加载")
-                        contentType = CateApi.getCateEn(category)
+                        commentType = CateApi.getCateEn(category)
                         cId?.let {
                             contentId = it
                             lastCommentId = "0"
@@ -115,44 +126,9 @@ class DetailsViewModel(private val rep: DetailsRepository) : BaseCoroutineViewMo
                         }
                     }
                 }
-            }
-            "2" -> {
-                doTask {
-                    val model = executiveRequest {
-                        rep.getSerialDetail(CateApi.getCateEn(category), itemId)
-                    }
-                    var cId: String? = null
-                    model?.data?.apply {
-                        cContent.set(content)
-                        cTitle.set(title)
-                        cAnchor.set(author.user_name)
-                        progress.set(StringEx.formatTime(audio_duration))
-                        baseModel.set(this as ContentDetailsModel)
-                        isMenu.set(true)
-                        cId = id
-                    }
-                    //延后加载
-                    contentType = "serial"
-                    doDelayTask(timeMillis = 1000) {
-                        KLog.e("getComment.... 开始加载")
-                        cId?.let {
-                            contentId = it
-                            lastCommentId = "0"
-                            getComment(it, lastCommentId)
-                        }
-                    }
-                }
-            }
-            "3" -> {
-
-            }
-            "4" -> {
-
-            }
-            "5" -> {
-
             }
         }
+
     }
 
 
@@ -161,10 +137,11 @@ class DetailsViewModel(private val rep: DetailsRepository) : BaseCoroutineViewMo
         getComment(contentId, lastCommentId)
     }
 
-    private fun getComment(contentId: String, commentId: String) {
+
+    protected fun getComment(contentId: String, commentId: String) {
         doTask {
             val model = executiveRequest {
-                rep.getComment(contentType, contentId, commentId)
+                rep.getComment(commentType, contentId, commentId)
             }
             model?.let {
                 commentList.updateData(it.data.data, commentId == "0")
@@ -174,15 +151,16 @@ class DetailsViewModel(private val rep: DetailsRepository) : BaseCoroutineViewMo
     }
 
 
+     fun onDestroy(){
+        commentList.onCleared()
+        VoicePlayerManager.vPlayer.onStopCallBack = null
+    }
+
     override fun onCleared() {
         super.onCleared()
-        VoicePlayerManager.vPlayer.onStopCallBack = null
-        commentList.onCleared()
+        KLog.e("AAA","..... 回收了。。。onCleared")
     }
 
 
-    fun onDestroy(){
-        onCleared()
-    }
 
 }

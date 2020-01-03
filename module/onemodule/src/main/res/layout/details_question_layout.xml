@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="askerName"
+            type="String" />
+
+        <variable
+            name="cTitle"
+            type="String" />
+
+        <variable
+            name="answererName"
+            type="String" />
+
+    </data>
+
+
+    <LinearLayout
+        android:id="@+id/contentLl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text='@{askerName + @string/asker_}'
+            android:textColor="@color/color_666666"
+            android:textSize="13sp"
+            tools:text="谁谁提问：" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@{cTitle}"
+            android:textColor="@color/color_666666"
+            android:textSize="16sp"
+            tools:text="在爱情里，该如何示弱？" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/line_x_gap"
+            android:layerType="software" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text='@{answererName + @string/answer_}'
+            android:textColor="@color/color_666666"
+            android:textSize="13sp"
+            tools:text="谁谁回答：" />
+
+    </LinearLayout>
+
+
+</layout>

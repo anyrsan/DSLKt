@@ -1,4 +1,4 @@
-package com.any.org.onemodule.viewmodel
+package com.any.org.onemodule.nviewmodel
 
 import android.util.Log
 import androidx.annotation.MainThread
