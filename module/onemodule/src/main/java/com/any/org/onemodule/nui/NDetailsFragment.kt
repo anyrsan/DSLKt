@@ -1,7 +1,10 @@
 package com.any.org.onemodule.nui
 
 import android.os.Bundle
+import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
@@ -10,6 +13,7 @@ import com.any.org.ankolibrary.myArgument
 import com.any.org.ankolibrary.set
 import com.any.org.commonlibrary.log.KLog
 import com.any.org.commonlibrary.nui.BaseVBFragmentEx
+import com.any.org.commonlibrary.nui.delayLoad
 import com.any.org.onemodule.R
 import com.any.org.onemodule.adapter.obser.AdapterDataObserver
 import com.any.org.onemodule.adapter.obser.CommonAdapter
@@ -18,6 +22,7 @@ import com.any.org.onemodule.manager.VoicePlayerManager
 import com.any.org.onemodule.model.CommentItemModel
 import com.any.org.onemodule.model.ContentDetailsModel
 import com.any.org.onemodule.nviewmodel.NDetailsViewModel
+import debug.OneApp
 import org.koin.android.viewmodel.ext.android.viewModel
 
 /**
@@ -63,6 +68,29 @@ open class NDetailsFragment : BaseVBFragmentEx<NuiDetailsFragmentBinding>() {
                 KLog.e("BBB", "获取到的 baseModel...${baseModel}   $itemId  it=${cmd?.commentnum} ")
             }
         }
+
+
+        //获取位置
+
+        val oneApp = requireActivity().application as OneApp
+        val y = itemId?.let {
+            oneApp.getY(it)
+        } ?: 0
+
+        mBinding?.webView?.webViewClient = object : WebViewClient() {
+            override fun onPageFinished(view: WebView?, url: String?) {
+                KLog.e("加载完成了数据   y=$y")
+                if (y > 0) {
+                    mBinding?.scrollView?.scrollTo(0, y)
+                    delayLoad(50) {
+                        mBinding?.scrollView?.visibility = View.VISIBLE
+                    }
+                } else {
+                    mBinding?.scrollView?.visibility = View.VISIBLE
+                }
+            }
+        }
+
     }
 
     open fun getCommentList(): AdapterDataObserver<CommentItemModel> = detailVM.commentList
@@ -95,7 +123,7 @@ open class NDetailsFragment : BaseVBFragmentEx<NuiDetailsFragmentBinding>() {
         val contentV = mBinding?.contentLl
         mBinding?.scrollView?.setOnScrollChangeListener { v: NestedScrollView?, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int ->
             val isLoadMore = commAdapter.loadMoreData
-            KLog.e("AAA", ".... loadMore     $isLoadMore")
+            KLog.e("AAA", ".... loadMore     $isLoadMore   $scrollY")
             //加载更多
             if (isLoadMore && offValue(contentV?.height, scrollY) == v?.height) {
                 mBinding?.vm?.getComment()
@@ -109,6 +137,13 @@ open class NDetailsFragment : BaseVBFragmentEx<NuiDetailsFragmentBinding>() {
 
 
     override fun onDestroyView() {
+
+        val y = mBinding?.scrollView?.scrollY ?: 0
+        val oneApp = requireActivity().application as OneApp
+        if (!itemId.isNullOrEmpty() && y > 0) {
+            oneApp.setY(itemId!!, y)
+        }
+
         val viewGroup = mBinding?.commentRv?.parent as? ViewGroup
         viewGroup?.removeAllViews()
         mBinding?.vm?.onDestroy()

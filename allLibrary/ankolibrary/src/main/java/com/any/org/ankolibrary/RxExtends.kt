@@ -2,6 +2,7 @@
 
 package com.any.org.ankolibrary
 
+import android.os.Looper
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -84,7 +85,15 @@ fun <T> Observable<T>.subOnlyCode(onResult: ((errorCode: Int) -> Unit)? = null) 
 }
 
 
-fun <T> MutableLiveData<T>.set(t: T?) = this.postValue(t)
+//如果不是主线程，就切换到主线程，否则直接 setValue
+fun <T> MutableLiveData<T>.set(t: T?) = kotlin.run {
+    if (Thread.currentThread() == Looper.getMainLooper().thread) {
+        this.value = t
+    } else {
+        this.postValue(t)
+    }
+
+}
 
 fun <T> MutableLiveData<T>.get() = this.value
 
@@ -94,10 +103,11 @@ fun <T> MutableLiveData<T>.initData(t: T?) = MutableLiveData<T>().apply {
     postValue(t)
 }
 
-fun <T> AppCompatActivity.get(t:MutableLiveData<T>,value:(t:T?)->Unit) = t.observe(this, Observer {
-    value.invoke(it)
-})
+fun <T> AppCompatActivity.get(t: MutableLiveData<T>, value: (t: T?) -> Unit) =
+    t.observe(this, Observer {
+        value.invoke(it)
+    })
 
-fun <T> Fragment.get(t:MutableLiveData<T>,value:(t:T?)->Unit) = t.observe(this, Observer {
+fun <T> Fragment.get(t: MutableLiveData<T>, value: (t: T?) -> Unit) = t.observe(this, Observer {
     value.invoke(it)
 })

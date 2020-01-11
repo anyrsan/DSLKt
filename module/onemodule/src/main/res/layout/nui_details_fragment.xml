@@ -22,12 +22,17 @@
     </data>
 
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
         <androidx.core.widget.NestedScrollView
             android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scrollbarStyle="insideOverlay"
-            android:scrollbars="vertical">
+            android:scrollbars="vertical"
+            android:visibility="invisible">
 
             <LinearLayout
                 android:id="@+id/contentLl"
@@ -138,6 +143,7 @@
 
 
                 <WebView
+                    android:id="@+id/webView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
@@ -174,6 +180,12 @@
         </androidx.core.widget.NestedScrollView>
 
 
+        <ProgressBar
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center"
+            android:visibility="@{vm.isLoading ? View.VISIBLE:View.GONE}" />
+    </FrameLayout>
 
 
 </layout>

@@ -13,6 +13,8 @@ import kotlin.coroutines.CoroutineContext
  * @author any
  * @time 2019/11/29 17.20
  * @details  协程处理 自动处理关闭 (如果是Fragment中用， 由于onCleared 只在activity中回调，所以不会取消协程任务)
+ *    viewModel<T>()  fragment 协程上下文同步于 fragment生命周期
+ *    sharedViewModel<T>()  fragment 协程上下文同步于 activity生命周期
  */
 abstract class NBaseCoroutineViewModel : ViewModel() {
 

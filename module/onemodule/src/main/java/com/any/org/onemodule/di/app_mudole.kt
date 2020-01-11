@@ -96,6 +96,10 @@ val viewModels = module {
         NMenuViewModel(get())
     }
 
+    viewModel {
+        TestViewModel()
+    }
+
 }
 
 

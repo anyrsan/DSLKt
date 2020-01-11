@@ -12,6 +12,7 @@ import com.any.org.onemodule.manager.VoicePlayerManager
 import com.any.org.onemodule.model.CommentItemModel
 import com.any.org.onemodule.model.ContentDetailsModel
 import com.any.org.onemodule.viewevent.NDViewClick
+
 /**
  *
  * @author any
@@ -19,6 +20,10 @@ import com.any.org.onemodule.viewevent.NDViewClick
  * @details 内容详情（基础类，主要定义了公共数据）
  */
 open class NDetailsViewModel(private val rep: DetailsRepository) : NBaseCoroutineViewModel() {
+
+
+    //加载状态
+    val isLoading = MutableLiveData<Boolean>(true)
 
     //设置初始值 基础数据
     val baseModel = MutableLiveData<ContentDetailsModel>()
@@ -92,7 +97,7 @@ open class NDetailsViewModel(private val rep: DetailsRepository) : NBaseCoroutin
     }
 
 
-   open fun getDetailsContent(category: String?, itemId: String) {
+    open fun getDetailsContent(category: String?, itemId: String) {
         showAuthor.set(true)
         when (category) {
             "0" -> {
@@ -143,6 +148,7 @@ open class NDetailsViewModel(private val rep: DetailsRepository) : NBaseCoroutin
             val model = executiveRequest {
                 rep.getComment(commentType, contentId, commentId)
             }
+            isLoading.set(false)
             model?.let {
                 commentList.updateData(it.data.data, commentId == "0")
                 lastCommentId = it.data.data.last().id
@@ -151,16 +157,15 @@ open class NDetailsViewModel(private val rep: DetailsRepository) : NBaseCoroutin
     }
 
 
-     fun onDestroy(){
+    fun onDestroy() {
         commentList.onCleared()
         VoicePlayerManager.vPlayer.onStopCallBack = null
     }
 
     override fun onCleared() {
         super.onCleared()
-        KLog.e("AAA","..... 回收了。。。onCleared")
+        KLog.e("AAA", "..... 回收了。。。onCleared")
     }
-
 
 
 }

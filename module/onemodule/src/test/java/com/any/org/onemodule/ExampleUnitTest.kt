@@ -201,6 +201,31 @@ class ExampleUnitTest {
     }
 
 
+
+
+    @Test
+    fun testPrice(){
+
+        val price = 0.91f
+
+        val num = 8500
+
+        val newPrice = 1.10f
+
+        val principal= price * num
+
+        val result = (newPrice-price) * num
+
+        println("principal:$principal    result:$result")
+
+    }
+
+
 }
 
 data class Model(val itemId: Int, val name: String)
+
+
+
+
+
